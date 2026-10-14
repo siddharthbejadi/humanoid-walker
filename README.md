@@ -14,7 +14,7 @@ Full quality: <a href="media/walk_1100.mp4">media/walk_1100.mp4</a> · frames: <
 > knees measure about **1.08 N·m**; the scripted walk falls under the measured limits (see [Results](#results)). Read [Limitations](#limitations) before trusting any number here.
 
 ## Contents
-[Results](#results) · [How it works](#how-it-works) · [Repo layout](#repo-layout) · [Quick start](#quick-start) · [Reproduce the training](#reproduce-the-training) · [Run on the robot](#run-on-the-robot) · [Knowledge graph](#knowledge-graph) · [Limitations](#limitations) · [History](#history)
+[Results](#results) · [How it works](#how-it-works) · [Repo layout](#repo-layout) · [Quick start](#quick-start) · [Reproduce the training](#reproduce-the-training) · [Deployment](#deployment) · [Run on the robot](#run-on-the-robot) · [Knowledge graph](#knowledge-graph) · [Limitations](#limitations) · [History](#history)
 
 ## Results
 
@@ -145,6 +145,17 @@ done
 Expected: `final_validation_bc` ≈ 2e-6 in `$R/bc12k/pretraining_report.json` and forward distance ≈ 1.3–1.4 m per eval. Exact numbers will differ a little (GPU non-determinism); the reference run is in `results/`.
 If you edit anything under `r2dreamer/`, run `python3 scripts/make_source_manifest.py` first, otherwise the verifier in the launch scripts stops you.
 The one-shot version (`SCRIPT_FREE_PREFLIGHT_ONLY=0 ... start_script_free.sh`) runs a bounded pilot that also continues with online RL; read [`START_HERE.md`](START_HERE.md) before using it.
+
+## Deployment
+
+Two targets, with different requirements:
+
+| Target | Purpose | Needs | Entry point |
+|---|---|---|---|
+| GPU machine (Linux/WSL2, NVIDIA, CUDA >= 12.8) | train, evaluate, render | internet for `uv`/pip, ~10 min setup | `r2dreamer/scripts/deploy/setup_script_free.sh`, then [Reproduce the training](#reproduce-the-training) |
+| Robot laptop (Windows, CPU is enough) | run the trained policy at 50 Hz | Python 3.11, ST-LINK USB, the checkpoint | `deploy/setup_windows.bat`, then [Run on the robot](#run-on-the-robot) |
+
+Ship to the robot laptop: `deploy/` + `r2dreamer/` (as `source_v6`) + `student_realistic_12k.pt`. Check the checkpoint hash first (`checkpoints/README.md`). The host refuses to load a checkpoint whose contract differs from the source tree. Nothing in this repo has been run on the physical robot, so treat deployment as bring-up, not production.
 
 ## Run on the robot
 
