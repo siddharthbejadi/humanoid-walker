@@ -209,4 +209,4 @@ Full history, dead ends and open hardware items: [`docs/PROJECT_HISTORY.md`](doc
 
 ## License
 
-No license has been chosen yet; add one before making the repository public. The robot meshes come from the robot vendor and may carry their own terms.
+[MIT](LICENSE) for the code in this repository. Bundled and adapted third-party parts keep their own terms: see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) (the Dreamer upstream and the robot meshes are still to be confirmed).
