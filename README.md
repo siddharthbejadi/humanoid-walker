@@ -203,6 +203,10 @@ Before any powered run you must supply, per joint, the servo neutral (µs), sign
 
 Full history, dead ends and open hardware items: [`docs/PROJECT_HISTORY.md`](docs/PROJECT_HISTORY.md). Details: [`docs/PROJECT_NOTES_12Oct.md`](docs/PROJECT_NOTES_12Oct.md), [`r2dreamer/docs/`](r2dreamer/docs), [`deploy/DEPLOYMENT_SPEC.md`](deploy/DEPLOYMENT_SPEC.md).
 
+## Publishing (maintainer)
+
+`bash scripts/publish.sh private` (or `public`, which requires a `LICENSE` file) creates the GitHub repo with `gh` and pushes `main`; add `--with-checkpoint /path/to/student_realistic_12k.pt` to also upload the weights as a Release asset after a hash check.
+
 ## License
 
 No license has been chosen yet; add one before making the repository public. The robot meshes come from the robot vendor and may carry their own terms.
