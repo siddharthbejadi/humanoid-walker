@@ -1,0 +1,28 @@
+# Bounded replay-ratio ablation, not a qualified walking teacher.
+# Preserve the user's four training poses, action authority, torque and reward.
+defaults:
+  - walking_mjx_privileged_teacher_200k
+  - _self_
+
+allow_unverified_resume: false
+
+env:
+  env_num: 64
+  steps: 200000
+  # Hypothesis: spend less time reusing short failing trajectories and collect
+  # more experience per optimizer update. Compare against ratio=64, same seed.
+  train_ratio: 16
+  eval_episode_num: 20
+  eval_balanced_pose_ids: true
+  eval_seed: ${seed}
+
+buffer:
+  cache_trajectories: true
+  store_log_metrics: false
+
+trainer:
+  eval_every: 50000
+  eval_max_steps: 400
+  best_tiebreak_metric_key: alive_seconds
+  stop_after_optimizer_updates: 0
+  profile_synchronize: false

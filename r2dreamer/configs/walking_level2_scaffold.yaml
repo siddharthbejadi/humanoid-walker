@@ -1,0 +1,45 @@
+# First-step transition from the reviewed Level-1 balance checkpoint.
+# Keeps the learned actor/world model and retains balance scaffolding while the
+# honest takeoff -> swing -> landing detector remains the only valid-step gate.
+defaults:
+  - walking_balance_review
+  - _self_
+
+logdir: logdir/walking_level2_scaffold/${now:%Y-%m-%d}/${now:%H-%M-%S}
+
+env:
+  curriculum_level: 2
+  # Retain the Level-1 balance constraints during first-step discovery.
+  imu_orientation_weight: 6.0
+  imu_orientation_tolerance_rad: 0.20
+  standing_tilt_limit_rad: 0.20
+  reference_deviation_weight: 0.75
+  level1_tilt_termination_rad: 0.488692191
+  level1_tilt_grace_seconds: 0.35
+
+  # Preserve enough residual authority for the vendor gait while keeping the
+  # current checkpoint's action mapping unchanged.
+  action_scale: 0.25
+  max_target_rate: 3.5
+  action_rate_weight: 0.005
+
+  # Honest, initially reachable first-step gates. These are admission gates;
+  # the final 100 m / 1,529-step goal remains unchanged.
+  min_step_length: 0.020
+  target_step_length: 0.045
+  max_stance_slip: 0.012
+  stage2_invalid_step_penalty: 0.05
+  stage2_invalid_penalty_budget: 0.5
+  stage2_attempt_reward_budget: 0.5
+  # Transfer is the dominant post-landing failure.  The environment now gives
+  # dense, gate-aligned shaping during the pending 0.10 s dwell; weight it
+  # strongly enough to compete with the gait-reference and posture terms.
+  stage2_transfer_weight: 1.50
+
+trainer:
+  eval_every: 50000
+  checkpoint_interval: 50000
+  eval_video_every: 50000
+  best_metric_key: total_valid_steps
+  best_safety_metric_key: fall_count
+  best_tiebreak_metric_key: verified_step_progress

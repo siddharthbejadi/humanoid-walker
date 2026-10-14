@@ -1,0 +1,95 @@
+# Standing-balance teacher: first curriculum stage, before walking.
+# Goal: reach and hold a stable stand from a near-standing reset in the
+# shortest time. RSI is intentionally OFF -- MJXWalkingEnv raises a
+# ValueError if rsi_stratified is true and task != "walking" (RSI pools are
+# walking-swing poses, meaningless for a stand-still task), and the point of
+# this stage is pure balance recovery/hold, not sampling gait phases.
+defaults:
+  - walking_first_step
+  - _self_
+
+logdir: ${oc.env:TEACHER_RUN_DIR}
+resume_from: null
+init_from: null
+transfer_from: null
+batch_size: 16
+batch_length: 64
+
+env:
+  backend: mjx_teacher
+  mjx_teacher_experimental: true
+  scene_path: ${oc.env:TEACHER_SCENE}
+  enable_vision: false
+  encoder_training_aid: false
+  auxiliary_state_targets: false
+  foot_pressure_observation: true
+  env_num: 192
+  eval_episode_num: 8
+  # Standing is a far lower-dimensional problem than walking (no locomotion,
+  # no gait phase, reset already near the goal pose). This is a starting
+  # budget to inspect against, not a promise of a fixed training time.
+  steps: 1500000
+  train_ratio: 64
+  time_limit: 5000  # 500 control steps @ 20 ms = 10 s/episode.
+  mjx_contacts_per_world: 256
+  mjx_task: standing
+  # Standing does not need the +/-90 degree walking exploration envelope --
+  # holding a stationary pose needs much less authority, and a smaller range
+  # means less balance-destabilizing noise from the policy itself.
+  mjx_arm_action_scale: 0.39269908169872414   # 22.5 degrees
+  mjx_leg_action_scale: 0.39269908169872414
+  mjx_other_action_scale: 0.39269908169872414
+  mjx_control_slew_rad_s: 2.0
+  mjx_motor_torque_kgcm: 18.0
+  # RSI OFF for standing (see header). Every reset uses standing_start +/-
+  # 0.005 rad joint noise; the policy's job is to hold it, not recover it
+  # from a swing pose.
+  rsi_stratified: false
+  pose_rsi_allow_falls: false
+  pose_rsi_json: null
+  gait_reference_csv: null
+  gait_reference_signs: null
+  eval_pose_rsi: false
+  # step_progress_v1 / legacy walking reward terms are unused for this task;
+  # the standing branch in env.py computes its own reward regardless of this
+  # setting, but keep it pinned to avoid implying walking shaping is active.
+  mjx_reward_profile: legacy
+  mjx_simplified_rewards: false
+  mjx_backward_drift_weight: 0.0
+  mjx_stance_knee_sag_weight: 0.0
+  encoder:
+    mlp_keys: '^(proprio|teacher_state)$'
+    cnn_keys: '$^'
+  decoder:
+    mlp_keys: '^(proprio|teacher_state)$'
+    cnn_keys: '$^'
+
+model:
+  auxiliary_state: false
+  compile: false
+  mixed_precision: false
+  decoder:
+    mlp_keys: '^(proprio|teacher_state)$'
+
+buffer:
+  max_size: 24576
+  storage_device: ${device}
+
+trainer:
+  steps: ${env.steps}
+  train_ratio: ${env.train_ratio}
+  require_learning: true
+  learning_start_deadline_steps: 240000
+  eval_episode_num: ${env.eval_episode_num}
+  eval_every: 75000
+  eval_max_steps: 500
+  eval_video: false
+  checkpoint_interval: 75000
+  checkpoint_keep_last: 3
+  train_video: false
+  # standing_stable_seconds is a per-episode cumulative clock (strict
+  # tilt/height/velocity gate) already wired through the Torch bridge --
+  # a direct, interpretable proxy for "did it reach and hold a stand."
+  best_metric_key: standing_stable_seconds
+  best_safety_metric_key: fall_count
+  best_tiebreak_metric_key: score

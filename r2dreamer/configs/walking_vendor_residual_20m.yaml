@@ -1,0 +1,132 @@
+# Twenty-million-step residual walking run around the physics-calibrated vendor
+# gait. The reference supplies the leg sequence; Dreamer learns balance and
+# placement corrections. Launch with transfer_from=<6.50M best_safe.pt>.
+defaults:
+  - walking
+  - _self_
+
+logdir: logdir/walking_vendor_residual_20m/${now:%Y-%m-%d}/${now:%H-%M-%S}
+resume_from: null
+init_from: null
+transfer_from: null
+transfer_additional_steps: 20000000
+batch_size: 32
+batch_length: 64
+
+env:
+  curriculum_level: 2
+  steps: 26500440
+  env_num: 48
+  eval_episode_num: 8
+  action_repeat: 10
+  train_ratio: 256
+  time_limit: 750000
+  target_vx: 0.05
+
+  # Preserve the source model's 57-D proprio + RGB observation contract. The
+  # simulated joint-angle aid was already permanently masked in the source.
+  enable_vision: true
+  encoder_training_aid: true
+  encoder_full_updates: 15479
+  encoder_off_updates: 17000
+  encoder:
+    mlp_keys: 'proprio'
+    cnn_keys: 'image'
+
+  # The reference was searched across all 2^10 leg sign assignments on this
+  # exact MJCF. It advanced 18.85 cm with 31 contact changes before its first
+  # fall; the residual policy therefore starts from a real forward sequence.
+  gait_reference_csv: validation/vendor_forward_3_steps.csv
+  gait_reference_amplitude: 1.0
+  gait_reference_speed: 1.0
+  gait_reference_signs: [1, -1, 1, 1, 1, -1, -1, -1, -1, 1,
+                         1, 1, 1, 1, 1, 1, 1, 1, 1]
+  gait_reference_tracking_weight: 0.75
+  gait_reference_tracking_sigma: 0.2617993878
+  gait_reference_rsi_probability: 0.35
+  gait_reference_rsi_joint_noise: 0.005
+
+  # Residual authority is deliberately much smaller than the failed 0.60-rad
+  # exploration run. It is still large enough to correct the 8-26 degree gait
+  # excursions without turning every sample into an immediate fall.
+  action_scale: 0.25
+  max_target_rate: 2.5
+
+  goal_distance: 100.0
+  goal_step_target: 100
+  goal_max_steps: 1529
+  goal_max_scrub_fraction: 0.10
+  goal_lane_half_width: 0.25
+  goal_hold_time: 1.0
+  goal_progress_weight: 2.0
+  goal_bonus: 2.0
+
+  # Honest but learnable gates. The final 100 m / 1,529 physical-step budget
+  # still prevents a short-step shuffle from qualifying.
+  min_takeoff_clearance: 0.001
+  min_clearance: 0.002
+  target_clearance: 0.015
+  clearance_reward_mode: ramp
+  # 100 m / 1,529 steps = 65.40 mm. Anything shorter cannot satisfy the
+  # requested physical step budget and therefore must not count as valid.
+  min_step_length: 0.0655
+  max_step_length: 0.20
+  target_step_length: 0.0655
+  min_swing_clear_frac: 0.35
+  min_swing_support_frac: 0.60
+  swing_support_share: 0.65
+  max_stance_slip: 0.012
+
+  reset_joint_noise: 0.005
+  reset_velocity_noise: 0.003
+  fall_penalty: 1.0
+  alive_bonus: 0.05
+  # The 10.2M intervention found a stable reward loophole: evaluations produced
+  # 24-27 physical landings but zero valid steps while yaw and lateral motion
+  # kept increasing. Keep balance sway possible, but make sustained turning and
+  # leaving the lane materially more expensive than standing in it.
+  lateral_weight: 0.20
+  yaw_weight: 0.20
+  action_rate_weight: 0.01
+  stage2_idle_grace_time: 1.5
+  stage2_path_tolerance: 0.06
+  stage2_path_weight: 0.40
+  stage2_tilt_weight: 0.08
+  stage2_heading_weight: 0.40
+  stage2_backward_weight: 0.35
+  stage2_slip_weight: 0.50
+  stage2_lift_event_weight: 0.50
+  # Per-attempt shaping is capped at 1.5 (0.5 lift + 1.0 airborne
+  # progress). An invalid landing must cost slightly more than that entire
+  # payout, while leaving enough gradient to keep attempting a longer step.
+  stage2_air_event_weight: 1.00
+  stage2_valid_step_weight: 3.00
+  stage2_alternating_weight: 1.50
+  stage2_transfer_weight: 1.00
+  stage2_invalid_step_penalty: 1.75
+
+model:
+  lr: 1e-5
+  warmup: 1000
+  mixed_precision: false
+  act_entropy: 0.0
+  actor:
+    dist:
+      cont: {min_std: 0.03, max_std: 0.15}
+  decoder:
+    mlp_keys: 'proprio'
+    cnn_keys: 'image'
+
+trainer:
+  checkpoint_order: task_first
+  save_best_safe: true
+  best_metric_key: alternating_steps
+  best_safety_metric_key: fall_count
+  best_tiebreak_metric_key: verified_step_progress
+  eval_every: 100000
+  checkpoint_interval: 100000
+  eval_video_every: 100000
+  eval_max_steps: 1500
+  eval_video_stride: 5
+  eval_video_fps: 10
+  eval_video_save_mp4: true

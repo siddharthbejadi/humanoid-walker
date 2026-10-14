@@ -1,0 +1,72 @@
+# Full joint-command student. References are used only by the separate collector.
+defaults:
+  - walking_mjx_reference_pilot
+  - _self_
+
+logdir: ${oc.env:TEACHER_RUN_DIR,logdir/script_free_pilot_20261012}
+resume_from: null
+init_from: null
+transfer_from: null
+allow_unverified_resume: false
+
+env:
+  mjx_mask_fsr_obs: true  # robot has no foot-pressure sensors
+  mjx_mask_mag_obs: true  # no calibrated magnetometer
+  mjx_command_delay_steps: 2  # 40 ms servo command latency (measured <=40 ms OK)
+  mjx_imu_accel_noise: 0.05  # m/s^2, ~2x measured ICM-20948 noise
+  mjx_imu_gyro_noise: 0.005  # rad/s
+  mjx_control_slew_rad_s: 6.0  # real servos: 5.5-7 rad/s (0.15-0.19 s per 60 deg)
+  mjx_full_command: true
+  mjx_reward_profile: autonomous_walk_v1
+  mjx_gait_residual: false
+  mjx_scripted_gait: null
+  mjx_scripted_phase_pool: null
+  mjx_stabilizer: null
+  mjx_phase_obs: false
+  mjx_phase_control: 0.0
+  mjx_footsteps: false
+  rsi_stratified: false
+  rsi_probabilities: [1.0, 0.0, 0.0, 0.0]
+  rsi_reference_velocity: false
+  eval_pose_rsi: false
+  eval_rsi_probabilities: [1.0, 0.0, 0.0, 0.0]
+  pose_rsi_json: null
+  gait_reference_csv: null
+  gait_reference_signs: null
+  mjx_reset_joint_noise_rad: 0.005
+  mjx_reset_velocity_noise: 0.005
+  encoder_training_aid: false
+  auxiliary_state_targets: false
+  encoder:
+    mlp_keys: '^proprio$'
+    cnn_keys: '$^'
+  decoder:
+    mlp_keys: '^proprio$'
+    cnn_keys: '$^'
+
+model:
+  auxiliary_state: false
+  imitation_weight: 0.1
+  imitation_pretrain_weight: 1.0
+  encoder:
+    mlp_keys: '^proprio$'
+    cnn_keys: '$^'
+  decoder:
+    mlp_keys: '^proprio$'
+    cnn_keys: '$^'
+  actor:
+    dist:
+      cont: {min_std: 0.0003, max_std: 0.002}
+
+imitation:
+  dataset: null
+  pretrain_updates: 1000
+  batch_size: 16
+  batch_length: 64
+  burn_in: 64
+  validation_every: 100
+  seed: ${seed}
+
+trainer:
+  eval_video_final_only: false
+  eval_video_one_per_pose: false

@@ -1,0 +1,56 @@
+defaults:
+  # This trimmed bundle is scoped to the MJX humanoid walking teacher.
+  # Keep the default pointed at an environment config actually shipped here.
+  - env: humanoid_progressive_walking
+  - model: size12M
+  # Disable Hydra's Python logging-to-file (train.log)
+  - override hydra/job_logging: disabled
+  - _self_
+
+logdir: logdir/${now:%Y-%m-%d}/${now:%H-%M-%S}
+seed: 0
+deterministic_run: False
+device: 'cuda:0'
+
+hydra:
+  run:
+    dir: ${logdir}
+
+batch_size: 16
+batch_length: 64
+
+buffer:
+  batch_size: ${batch_size}
+  batch_length: ${batch_length}
+  max_size: 5e5
+  device: ${device}
+  storage_device: ${device}
+
+trainer:
+  encoder_training_aid: ${oc.select:env.encoder_training_aid,false}
+  encoder_full_updates: ${oc.select:env.encoder_full_updates,500}
+  encoder_off_updates: ${oc.select:env.encoder_off_updates,1000}
+  steps: ${env.steps}
+  pretrain: 0
+  eval_every: 1e4
+  eval_episode_num: ${env.eval_episode_num}
+  batch_size: ${batch_size}
+  batch_length: ${batch_length}
+  train_ratio: ${env.train_ratio}
+  video_pred_log: False
+  params_hist_log: False
+  update_log_every: 5e3
+  action_repeat: ${env.action_repeat}
+  checkpoint_interval: 25000
+  gait_guard_enabled: false
+  gait_guard_eval_updates: 8
+  gait_guard_minimum_initial_success: 0.5
+  gait_guard_success_fraction: 0.8
+  gait_guard_step_fraction: 0.7
+  gait_guard_extra_failure_rate: 0.0625
+  # "Best" checkpoint tracks developmental progress, not raw reward -- raw reward can be
+  # gamed by reward-shaping artifacts (see README.md's anti-collapse discussion) whereas
+  # log_max_global_progress (-> eval_summary key "max_global_progress") only increases
+  # when the phase estimator's own dwell-gated recognition actually advances or improves
+  # its target-phase score.
+  best_metric_key: ${oc.select:env.best_metric_key,max_global_progress}

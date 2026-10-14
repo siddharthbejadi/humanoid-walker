@@ -1,0 +1,102 @@
+# Pose-balance curriculum, final stage: joint/mixed training across all four
+# manual RSI poses simultaneously, instead of continuing to fine-tune on one
+# pose at a time. User-directed pivot (2026-10-07): the sequential
+# pose-1->2->3->4 curriculum risks catastrophic forgetting -- each init_from
+# resets the optimizer/replay buffer and nothing reinforces the *previous*
+# pose's skill while learning the next one. A single policy that resets to a
+# randomly chosen one of the four poses every episode is forced to genuinely
+# generalize balance recovery across all four starting configurations at
+# once, which is also a much closer proxy for what walking actually needs
+# (recovering from many different mid-stride configurations, not just four
+# fixed snapshots).
+#
+# init_from should point at pose 4's best_safe.pt (not latest.pt -- pose 4's
+# final-step eval collapsed on an oscillation swing, but best_safe.pt tracks
+# the best stable_seconds result under the zero-fall safety constraint,
+# which was a strong 8.62s at step 975,540 during that run).
+#
+# rsi_probabilities/eval_rsi_probabilities are now spread uniformly across
+# all four stratified categories (not forced to one via training_pose_id,
+# which is omitted here on purpose) so every reset samples one of poses
+# 1-4 at random. eval_episode_num raised 8->16 so eval aggregates reflect
+# all four stances reasonably, not just ~2 samples per stance on average.
+#
+# Everything else (env_num=64, reward profile, action scales, the
+# stance-aware standing_reward_terms fix) is identical to the pose 1-4
+# configs -- see walking_mjx_standing_pose1_teacher.yaml for that rationale.
+defaults:
+  - walking_first_step
+  - _self_
+
+logdir: ${oc.env:TEACHER_RUN_DIR}
+resume_from: null
+init_from: null
+transfer_from: null
+batch_size: 16
+batch_length: 64
+
+env:
+  backend: mjx_teacher
+  mjx_teacher_experimental: true
+  scene_path: ${oc.env:TEACHER_SCENE}
+  enable_vision: false
+  encoder_training_aid: false
+  auxiliary_state_targets: false
+  foot_pressure_observation: true
+  env_num: 64
+  eval_episode_num: 16
+  steps: 2000000
+  train_ratio: 64
+  time_limit: 5000  # 500 control steps @ 20 ms = 10 s/episode (time_limit / action_repeat).
+  mjx_contacts_per_world: 256
+  mjx_task: standing
+  mjx_arm_action_scale: 0.39269908169872414   # 22.5 degrees
+  mjx_leg_action_scale: 0.39269908169872414
+  mjx_other_action_scale: 0.39269908169872414
+  mjx_control_slew_rad_s: 2.0
+  mjx_motor_torque_kgcm: 18.0
+  rsi_stratified: true
+  pose_rsi_allow_falls: true
+  pose_rsi_json: envs/mjx_walking/assets/manual_rsi_poses.json
+  gait_reference_csv: null
+  gait_reference_signs: null
+  rsi_probabilities: [0.0, 0.0, 0.0, 1.0]
+  eval_pose_rsi: true
+  eval_rsi_probabilities: [0.0, 0.0, 0.0, 1.0]
+  mjx_reward_profile: legacy
+  mjx_simplified_rewards: false
+  mjx_backward_drift_weight: 0.0
+  mjx_stance_knee_sag_weight: 0.0
+  encoder:
+    mlp_keys: '^(proprio|teacher_state)$'
+    cnn_keys: '$^'
+  decoder:
+    mlp_keys: '^(proprio|teacher_state)$'
+    cnn_keys: '$^'
+
+model:
+  auxiliary_state: false
+  compile: false
+  mixed_precision: false
+  decoder:
+    mlp_keys: '^(proprio|teacher_state)$'
+
+buffer:
+  max_size: 8192
+  storage_device: ${device}
+
+trainer:
+  steps: ${env.steps}
+  train_ratio: ${env.train_ratio}
+  require_learning: true
+  learning_start_deadline_steps: 80000
+  eval_episode_num: ${env.eval_episode_num}
+  eval_every: 25000
+  eval_max_steps: 500
+  eval_video: false
+  checkpoint_interval: 25000
+  checkpoint_keep_last: 3
+  train_video: false
+  best_metric_key: standing_stable_seconds
+  best_safety_metric_key: fall_count
+  best_tiebreak_metric_key: score

@@ -1,0 +1,196 @@
+{
+  "status": "completed_bounded_imitation",
+  "updates": 5000,
+  "changed_tensors_first_update": 55,
+  "dataset_fingerprint": {
+    "data_sha256": "66c70d6bfbc7314b67fc13ff55a83b503f71de4837b3939db2a1d7c3601609c4",
+    "manifest_sha256": "600b6ce7d4a332fdde34637e7c0b055388d9892fd387fcb8081a695df398178c"
+  },
+  "best_validation_bc": 9.868198503681924e-06,
+  "initial_validation_bc": 0.016521712765097618,
+  "final_validation_bc": 9.868198503681924e-06,
+  "final_validation_improved": true,
+  "validation_improved": true,
+  "latest_checkpoint_sha256": "1f091a78cf3895d6e7fd30f5630a2ee996f099e24086eb2a7ad9990960ab6f47",
+  "full_episode_validation": {
+    "protocol": "offline_teacher_forced_full_episode_v1",
+    "split": "validation",
+    "labels": 8000,
+    "bc_mse": 1.007849699817598e-05,
+    "episode_count": 8,
+    "scored_episode_count": 8,
+    "observed_control_transitions": 8000,
+    "per_episode": [
+      {
+        "episode": 48,
+        "observed_control_transitions": 1000,
+        "labels": 1000,
+        "bc_mse": 1.0172947309911252e-05,
+        "exclusion_reason": null,
+        "seed": 106,
+        "rollout_id": 48
+      },
+      {
+        "episode": 49,
+        "observed_control_transitions": 1000,
+        "labels": 1000,
+        "bc_mse": 9.921057149767876e-06,
+        "exclusion_reason": null,
+        "seed": 106,
+        "rollout_id": 49
+      },
+      {
+        "episode": 50,
+        "observed_control_transitions": 1000,
+        "labels": 1000,
+        "bc_mse": 1.0045578703284264e-05,
+        "exclusion_reason": null,
+        "seed": 106,
+        "rollout_id": 50
+      },
+      {
+        "episode": 51,
+        "observed_control_transitions": 1000,
+        "labels": 1000,
+        "bc_mse": 1.0080620646476746e-05,
+        "exclusion_reason": null,
+        "seed": 106,
+        "rollout_id": 51
+      },
+      {
+        "episode": 52,
+        "observed_control_transitions": 1000,
+        "labels": 1000,
+        "bc_mse": 1.0138895362615586e-05,
+        "exclusion_reason": null,
+        "seed": 106,
+        "rollout_id": 52
+      },
+      {
+        "episode": 53,
+        "observed_control_transitions": 1000,
+        "labels": 1000,
+        "bc_mse": 1.0193063877522945e-05,
+        "exclusion_reason": null,
+        "seed": 106,
+        "rollout_id": 53
+      },
+      {
+        "episode": 54,
+        "observed_control_transitions": 1000,
+        "labels": 1000,
+        "bc_mse": 1.0016443207859993e-05,
+        "exclusion_reason": null,
+        "seed": 106,
+        "rollout_id": 54
+      },
+      {
+        "episode": 55,
+        "observed_control_transitions": 1000,
+        "labels": 1000,
+        "bc_mse": 1.0059369727969169e-05,
+        "exclusion_reason": null,
+        "seed": 106,
+        "rollout_id": 55
+      }
+    ],
+    "deterministic_posterior": true,
+    "previous_action_source": "recorded_expert_commands",
+    "observation_source": "recorded_expert_observations",
+    "walking_qualified": false,
+    "scope": "Offline teacher-forced command prediction on complete recorded episodes; not actual closed-loop physics or walking",
+    "optimizer_updates": 5000
+  },
+  "full_episode_test": {
+    "protocol": "offline_teacher_forced_full_episode_v1",
+    "split": "test",
+    "labels": 8000,
+    "bc_mse": 1.0001406655646861e-05,
+    "episode_count": 8,
+    "scored_episode_count": 8,
+    "observed_control_transitions": 8000,
+    "per_episode": [
+      {
+        "episode": 56,
+        "observed_control_transitions": 1000,
+        "labels": 1000,
+        "bc_mse": 9.928636252880096e-06,
+        "exclusion_reason": null,
+        "seed": 107,
+        "rollout_id": 56
+      },
+      {
+        "episode": 57,
+        "observed_control_transitions": 1000,
+        "labels": 1000,
+        "bc_mse": 1.0146979242563248e-05,
+        "exclusion_reason": null,
+        "seed": 107,
+        "rollout_id": 57
+      },
+      {
+        "episode": 58,
+        "observed_control_transitions": 1000,
+        "labels": 1000,
+        "bc_mse": 1.0128712281584739e-05,
+        "exclusion_reason": null,
+        "seed": 107,
+        "rollout_id": 58
+      },
+      {
+        "episode": 59,
+        "observed_control_transitions": 1000,
+        "labels": 1000,
+        "bc_mse": 1.0164886713027954e-05,
+        "exclusion_reason": null,
+        "seed": 107,
+        "rollout_id": 59
+      },
+      {
+        "episode": 60,
+        "observed_control_transitions": 1000,
+        "labels": 1000,
+        "bc_mse": 9.842579253017902e-06,
+        "exclusion_reason": null,
+        "seed": 107,
+        "rollout_id": 60
+      },
+      {
+        "episode": 61,
+        "observed_control_transitions": 1000,
+        "labels": 1000,
+        "bc_mse": 9.85533557832241e-06,
+        "exclusion_reason": null,
+        "seed": 107,
+        "rollout_id": 61
+      },
+      {
+        "episode": 62,
+        "observed_control_transitions": 1000,
+        "labels": 1000,
+        "bc_mse": 9.964274242520333e-06,
+        "exclusion_reason": null,
+        "seed": 107,
+        "rollout_id": 62
+      },
+      {
+        "episode": 63,
+        "observed_control_transitions": 1000,
+        "labels": 1000,
+        "bc_mse": 9.979849681258201e-06,
+        "exclusion_reason": null,
+        "seed": 107,
+        "rollout_id": 63
+      }
+    ],
+    "deterministic_posterior": true,
+    "previous_action_source": "recorded_expert_commands",
+    "observation_source": "recorded_expert_observations",
+    "walking_qualified": false,
+    "scope": "Offline teacher-forced command prediction on complete recorded episodes; not actual closed-loop physics or walking",
+    "optimizer_updates": 5000
+  },
+  "validation_protocol": "Held-out teacher-forced previous commands; deterministic posterior modes",
+  "walking_qualified": false,
+  "next_step": "Script-free standing-start closed-loop evaluation"
+}

@@ -1,0 +1,158 @@
+# NEW, experimental model-based teacher. Do not resume 45D-only checkpoints.
+# The 2 mm sole is a simulation candidate, not a verified hardware parameter.
+defaults:
+  - walking_first_step
+  - _self_
+
+logdir: ${oc.env:TEACHER_RUN_DIR}
+resume_from: null
+init_from: null
+transfer_from: null
+# When init_from loads a checkpoint trained at a different action_scale (e.g.
+# the standing stage's +/-22.5 degrees vs this recipe's +/-90), the actor's
+# raw [-1,1] outputs suddenly command ~4x larger physical motions than it
+# learned to expect. Set true (alongside init_from) to rescale the actor's
+# mean head so physical commands stay approximately continuous across the
+# switch -- see train.py's _apply_action_scale_compensation and
+# scripts/check_action_scale_compensation.py for the numeric verification
+# and its documented limitation (tanh saturation on large activations).
+init_from_action_scale_compensation: false
+batch_size: 16
+batch_length: 64
+
+env:
+  backend: mjx_teacher
+  mjx_teacher_experimental: true
+  scene_path: ${oc.env:TEACHER_SCENE}
+  target_vx: 0.08
+  enable_vision: false
+  encoder_training_aid: false
+  auxiliary_state_targets: false
+  foot_pressure_observation: true
+  env_num: 64
+  eval_episode_num: 8
+  steps: 200000
+  train_ratio: 64
+  time_limit: 4000
+  mjx_contacts_per_world: 256
+  # Every policy channel maps [-1, +1] to nominal +/- 90 degrees. Physical
+  # actuator ctrlranges still clip impossible targets (notably the hand tips).
+  mjx_arm_action_scale: 1.5707963267948966
+  mjx_leg_action_scale: 1.5707963267948966
+  mjx_other_action_scale: 1.5707963267948966
+  mjx_control_slew_rad_s: 2.0
+  # User-selected 15 mm minimum lift (allowed threshold range: 14.5-20 mm).
+  # Forward step length, support, stance speed and landing gates are unchanged.
+  mjx_step_clearance_m: 0.015
+  # Requested 18 kg-cm peak capacity = 1.765197 Nm; compiled in an isolated scene.
+  mjx_motor_torque_kgcm: 18.0
+  # Changed 2026-10-06, twice:
+  # 1. step_progress_v1 (from-scratch gait reward) caused a standing->walking
+  #    init_from transfer to regress to 100% fall rate over 200k steps
+  #    (0 total_valid_steps throughout). Replaced with walking_transfer_v1.
+  # 2. walking_transfer_v1 ALSO regressed to 100% falls on nearly the same
+  #    timeline -- traced to the actor's exploration std being uncompensated
+  #    across the action_scale change (fixed separately, model.actor.dist
+  #    below), but the user also explicitly directed a simpler, stricter
+  #    reward: walking_transfer_v2 drops the blended upright/height/swing
+  #    quality shaping entirely, pays a heavily-weighted (75x, capped at
+  #    0.3 m/s -> max 22.5/step) forward-velocity reward, and treats three
+  #    conditions as fall-equivalent terminal violations: torso sagging
+  #    >10cm below standing height (-100), anything other than the feet
+  #    touching the ground (-100, tilt-threshold proxy -- see env.py
+  #    docstring caveat), and leaving a 27cm-wide virtual lateral corridor
+  #    centered on the torso only, not hands/arms (-75). See README.
+  mjx_reward_profile: walking_transfer_v2
+  # Legacy switch retained for old configs; the explicit profile above wins.
+  mjx_simplified_rewards: true
+  # User-authorized exploratory resets: falls and partial clearance are allowed.
+  # The existing standing-start evaluation remains separate from training RSI.
+  rsi_stratified: true
+  pose_rsi_allow_falls: true
+  # Changed 2026-10-06, twice:
+  # 1. Was [0.0, 0.25, 0.25, 0.50] (zero training-time standing starts).
+  #    That starved a standing->walking init_from transfer of any experience
+  #    retaining the transferred balance skill -- every training reset was
+  #    swing-pose only, contributing to the regression above.
+  # 2. User explicitly requested restricting training RSI to the first two
+  #    saved poses only, not all four. Categories are built by actually
+  #    measured swing clearance at load time (scene.py build_pose_rsi_pool),
+  #    not by JSON key order: poses "1"/"2" land in the last category
+  #    (index 3, "second_step"/"other_pose" -- insufficient clearance to
+  #    register as a clean left/right swing), poses "3"/"4" become
+  #    right_swing/left_swing (indices 2/1). Zeroing indices 1 and 2 below
+  #    excludes poses 3 and 4 entirely; only standing (index 0) and poses
+  #    1+2 (index 3) remain. Re-verify this mapping with
+  #    scripts/preflight_mjx_teacher.py --pose-rsi-only if the pose JSON
+  #    ever changes -- it is not hardcoded.
+  rsi_probabilities: [0.50, 0.0, 0.0, 0.50]
+  # Evaluation independently samples standing or any saved pose (20% each).
+  # Starting pose IDs are recorded per trial; compare standing and pose starts
+  # separately rather than treating a mixed mean as standing-start walking.
+  eval_pose_rsi: true
+  # Matches the restricted training rsi_probabilities above (poses 1+2 and
+  # standing only) so eval measures the distribution actually being
+  # optimized, not out-of-training-distribution swing poses 3/4.
+  eval_rsi_probabilities: [0.50, 0.0, 0.0, 0.50]
+  pose_rsi_json: envs/mjx_walking/assets/manual_rsi_poses.json
+  gait_reference_csv: validation/vendor_forward_3_steps.csv
+  gait_reference_speed: 1.0
+  gait_reference_signs: [1, -1, 1, 1, 1, -1, -1, -1, -1, 1,
+                         1, 1, 1, 1, 1, 1, 1, 1, 1]
+  # Legacy settings only: step_progress_v1 logs these raw diagnostics but has
+  # no separate backward-drift or knee-sag cost (only slip and falling).
+  mjx_backward_drift_weight: 0.10
+  mjx_stance_knee_sag_weight: 0.08
+  encoder:
+    mlp_keys: '^(proprio|teacher_state)$'
+    cnn_keys: '$^'
+  decoder:
+    mlp_keys: '^(proprio|teacher_state)$'
+    cnn_keys: '$^'
+
+model:
+  auxiliary_state: false
+  compile: false
+  mixed_precision: false
+  decoder:
+    mlp_keys: '^(proprio|teacher_state)$'
+  # Added 2026-10-06: the inherited bounds (0.03/0.15, from
+  # walking_vendor_residual_20m.yaml) are shared with the standing recipe,
+  # so a standing->walking init_from transfer carries the SAME pre-tanh
+  # exploration std into an environment where action_scale is 4x larger
+  # (+/-22.5 -> +/-90 degrees). Evaluation uses the actor's deterministic
+  # mode (dreamer.py: action_dist.mode if eval else .rsample()), which
+  # init_from_action_scale_compensation above already compensates -- but
+  # TRAINING collects data via .rsample(), which samples around that mode
+  # using this std, so real training rollouts were exploring ~4x more
+  # violently than eval suggested even with the mean compensated. Unlike
+  # tanh's mean compensation (an approximation), this is exact: std =
+  # (max_std-min_std)*sigmoid(x)+min_std is an affine transform of a fixed
+  # sigmoid value, so dividing both bounds by the same 4x action_scale
+  # ratio divides the resulting std by exactly 4x for any network state,
+  # restoring the original physical exploration magnitude exactly. Revert
+  # to the inherited 0.03/0.15 for from-scratch walking runs that aren't
+  # transferring from a differently-scaled checkpoint.
+  actor:
+    dist:
+      cont: {min_std: 0.0075, max_std: 0.0375}
+
+buffer:
+  max_size: 8192
+  storage_device: ${device}
+
+trainer:
+  steps: ${env.steps}
+  train_ratio: ${env.train_ratio}
+  require_learning: true
+  learning_start_deadline_steps: 100000
+  eval_episode_num: ${env.eval_episode_num}
+  eval_every: 50000
+  eval_max_steps: 400
+  eval_video: false
+  checkpoint_interval: 50000
+  checkpoint_keep_last: 3
+  train_video: false
+  best_metric_key: total_valid_steps
+  best_safety_metric_key: fall_count
+  best_tiebreak_metric_key: score

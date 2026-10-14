@@ -1,0 +1,79 @@
+# New experiment: full 19-actuator actions, strict observation firewall, auxiliary supervision.
+# Start fresh: old checkpoints (10-action or 4-channel FSR) are incompatible with this recipe.
+defaults:
+  - walking_level2_scaffold
+  - _self_
+
+logdir: logdir/walking_first_step/${now:%Y-%m-%d}/${now:%H-%M-%S}
+init_from: null
+resume_from: null
+resume_reset_optimizer: false
+transfer_from: null
+transfer_additional_steps: 0
+batch_size: 32
+batch_length: 64
+
+env:
+  steps: 200000
+  env_num: 16
+  eval_episode_num: 8
+  time_limit: 5000
+  train_ratio: 256
+  # Full 19-actuator policy: both legs, both arms, head and grippers. This is a
+  # new action contract and cannot load a 10-action checkpoint.
+  leg_only_actions: false
+  freeze_head_grippers: false
+  # Soft posture scaffold only: joints remain movable.  This discourages
+  # purposeless upper-body flailing without mechanically locking any actuator.
+  reference_deviation_weight: 0.35
+  auxiliary_state_targets: true
+  # No measured joint values in actor observations, including early training.
+  encoder_training_aid: false
+  # Four corner sensors per foot: heel-outer, heel-inner, toe-outer, toe-inner.
+  # Eight channels change proprioception from 37 to 45 and require a fresh checkpoint.
+  foot_pressure_observation: true
+  enable_vision: true
+  # preflight_first_step.py --require-bilateral now passes (right_swing phases
+  # are sampled from a kinematic mirror of the recorded clip -- see
+  # FIRST_STEP_TRAINING.md). Still opt-in: set true to sample real left/right
+  # swing RSI resets instead of only standing.
+  rsi_stratified: false
+  gait_reference_rsi_probability: 0.0
+  # standing / left_swing / right_swing / second_step. second_step resamples
+  # the late-phase (near-touchdown) tail of the same swing windows, so the
+  # policy gets direct practice at the post-first-step transfer instead of
+  # only ever reaching it by surviving there from a standing start.
+  rsi_probabilities: [0.25, 0.30, 0.30, 0.15]
+  rsi_reference_velocity: true
+  # Isolate the reference resets before adding pose perturbations.
+  gait_reference_rsi_joint_noise: 0.0
+  encoder:
+    mlp_keys: '^proprio$'
+    cnn_keys: '^image$'
+
+model:
+  auxiliary_state: true
+  diagnostic_every: 250
+  compile: false
+  mixed_precision: false
+  act_entropy: 0.0001
+  cautious: true
+  r2dreamer:
+    revised: true
+    reduction: feature_mean
+    temporal_stride: 4
+  # Experimental scale, not a claim of optimal gradient balance. Compare the
+  # logged shared_grad/* and physical evaluation metrics before extending.
+  loss_scales:
+    barlow: 1.0
+    aux_contact: 0.2
+    aux_force: 0.1
+    aux_velocity: 0.1
+    aux_clearance: 0.1
+    aux_joint: 0.05
+
+trainer:
+  eval_every: 25000
+  checkpoint_interval: 25000
+  eval_video_every: 25000
+  update_log_every: 1000

@@ -1,0 +1,830 @@
+{
+  "deploy/contract_clean12k.json": {
+    "mtime": 1791988696.070296,
+    "seen": 1791988903.6375,
+    "ast_hash": "c1b3250a86c9da166890a99fc2817f0d",
+    "semantic_hash": "c1b3250a86c9da166890a99fc2817f0d"
+  },
+  "deploy/robot_host.py": {
+    "mtime": 1791988695.993386,
+    "seen": 1791988903.6375024,
+    "ast_hash": "c171d1080023bd30d9fc60deb1d167c0",
+    "semantic_hash": "c171d1080023bd30d9fc60deb1d167c0"
+  },
+  "deploy/serial_servo_link.py": {
+    "mtime": 1791988696.0048313,
+    "seen": 1791988903.6375034,
+    "ast_hash": "19e5e9afa2e58632a1ec360f3070ddbc",
+    "semantic_hash": "19e5e9afa2e58632a1ec360f3070ddbc"
+  },
+  "deploy/watch_policy.py": {
+    "mtime": 1791988696.0418541,
+    "seen": 1791988903.6375043,
+    "ast_hash": "e33d5a7d6443c2013ff60e5b3eaaf45a",
+    "semantic_hash": "e33d5a7d6443c2013ff60e5b3eaaf45a"
+  },
+  "r2dreamer/buffer.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375048,
+    "ast_hash": "c146923e97a6ab09f6e4cb9129e75fae",
+    "semantic_hash": "c146923e97a6ab09f6e4cb9129e75fae"
+  },
+  "r2dreamer/checkpoint_selection.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375053,
+    "ast_hash": "863048cc44faddbfab9a9cbf2f708054",
+    "semantic_hash": "863048cc44faddbfab9a9cbf2f708054"
+  },
+  "r2dreamer/demonstration_audit.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375062,
+    "ast_hash": "e2917ffc01306a47223badc4f7aafecb",
+    "semantic_hash": "e2917ffc01306a47223badc4f7aafecb"
+  },
+  "r2dreamer/distributions.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375077,
+    "ast_hash": "6fa0c6231692612de58c31459ab289b8",
+    "semantic_hash": "6fa0c6231692612de58c31459ab289b8"
+  },
+  "r2dreamer/dreamer.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375084,
+    "ast_hash": "91c685ade2430b140bd1e4b936a4bc80",
+    "semantic_hash": "91c685ade2430b140bd1e4b936a4bc80"
+  },
+  "r2dreamer/envs/__init__.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.637509,
+    "ast_hash": "79db3a68b4c86fca84a7c198c0afa353",
+    "semantic_hash": "79db3a68b4c86fca84a7c198c0afa353"
+  },
+  "r2dreamer/envs/mjx_teacher_env.py": {
+    "mtime": 1791917748.0,
+    "seen": 1791988903.6375096,
+    "ast_hash": "670252eabda032ec4d65bb53a91ef3dd",
+    "semantic_hash": "670252eabda032ec4d65bb53a91ef3dd"
+  },
+  "r2dreamer/envs/mjx_walking/__init__.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375103,
+    "ast_hash": "eee6d311f5570810e4bf66ea873597e7",
+    "semantic_hash": "eee6d311f5570810e4bf66ea873597e7"
+  },
+  "r2dreamer/envs/mjx_walking/assets/manual_rsi_poses.json": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.637511,
+    "ast_hash": "6083252942a51ef84d9f2639f727d74b",
+    "semantic_hash": "6083252942a51ef84d9f2639f727d74b"
+  },
+  "r2dreamer/envs/mjx_walking/assets/manual_rsi_poses_merged.json": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375115,
+    "ast_hash": "ba76a4bd42fdb7b70dd0072c62e3ffa9",
+    "semantic_hash": "ba76a4bd42fdb7b70dd0072c62e3ffa9"
+  },
+  "r2dreamer/envs/mjx_walking/assets/manual_rsi_poses_scratch.json": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375117,
+    "ast_hash": "57dc2e7a59d44b348d2ed6f24f160e02",
+    "semantic_hash": "57dc2e7a59d44b348d2ed6f24f160e02"
+  },
+  "r2dreamer/envs/mjx_walking/env.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375122,
+    "ast_hash": "56311eb7bb8601a75aee582d9b1584c9",
+    "semantic_hash": "56311eb7bb8601a75aee582d9b1584c9"
+  },
+  "r2dreamer/envs/mjx_walking/phase1_task.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375127,
+    "ast_hash": "94a337b6593957bafc444612b78c389c",
+    "semantic_hash": "94a337b6593957bafc444612b78c389c"
+  },
+  "r2dreamer/envs/mjx_walking/scene.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375132,
+    "ast_hash": "f0f57e17520ac19c24ed3011390694c1",
+    "semantic_hash": "f0f57e17520ac19c24ed3011390694c1"
+  },
+  "r2dreamer/envs/teacher_state.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375136,
+    "ast_hash": "48c090221701d19683cc706bc724bcb9",
+    "semantic_hash": "48c090221701d19683cc706bc724bcb9"
+  },
+  "r2dreamer/full_command.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375144,
+    "ast_hash": "29ac1e5600db8d8d0c905c45807bf9ae",
+    "semantic_hash": "29ac1e5600db8d8d0c905c45807bf9ae"
+  },
+  "r2dreamer/gait_guard.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375148,
+    "ast_hash": "1c8bcaa4c4cc0343772d097969940e4f",
+    "semantic_hash": "1c8bcaa4c4cc0343772d097969940e4f"
+  },
+  "r2dreamer/imitation_data.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375153,
+    "ast_hash": "6fb8743cc9066c6d02b7e7c9989a1a9e",
+    "semantic_hash": "6fb8743cc9066c6d02b7e7c9989a1a9e"
+  },
+  "r2dreamer/imitation_training.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375158,
+    "ast_hash": "47977581596f678798b3f71547aaf1b1",
+    "semantic_hash": "47977581596f678798b3f71547aaf1b1"
+  },
+  "r2dreamer/learning_diagnostics.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375165,
+    "ast_hash": "386b36fb6f38156e7dbf7afca928bb9e",
+    "semantic_hash": "386b36fb6f38156e7dbf7afca928bb9e"
+  },
+  "r2dreamer/networks.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.637517,
+    "ast_hash": "f6c19bd8bf9d6329f58b84cc520933a5",
+    "semantic_hash": "f6c19bd8bf9d6329f58b84cc520933a5"
+  },
+  "r2dreamer/optim/__init__.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.637518,
+    "ast_hash": "f27cd9e5d585097007810447f759398b",
+    "semantic_hash": "f27cd9e5d585097007810447f759398b"
+  },
+  "r2dreamer/optim/agc.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375184,
+    "ast_hash": "ae1582c04df160f92d4a15dcee90f02c",
+    "semantic_hash": "ae1582c04df160f92d4a15dcee90f02c"
+  },
+  "r2dreamer/optim/laprop.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.637519,
+    "ast_hash": "38f746cb61bc11e45bdf6f009a306eb3",
+    "semantic_hash": "38f746cb61bc11e45bdf6f009a306eb3"
+  },
+  "r2dreamer/pyproject.toml": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375194,
+    "ast_hash": "41f384d1070c920f916c314adcab34f6",
+    "semantic_hash": "41f384d1070c920f916c314adcab34f6"
+  },
+  "r2dreamer/reset_validation.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375196,
+    "ast_hash": "ebd5d62179aae073bf9ece72ffbca0b4",
+    "semantic_hash": "ebd5d62179aae073bf9ece72ffbca0b4"
+  },
+  "r2dreamer/rssm.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.63752,
+    "ast_hash": "b2c314e333e6e9923f91b34d8b74c105",
+    "semantic_hash": "b2c314e333e6e9923f91b34d8b74c105"
+  },
+  "r2dreamer/script_free_contract.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375206,
+    "ast_hash": "4f6d990fa27b10a7068b231727fece58",
+    "semantic_hash": "4f6d990fa27b10a7068b231727fece58"
+  },
+  "r2dreamer/script_free_policy.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375213,
+    "ast_hash": "9faa8e6d00f2522942cce3892fe98222",
+    "semantic_hash": "9faa8e6d00f2522942cce3892fe98222"
+  },
+  "r2dreamer/scripted_expert.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.637522,
+    "ast_hash": "7c0af1f436c43472f707d805ef233311",
+    "semantic_hash": "7c0af1f436c43472f707d805ef233311"
+  },
+  "r2dreamer/scripts/backup_script_free_run.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375222,
+    "ast_hash": "e2f5ff4b522e2b089157d4dd57d19fd6",
+    "semantic_hash": "e2f5ff4b522e2b089157d4dd57d19fd6"
+  },
+  "r2dreamer/scripts/check_action_scale_compensation.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375227,
+    "ast_hash": "ce4d094afec54d2e938df7a57c25daa3",
+    "semantic_hash": "ce4d094afec54d2e938df7a57c25daa3"
+  },
+  "r2dreamer/scripts/check_goal_corridor_reward.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375232,
+    "ast_hash": "d50c776e156c29d065b4b471a95a94b1",
+    "semantic_hash": "d50c776e156c29d065b4b471a95a94b1"
+  },
+  "r2dreamer/scripts/check_mjx_evaluation_schedule.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375237,
+    "ast_hash": "486f3a46a372e548c13f63c91bdd300a",
+    "semantic_hash": "486f3a46a372e548c13f63c91bdd300a"
+  },
+  "r2dreamer/scripts/check_script_free_host.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375241,
+    "ast_hash": "56e4499b38f23ad77ce37a5bea32f73e",
+    "semantic_hash": "56e4499b38f23ad77ce37a5bea32f73e"
+  },
+  "r2dreamer/scripts/check_script_free_render.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375248,
+    "ast_hash": "9c931744f19356a5aa86bf1e82af5df2",
+    "semantic_hash": "9c931744f19356a5aa86bf1e82af5df2"
+  },
+  "r2dreamer/scripts/check_script_free_runtime.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375253,
+    "ast_hash": "a803ddafc808ba52bdd079f07cb7064b",
+    "semantic_hash": "a803ddafc808ba52bdd079f07cb7064b"
+  },
+  "r2dreamer/scripts/check_standing_reward.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375256,
+    "ast_hash": "6bc6561cb4f2eb9c5d56cd47bb318f6e",
+    "semantic_hash": "6bc6561cb4f2eb9c5d56cd47bb318f6e"
+  },
+  "r2dreamer/scripts/check_teacher_capacity_probe.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.637526,
+    "ast_hash": "ad7cb08f8d883342f82897b778351d49",
+    "semantic_hash": "ad7cb08f8d883342f82897b778351d49"
+  },
+  "r2dreamer/scripts/check_walking_transfer_reward.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375284,
+    "ast_hash": "7b29b41af0a246636820bb29ad13e204",
+    "semantic_hash": "7b29b41af0a246636820bb29ad13e204"
+  },
+  "r2dreamer/scripts/check_walking_transfer_v2_reward.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.637529,
+    "ast_hash": "e04ec97ff2608fbc7eba821ad65bac10",
+    "semantic_hash": "e04ec97ff2608fbc7eba821ad65bac10"
+  },
+  "r2dreamer/scripts/collect_script_free_demonstrations.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375294,
+    "ast_hash": "dc670d366f45c1c889ddbff941bed1f4",
+    "semantic_hash": "dc670d366f45c1c889ddbff941bed1f4"
+  },
+  "r2dreamer/scripts/deploy/setup_script_free.sh": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375299,
+    "ast_hash": "6f7e67de20aeda2b2a8808335454ca95",
+    "semantic_hash": "6f7e67de20aeda2b2a8808335454ca95"
+  },
+  "r2dreamer/scripts/deploy/start_interactive_walking.sh": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375303,
+    "ast_hash": "40cf6c3d94941b31dbc4af475e55ea99",
+    "semantic_hash": "40cf6c3d94941b31dbc4af475e55ea99"
+  },
+  "r2dreamer/scripts/deploy/start_mjx_teacher_pilot.sh": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375308,
+    "ast_hash": "13c8e151e142866d6b833aff057605bb",
+    "semantic_hash": "13c8e151e142866d6b833aff057605bb"
+  },
+  "r2dreamer/scripts/deploy/start_mjx_teacher_standing_pilot.sh": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375313,
+    "ast_hash": "f083880369e704a3aa5a5baee4ef0f94",
+    "semantic_hash": "f083880369e704a3aa5a5baee4ef0f94"
+  },
+  "r2dreamer/scripts/deploy/start_reference_pilot.sh": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.637532,
+    "ast_hash": "05b1cb030aa8ec58b316dc0b73d0ea2b",
+    "semantic_hash": "05b1cb030aa8ec58b316dc0b73d0ea2b"
+  },
+  "r2dreamer/scripts/deploy/start_script_free.sh": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375322,
+    "ast_hash": "14ac9452c6a9d495e3d0f9d73d51e725",
+    "semantic_hash": "14ac9452c6a9d495e3d0f9d73d51e725"
+  },
+  "r2dreamer/scripts/deploy/start_teacher_next.sh": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375327,
+    "ast_hash": "a47287a9e17f883d911126adc71606c6",
+    "semantic_hash": "a47287a9e17f883d911126adc71606c6"
+  },
+  "r2dreamer/scripts/deploy/vast_setup.sh": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375332,
+    "ast_hash": "16aedb02af5110c6670c5b8c1ca182e3",
+    "semantic_hash": "16aedb02af5110c6670c5b8c1ca182e3"
+  },
+  "r2dreamer/scripts/deploy/vast_train.sh": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.637534,
+    "ast_hash": "87633a236aab55a4f4eaf27926aaaa59",
+    "semantic_hash": "87633a236aab55a4f4eaf27926aaaa59"
+  },
+  "r2dreamer/scripts/diagnose_online_gradients.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375344,
+    "ast_hash": "a5491a1b307a355906fb902c67845879",
+    "semantic_hash": "a5491a1b307a355906fb902c67845879"
+  },
+  "r2dreamer/scripts/diagnose_teacher_resets.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375353,
+    "ast_hash": "783ee72e0a3550d11c01f06df83aee35",
+    "semantic_hash": "783ee72e0a3550d11c01f06df83aee35"
+  },
+  "r2dreamer/scripts/evaluate_script_free.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375358,
+    "ast_hash": "588641958d4999599556bb3924ff50b0",
+    "semantic_hash": "588641958d4999599556bb3924ff50b0"
+  },
+  "r2dreamer/scripts/humanlike_walk.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375365,
+    "ast_hash": "301a7b397711c0596298f8044a9a8a87",
+    "semantic_hash": "301a7b397711c0596298f8044a9a8a87"
+  },
+  "r2dreamer/scripts/inspect_mjx_teacher_checkpoint.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.637537,
+    "ast_hash": "50c29b6fe2c76b13977191bedb17ae46",
+    "semantic_hash": "50c29b6fe2c76b13977191bedb17ae46"
+  },
+  "r2dreamer/scripts/interactive_rsi.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375375,
+    "ast_hash": "682787e5c19a6dbb48a45aacea2459ae",
+    "semantic_hash": "682787e5c19a6dbb48a45aacea2459ae"
+  },
+  "r2dreamer/scripts/package_reference_training.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375377,
+    "ast_hash": "9c37c1a422eb7cef63907b601d365799",
+    "semantic_hash": "9c37c1a422eb7cef63907b601d365799"
+  },
+  "r2dreamer/scripts/package_script_free.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375382,
+    "ast_hash": "e32dc5623ee44e278846c800fe1a21df",
+    "semantic_hash": "e32dc5623ee44e278846c800fe1a21df"
+  },
+  "r2dreamer/scripts/package_teacher_next.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.637539,
+    "ast_hash": "ca3b648509dc1c14482c9f5a55c4d0c2",
+    "semantic_hash": "ca3b648509dc1c14482c9f5a55c4d0c2"
+  },
+  "r2dreamer/scripts/preflight_mjx_teacher.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375391,
+    "ast_hash": "7a9e600e4c36fe9a82489601cb5e13bb",
+    "semantic_hash": "7a9e600e4c36fe9a82489601cb5e13bb"
+  },
+  "r2dreamer/scripts/preflight_mjx_teacher_scale.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375396,
+    "ast_hash": "b7c1fa676f8409878cdcb0257c11a43f",
+    "semantic_hash": "b7c1fa676f8409878cdcb0257c11a43f"
+  },
+  "r2dreamer/scripts/preflight_reference_training.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.63754,
+    "ast_hash": "ee0470623d66c430c2791e9462bd02c6",
+    "semantic_hash": "ee0470623d66c430c2791e9462bd02c6"
+  },
+  "r2dreamer/scripts/preflight_servo_v3.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375408,
+    "ast_hash": "b14cebd26323f3e915f74a9293b82f07",
+    "semantic_hash": "b14cebd26323f3e915f74a9293b82f07"
+  },
+  "r2dreamer/scripts/preflight_teacher_curriculum.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.637541,
+    "ast_hash": "513d28b75cf288292fd1ffb1366971d1",
+    "semantic_hash": "513d28b75cf288292fd1ffb1366971d1"
+  },
+  "r2dreamer/scripts/pretrain_script_free.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375415,
+    "ast_hash": "08b2dc77edde89960fa8fff299108fbe",
+    "semantic_hash": "08b2dc77edde89960fa8fff299108fbe"
+  },
+  "r2dreamer/scripts/rsi_bridge.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375422,
+    "ast_hash": "bbf369b66ff3454aca92e9a2f5e7787e",
+    "semantic_hash": "bbf369b66ff3454aca92e9a2f5e7787e"
+  },
+  "r2dreamer/scripts/run_replay_recovery.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375427,
+    "ast_hash": "831526f35e33f3aa8c3266e9a869ce75",
+    "semantic_hash": "831526f35e33f3aa8c3266e9a869ce75"
+  },
+  "r2dreamer/scripts/run_script_free_pipeline.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375432,
+    "ast_hash": "e09bad9a973670a80823fdf85bcfb8bd",
+    "semantic_hash": "e09bad9a973670a80823fdf85bcfb8bd"
+  },
+  "r2dreamer/scripts/run_teacher_curriculum.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.637544,
+    "ast_hash": "d03a1a3c9cc7ddca515c6cf672741574",
+    "semantic_hash": "d03a1a3c9cc7ddca515c6cf672741574"
+  },
+  "r2dreamer/scripts/script_free_run_ops.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375444,
+    "ast_hash": "4d8c8a0f0cb683f7476e1fd9c6273434",
+    "semantic_hash": "4d8c8a0f0cb683f7476e1fd9c6273434"
+  },
+  "r2dreamer/scripts/scripted_walk.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375446,
+    "ast_hash": "b562bccafadeccefa26e55abd03f8fa5",
+    "semantic_hash": "b562bccafadeccefa26e55abd03f8fa5"
+  },
+  "r2dreamer/scripts/show_script_free_status.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.637545,
+    "ast_hash": "46a11578fd5f5b7305a45f670a1cb427",
+    "semantic_hash": "46a11578fd5f5b7305a45f670a1cb427"
+  },
+  "r2dreamer/scripts/smoke_mjx_teacher_video.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375458,
+    "ast_hash": "22a341aecbbafb0d7df0800acff5ef6c",
+    "semantic_hash": "22a341aecbbafb0d7df0800acff5ef6c"
+  },
+  "r2dreamer/scripts/teacher_capacity_probe.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375465,
+    "ast_hash": "215b7477b7c605ef501df70ba583bbb1",
+    "semantic_hash": "215b7477b7c605ef501df70ba583bbb1"
+  },
+  "r2dreamer/scripts/test_demonstration_audit.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375468,
+    "ast_hash": "e5edae1a50dc8918d68cdae9cc564baa",
+    "semantic_hash": "e5edae1a50dc8918d68cdae9cc564baa"
+  },
+  "r2dreamer/scripts/test_evaluation_bookkeeping.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375475,
+    "ast_hash": "54683ca5b1ffc10ae8040f488e2d4e98",
+    "semantic_hash": "54683ca5b1ffc10ae8040f488e2d4e98"
+  },
+  "r2dreamer/scripts/test_full_command_env.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.637548,
+    "ast_hash": "6d8e54c58d1904b0a7d0ffc9a37ab69c",
+    "semantic_hash": "6d8e54c58d1904b0a7d0ffc9a37ab69c"
+  },
+  "r2dreamer/scripts/test_gait_recovery.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375482,
+    "ast_hash": "bd58a18fcd42b8b315374fa6f118cb76",
+    "semantic_hash": "bd58a18fcd42b8b315374fa6f118cb76"
+  },
+  "r2dreamer/scripts/test_imitation_data.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375492,
+    "ast_hash": "34cb7d8a640734b9fac91f569c2aa7cb",
+    "semantic_hash": "34cb7d8a640734b9fac91f569c2aa7cb"
+  },
+  "r2dreamer/scripts/test_imitation_learner.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375496,
+    "ast_hash": "191d4ad60fa2887ea7a724080bddbc6e",
+    "semantic_hash": "191d4ad60fa2887ea7a724080bddbc6e"
+  },
+  "r2dreamer/scripts/test_imitation_reporting_v2.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.63755,
+    "ast_hash": "c065865e13e89fae22a643b9368431e2",
+    "semantic_hash": "c065865e13e89fae22a643b9368431e2"
+  },
+  "r2dreamer/scripts/test_reference_preparation.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.637551,
+    "ast_hash": "dbb6e39f1e95f5a0436e75e37f1e421c",
+    "semantic_hash": "dbb6e39f1e95f5a0436e75e37f1e421c"
+  },
+  "r2dreamer/scripts/test_reference_resets.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375515,
+    "ast_hash": "b541cbaccc4caeaf09b6e0ecb9a249a5",
+    "semantic_hash": "b541cbaccc4caeaf09b6e0ecb9a249a5"
+  },
+  "r2dreamer/scripts/test_replay_action_alignment.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.637552,
+    "ast_hash": "20b6dcec2f49a4de09584354db9f905f",
+    "semantic_hash": "20b6dcec2f49a4de09584354db9f905f"
+  },
+  "r2dreamer/scripts/test_reset_validation.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375527,
+    "ast_hash": "60a784661ac97a840703f5d6a0403a90",
+    "semantic_hash": "60a784661ac97a840703f5d6a0403a90"
+  },
+  "r2dreamer/scripts/test_script_free_contract.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.637553,
+    "ast_hash": "096be64a5482bfb210fc43345f877dd4",
+    "semantic_hash": "096be64a5482bfb210fc43345f877dd4"
+  },
+  "r2dreamer/scripts/test_script_free_host.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375535,
+    "ast_hash": "d9f51daa1cff21c47f95165757631404",
+    "semantic_hash": "d9f51daa1cff21c47f95165757631404"
+  },
+  "r2dreamer/scripts/test_script_free_online_hook.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.637554,
+    "ast_hash": "c34c427cabc4bb878884b60c1893b6fc",
+    "semantic_hash": "c34c427cabc4bb878884b60c1893b6fc"
+  },
+  "r2dreamer/scripts/test_script_free_package.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375544,
+    "ast_hash": "ad5e7473c5cbef0ce033199f050b07f2",
+    "semantic_hash": "ad5e7473c5cbef0ce033199f050b07f2"
+  },
+  "r2dreamer/scripts/test_script_free_pipeline.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.637555,
+    "ast_hash": "801f30ba611eab319a4eef7339860d1c",
+    "semantic_hash": "801f30ba611eab319a4eef7339860d1c"
+  },
+  "r2dreamer/scripts/test_script_free_run_ops.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375554,
+    "ast_hash": "ff866f875e9e9c7abee8cea7b89413a5",
+    "semantic_hash": "ff866f875e9e9c7abee8cea7b89413a5"
+  },
+  "r2dreamer/scripts/test_step_clearance.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.637556,
+    "ast_hash": "49346b681721ab86fbb5e78458fadd0b",
+    "semantic_hash": "49346b681721ab86fbb5e78458fadd0b"
+  },
+  "r2dreamer/scripts/test_teacher_capacity_probe.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375566,
+    "ast_hash": "c6a4a725d5c6dd30dcceb20ec1d83843",
+    "semantic_hash": "c6a4a725d5c6dd30dcceb20ec1d83843"
+  },
+  "r2dreamer/scripts/test_teacher_curriculum.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375568,
+    "ast_hash": "1979dd8106ca5f3993ab58c92bd189c6",
+    "semantic_hash": "1979dd8106ca5f3993ab58c92bd189c6"
+  },
+  "r2dreamer/scripts/test_teacher_curriculum_env.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375573,
+    "ast_hash": "435da512f3f3b0c814c3493d0581d0a5",
+    "semantic_hash": "435da512f3f3b0c814c3493d0581d0a5"
+  },
+  "r2dreamer/scripts/test_trainer_runtime.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375577,
+    "ast_hash": "2c01edcbfa5aadcf420da748370b0a44",
+    "semantic_hash": "2c01edcbfa5aadcf420da748370b0a44"
+  },
+  "r2dreamer/scripts/test_training_contract.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375582,
+    "ast_hash": "07c38c234dc85c3b2ee2e025b1a504da",
+    "semantic_hash": "07c38c234dc85c3b2ee2e025b1a504da"
+  },
+  "r2dreamer/scripts/verify_local_script_free.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375585,
+    "ast_hash": "a124c1930f5cacbc909707b808dc9774",
+    "semantic_hash": "a124c1930f5cacbc909707b808dc9774"
+  },
+  "r2dreamer/scripts/verify_reference_bundle.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.637559,
+    "ast_hash": "d5c6dac2a1cef6ae6148b840afcdf0d1",
+    "semantic_hash": "d5c6dac2a1cef6ae6148b840afcdf0d1"
+  },
+  "r2dreamer/scripts/verify_script_free_bundle.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375597,
+    "ast_hash": "b4ee7c4925e06d07434453e025f3c152",
+    "semantic_hash": "b4ee7c4925e06d07434453e025f3c152"
+  },
+  "r2dreamer/scripts/watch_training.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375601,
+    "ast_hash": "df72ac1626dec2805c6a3832e3d3a090",
+    "semantic_hash": "df72ac1626dec2805c6a3832e3d3a090"
+  },
+  "r2dreamer/scripts/zip_humanlike_gait.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375606,
+    "ast_hash": "dc1228e0dfd80f5474f643db0582e343",
+    "semantic_hash": "dc1228e0dfd80f5474f643db0582e343"
+  },
+  "r2dreamer/tools.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375608,
+    "ast_hash": "8c0cebcf456276eb0f0f4a63d208a074",
+    "semantic_hash": "8c0cebcf456276eb0f0f4a63d208a074"
+  },
+  "r2dreamer/train.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375613,
+    "ast_hash": "ffa5915a4d5ce011fde85239d95eb594",
+    "semantic_hash": "ffa5915a4d5ce011fde85239d95eb594"
+  },
+  "r2dreamer/trainer.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375618,
+    "ast_hash": "8913d4b5d809f4d147dcff711e86619e",
+    "semantic_hash": "8913d4b5d809f4d147dcff711e86619e"
+  },
+  "r2dreamer/training_budget.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375623,
+    "ast_hash": "29b2718305fc56eb8a69578f8f27feed",
+    "semantic_hash": "29b2718305fc56eb8a69578f8f27feed"
+  },
+  "r2dreamer/training_contract.py": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375625,
+    "ast_hash": "af30325f2263acf64bd20ee10ccaedcb",
+    "semantic_hash": "af30325f2263acf64bd20ee10ccaedcb"
+  },
+  "results/demonstrations.manifest.json": {
+    "mtime": 1791988696.1719306,
+    "seen": 1791988903.6375632,
+    "ast_hash": "3c050f6e9d74fa8e809380768130034e",
+    "semantic_hash": "3c050f6e9d74fa8e809380768130034e"
+  },
+  "results/evals/real_1100.json": {
+    "mtime": 1791988696.0994973,
+    "seen": 1791988903.6375637,
+    "ast_hash": "f1259ddca033ee869fa7955bd499f990",
+    "semantic_hash": "f1259ddca033ee869fa7955bd499f990"
+  },
+  "results/evals/real_1200.json": {
+    "mtime": 1791988696.1083052,
+    "seen": 1791988903.6375642,
+    "ast_hash": "c3b7eb9fd21fe7548542542cc22cb7e7",
+    "semantic_hash": "c3b7eb9fd21fe7548542542cc22cb7e7"
+  },
+  "results/evals/real_1300.json": {
+    "mtime": 1791988696.118322,
+    "seen": 1791988903.6375647,
+    "ast_hash": "b483066e79c49b82029d8cd302e76355",
+    "semantic_hash": "b483066e79c49b82029d8cd302e76355"
+  },
+  "results/gait_search/search_18kg.json": {
+    "mtime": 1791988696.134452,
+    "seen": 1791988903.637565,
+    "ast_hash": "42ea013277d21a96941270c1b3de0c7a",
+    "semantic_hash": "42ea013277d21a96941270c1b3de0c7a"
+  },
+  "results/gait_search/search_real.json": {
+    "mtime": 1791988696.1460247,
+    "seen": 1791988903.6375654,
+    "ast_hash": "5098b2852e9911f58bd14d173e159588",
+    "semantic_hash": "5098b2852e9911f58bd14d173e159588"
+  },
+  "results/pretraining/bc12k_realistic.json": {
+    "mtime": 1791988696.1550267,
+    "seen": 1791988903.637566,
+    "ast_hash": "d94655dbfc0c5728a846284e030daf48",
+    "semantic_hash": "d94655dbfc0c5728a846284e030daf48"
+  },
+  "results/pretraining/bc5k.json": {
+    "mtime": 1791988696.1625426,
+    "seen": 1791988903.6375666,
+    "ast_hash": "6e4169c0e7537056a104a304a90a7254",
+    "semantic_hash": "6e4169c0e7537056a104a304a90a7254"
+  },
+  "deploy/DEPLOYMENT_SPEC.md": {
+    "mtime": 1791988696.0782988,
+    "seen": 1791988903.637567,
+    "ast_hash": "1b1196736a6e2838a80b4bf494d31100",
+    "semantic_hash": "1b1196736a6e2838a80b4bf494d31100"
+  },
+  "deploy/ROBOT_TEST_PROTOCOL.md": {
+    "mtime": 1791988696.0854974,
+    "seen": 1791988903.6375675,
+    "ast_hash": "12a6cf436efac6e86b5624fe3c62afaf",
+    "semantic_hash": "12a6cf436efac6e86b5624fe3c62afaf"
+  },
+  "docs/PROJECT_NOTES_12Oct.md": {
+    "mtime": 1791988696.2396789,
+    "seen": 1791988903.637568,
+    "ast_hash": "f7e2cf9008a0017a100a022da71ec408",
+    "semantic_hash": "f7e2cf9008a0017a100a022da71ec408"
+  },
+  "r2dreamer/docs/INTERACTIVE_RSI_DESIGN_20261007.md": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375685,
+    "ast_hash": "1cf8f2015f460dc6c29c0fa4e16368f5",
+    "semantic_hash": "1cf8f2015f460dc6c29c0fa4e16368f5"
+  },
+  "r2dreamer/docs/INTERACTIVE_RSI_USAGE_20261007.md": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.637569,
+    "ast_hash": "2e1769460eb872f167d5aa385259531b",
+    "semantic_hash": "2e1769460eb872f167d5aa385259531b"
+  },
+  "r2dreamer/docs/NEXT_TRAINING_20261004.md": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375694,
+    "ast_hash": "4e687a2f6b16b88905ea005edcd57226",
+    "semantic_hash": "4e687a2f6b16b88905ea005edcd57226"
+  },
+  "r2dreamer/docs/PREPARATION_VALIDATION_20261004.md": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375701,
+    "ast_hash": "a9c141b3ac62085f5bd4904cab49999d",
+    "semantic_hash": "a9c141b3ac62085f5bd4904cab49999d"
+  },
+  "r2dreamer/docs/PROJECT_REVIEW_20261009.md": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375706,
+    "ast_hash": "3f285e40b8afcd79a9735b0cc4faf8a0",
+    "semantic_hash": "3f285e40b8afcd79a9735b0cc4faf8a0"
+  },
+  "r2dreamer/docs/REFERENCE_TRAINING_NEXT_20261012.md": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.637571,
+    "ast_hash": "bde25664c6535ee15d6c422e05a8e60c",
+    "semantic_hash": "bde25664c6535ee15d6c422e05a8e60c"
+  },
+  "r2dreamer/docs/SCRIPT_FREE_TRAINING_20261013_V2.md": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375716,
+    "ast_hash": "dac149e5c63c757d630f44422dbb76d9",
+    "semantic_hash": "dac149e5c63c757d630f44422dbb76d9"
+  },
+  "r2dreamer/docs/TEACHER_CURRICULUM_20261004.md": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.637572,
+    "ast_hash": "9ed6107f31b7aa918dfa5de550be722e",
+    "semantic_hash": "9ed6107f31b7aa918dfa5de550be722e"
+  },
+  "r2dreamer/docs/TRAINING_EVIDENCE_20261004.md": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375725,
+    "ast_hash": "c426df6f86be202a0a4eed98292ac364",
+    "semantic_hash": "c426df6f86be202a0a4eed98292ac364"
+  },
+  "r2dreamer/docs/VALID_STEP_CLEARANCE_20261012.md": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.637573,
+    "ast_hash": "bcbbccd28d5cc555be4359ac18c22661",
+    "semantic_hash": "bcbbccd28d5cc555be4359ac18c22661"
+  },
+  "r2dreamer/docs/WALKING_FIXES_20261008.md": {
+    "mtime": 1791917714.0,
+    "seen": 1791988903.6375737,
+    "ast_hash": "f5c3fbe3c4a07b8a94a9c545d7a6c5ee",
+    "semantic_hash": "f5c3fbe3c4a07b8a94a9c545d7a6c5ee"
+  },
+  "media/contact_sheet.png": {
+    "mtime": 1791988696.2732747,
+    "seen": 1791988903.6375742,
+    "ast_hash": "e7cffa7e1fab872ce20c0ba3c7a31e0b",
+    "semantic_hash": "e7cffa7e1fab872ce20c0ba3c7a31e0b"
+  },
+  "media/humanlike_walk_fast_6cms.mp4": {
+    "mtime": 1791988696.3324525,
+    "seen": 1791988903.6375744,
+    "ast_hash": "6b76426ef8519ed8976e8f402cefccb2",
+    "semantic_hash": "6b76426ef8519ed8976e8f402cefccb2"
+  },
+  "media/scripted_walk_step0_robot0.mp4": {
+    "mtime": 1791988696.3503196,
+    "seen": 1791988903.637575,
+    "ast_hash": "5149d1b643c0039626c21a673aa19c69",
+    "semantic_hash": "5149d1b643c0039626c21a673aa19c69"
+  },
+  "media/walk_1100.mp4": {
+    "mtime": 1791988696.2627943,
+    "seen": 1791988903.6375754,
+    "ast_hash": "ef5796513b659c097cdf876259d21172",
+    "semantic_hash": "ef5796513b659c097cdf876259d21172"
+  }
+}

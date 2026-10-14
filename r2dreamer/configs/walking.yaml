@@ -1,0 +1,83 @@
+# Complete walking entry point: python train.py --config-name walking
+defaults:
+  - configs
+  - override env: humanoid_progressive_walking
+  - _self_
+
+logdir: logdir/walking_l${env.curriculum_level}/${now:%Y-%m-%d}/${now:%H-%M-%S}
+batch_size: 8
+batch_length: 64
+device: cuda:0
+init_from: null
+resume_from: null
+
+env:
+  steps: 25000
+  env_num: 4
+  eval_episode_num: 4
+  eval_seed_offset: 10000
+  action_repeat: 10    # 20 ms / 50 Hz software command interval; verify on firmware.
+  time_limit: 5000    # 500 policy decisions = 10 s.
+  train_ratio: 128
+  curriculum_level: 0
+  target_vx: 0.08
+  scene_path: null
+  forward_axis: [0.0, -1.0]
+  total_mass_kg: 2.66  # User-confirmed assembled mass, 2026-09-08.
+  action_scale: 0.2  # radians about the standing pose; zero means hold reference.
+  standing_action_scale: 0.05  # level 0 only; later levels retain +/-0.2 rad.
+  max_target_rate: 2.0  # rad/s software target slew, not a measured motor speed.
+  # Provisional uniform position-servo approximation, NOT manufacturer PID gains.
+  # 6 V torque ceiling remains +/-1.08 N m in the MJCF.
+  servo_kp: 10.0
+  servo_kv: 0.2
+  reference_deviation_weight: 0.6
+  reset_height_noise: 0.0015
+  reset_velocity_noise: 0.003
+  reset_joint_noise: 0.01
+  imu_orientation_weight: 3.0  # tilt only, level 0
+  imu_orientation_tolerance_rad: 0.2617993878  # saturates at 15 degrees tilt
+  imu_tilt_deadband_rad: 0.0523598776  # allow 3 degrees of sway
+  standing_tilt_limit_rad: 0.1396263402  # both IMUs within 8 degrees for success
+  heading_weight: 0.10  # separate, mild heading drift cost
+  standing_streak_reward_weight: 0.5
+  standing_streak_ramp_time: 2.0
+  weight_shift_load_share_start: 0.52
+  weight_shift_target_load_share: 0.70
+  weight_shift_success_threshold: 0.75
+  weight_shift_event_bonus: 1.0
+
+buffer:
+  max_size: 100000
+  storage_device: cpu
+
+model:
+  compile: false
+  act_entropy: 0.0
+  actor:
+    dist:
+      cont:
+        min_std: 0.02
+        max_std: 0.12
+  imag_horizon: 50    # 1 s at 50 Hz; includes a candidate swing and landing.
+  horizon: 500
+
+trainer:
+  encoder_training_aid: ${env.encoder_training_aid}
+  encoder_full_updates: ${env.encoder_full_updates}
+  encoder_off_updates: ${env.encoder_off_updates}
+  eval_every: 5000
+  update_log_every: 1000
+  checkpoint_interval: 5000
+  # Third-person evaluation rollout shown in TensorBoard's Images tab. Rendering
+  # is evaluation-only and never becomes a policy observation.
+  eval_video: true
+  eval_video_every: 5000
+  eval_video_stride: 2
+  eval_video_width: 192
+  eval_video_height: 192
+  eval_video_fps: 25
+  eval_video_save_mp4: true
+  best_metric_key: standing_seconds
+  best_safety_metric_key: fall_count
+  best_tiebreak_metric_key: score

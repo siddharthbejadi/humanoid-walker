@@ -1,0 +1,44 @@
+# Reviewed candidate. Retains the checkpoint's action and observation contract.
+# This config has not demonstrated walking; run the reference audit first.
+defaults:
+  - walking_vendor_residual_20m
+  - _self_
+
+logdir: logdir/walking_balance_review/${now:%Y-%m-%d}/${now:%H-%M-%S}
+resume_from: null
+resume_reset_optimizer: true
+transfer_from: null
+transfer_additional_steps: 0
+
+env:
+  # Level-1 balance constraints. These are now active in the reward (the old
+  # implementation accidentally restricted them to Level 0).
+  imu_orientation_weight: 6.0
+  imu_orientation_tolerance_rad: 0.20
+  standing_tilt_limit_rad: 0.20
+  reference_deviation_weight: 0.75
+  level1_tilt_termination_rad: 0.488692191
+  level1_tilt_grace_seconds: 0.35
+  weight_shift_target_ramp_seconds: 1.50
+  weight_shift_target_load_share: 0.60
+  weight_shift_success_threshold: 0.55
+  # Fast IMU-driven corrections are permitted, while staying below the
+  # approximate unloaded speed of an MG996R-class servo.
+  max_target_rate: 3.5
+  action_rate_weight: 0.005
+  # Active in Level 1 through the shared bounded backward-cost channel.
+  stage2_backward_weight: 1.0
+  # Learning admission threshold; final 100 m / <=1529 steps is unchanged.
+  min_step_length: 0.020
+  target_step_length: 0.045
+  max_stance_slip: 0.012
+  stage2_invalid_step_penalty: 0.05
+  stage2_invalid_penalty_budget: 0.5
+  # Total lift/air/transfer shaping per episode. Valid steps bypass this cap.
+  stage2_attempt_reward_budget: 0.5
+  # Keep the existing action mapping for checkpoint compatibility. The vendor
+  # sequence remains an UNVALIDATED reference, not proof of physical walking.
+  action_scale: 0.25
+
+# Do not raise LR/noise or remove vision without a controlled comparison.
+# Fixed-seed deterministic evaluation remains the comparable benchmark.

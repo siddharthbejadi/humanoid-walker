@@ -1,0 +1,276 @@
+<!-- Servo-like actuators (2026-10-08): the candidate scene's kp fell from 45 at the hip to 0.43 at the ankle (damping fixed at 4% of kp; an inertia-scaled pattern, not a servo), so the standing pose collapsed in 0.7 s with no policy. Here every servo is kp 40 N*m/rad (user-supplied real servo value, 2026-10-09), kv 1.0 (same kv/kp ratio as the kp-20 variant); forcerange (18 kg*cm) is set by build_mjx_scene. With these gains the robot stands without a policy and the vendor gait moves forward open-loop. Confirm kp against the real servo (sag under load) when possible. -->
+<mujoco model="urdf_with_gripper_2">
+  <compiler angle="radian" meshdir="meshes" />
+  
+  <option integrator="implicitfast" cone="elliptic" />
+
+  <asset>
+    <mesh name="base_link" file="base_link.stl" scale="0.001 0.001 0.001" />
+    <mesh name="left_shoulder_servo_1" file="left_shoulder_servo_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="right_shoulder_servo_1" file="right_shoulder_servo_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="right_arm_servo_bracket_1" file="right_arm_servo_bracket_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="left_arm_servo_bracket_1" file="left_arm_servo_bracket_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="left_elbow_servo_bracket_1" file="left_elbow_servo_bracket_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="right_elbow_servo_bracket_1" file="right_elbow_servo_bracket_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="left_foot_bracket_1" file="left_foot_bracket_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="left_lower_thigh_servo_1" file="left_lower_thigh_servo_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="left_plate_1" file="left_plate_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="left_torso_servo_1" file="left_torso_servo_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="right_lower_thigh_servo_1" file="right_lower_thigh_servo_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="right_foot_ankle_1" file="right_foot_ankle_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="right_plate_1" file="right_plate_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="right_torso_servo_1" file="right_torso_servo_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="right_foot_bracket_1" file="right_foot_bracket_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="left_L_joint_1" file="left_L_joint_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="right_L_joint_1" file="right_L_joint_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="left_foot_ankle_1" file="left_foot_ankle_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="back_plate_1" file="back_plate_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="pca9685_2_1" file="pca9685_2_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="pca9685_1_1" file="pca9685_1_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="right_O_bracket_1" file="right_O_bracket_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="left_O_bracket_1" file="left_O_bracket_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="left_knee_servo_1" file="left_knee_servo_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="right_knee_servo_1" file="right_knee_servo_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="right_foot_servo_1" file="right_foot_servo_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="left_foot_servo_1" file="left_foot_servo_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="left_upper_thigh_servo_1" file="left_upper_thigh_servo_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="right_upper_thigh_servo_1" file="right_upper_thigh_servo_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="right_elbow_servo_1" file="right_elbow_servo_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="left_shoulder_joint_1_1" file="left_shoulder_joint_1_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="head_servo_1" file="head_servo_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="left_L_bracket_1" file="left_L_bracket_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="right_L_bracket_1" file="right_L_bracket_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="right_arm_servo_1" file="right_arm_servo_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="left_LU_1" file="left_LU_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="left_arm_servo_1" file="left_arm_servo_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="right_LU_1" file="right_LU_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="left_hand_L_bracket_1" file="left_hand_L_bracket_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="left_hand_base_1" file="left_hand_base_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="left_hand_servo_1" file="left_hand_servo_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="right_hand_base_1" file="right_hand_base_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="right_hand_servo_1" file="right_hand_servo_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="left_elbow_servo_1" file="left_elbow_servo_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="right_hand_L_bracket_1" file="right_hand_L_bracket_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="right_shoulder_joint_1_1" file="right_shoulder_joint_1_1.stl" scale="0.001 0.001 0.001" />
+  <mesh name="left_foot_rubber_pad_2mm_candidate" vertex="-0.003664641372 -0.0604950724 -0.02762854595 0.000359345806 -0.05933650676 -0.02758771195 0.002729424231 -0.05784819721 -0.02753567056 0.005519851878 -0.05472760048 -0.02742687602 0.007122399231 -0.05086105057 -0.02729234973 0.007357201266 -0.04947992186 -0.02724434704 0.007435802611 0.05035942747 -0.02377681946 0.007122403079 0.05313926824 -0.02368031935 0.00551985601 0.05700583424 -0.02354626714 0.003774417215 0.05919324229 -0.02347055485 0.0003591255511 0.06161507593 -0.02338694802 -0.003664860837 0.06277368994 -0.02334730416 -0.04496397398 0.06277390355 -0.02335341269 -0.04898796489 0.06161532887 -0.02339424701 -0.05240325362 0.05919352998 -0.02347886416 -0.05414847096 0.05700642258 -0.02355508294 -0.05536296019 0.05448603445 -0.02364279828 -0.05598582221 0.05175875144 -0.02373761166 -0.05598582462 -0.04947931946 -0.02725370654 -0.05536296263 -0.05220661125 -0.02734833575 -0.05414847509 -0.05472700469 -0.02743569156 -0.05135782234 -0.05784792058 -0.02754367069 -0.0489877465 -0.05933625381 -0.02759501094 -0.04496375452 -0.06049486623 -0.02763465474 -0.003665529372 -0.06070333256 -0.02163216147 0.0003584578062 -0.05954476691 -0.02159132747 0.002728536231 -0.05805645737 -0.02153928607 0.005518963878 -0.05493586064 -0.02143049153 0.007121511231 -0.05106931073 -0.02129596524 0.007356313266 -0.04968818202 -0.02124796255 0.007434914611 0.05015116731 -0.01778043497 0.00712151508 0.05293100808 -0.01768393486 0.00551896801 0.05679757408 -0.01754988265 0.003773529216 0.05898498213 -0.01747417036 0.0003582375513 0.06140681577 -0.01739056353 -0.003665748837 0.06256542979 -0.01735091967 -0.04496486198 0.06256564339 -0.0173570282 -0.04898885289 0.06140706871 -0.01739786252 -0.05240414162 0.05898526982 -0.01748247967 -0.05414935896 0.05679816242 -0.01755869845 -0.05536384819 0.05427777429 -0.01764641379 -0.05598671021 0.05155049128 -0.01774122717 -0.05598671262 -0.04968757962 -0.02125732205 -0.05536385063 -0.05241487141 -0.02135195126 -0.05414936309 -0.05493526485 -0.02143930708 -0.05135871034 -0.05805618074 -0.0215472862 -0.0489886345 -0.05954451396 -0.02159862645 -0.04496464252 -0.06070312639 -0.02163827026" /><mesh name="right_foot_rubber_pad_2mm_candidate" vertex="0.0452623749 -0.0614293591 -0.02506168084 0.0492901534 -0.06026863515 -0.02502288124 0.05166011712 -0.05877943017 -0.02500082439 0.05363930375 -0.05680016814 -0.02498310976 0.05512846332 -0.05443009603 -0.02497062567 0.05628773332 -0.05040611431 -0.02496299635 0.05628869763 0.05089290653 -0.02506011383 0.05566589356 0.05362183988 -0.02506890194 0.0544514931 0.05614375425 -0.02508335386 0.05270638753 0.05833218936 -0.02510274497 0.050518086 0.06007741243 -0.02512610288 0.04664941534 0.06167996796 -0.02516597531 0.04386805302 0.06199337567 -0.0251938372 0.00397059688 0.06191487968 -0.02558911837 0.001241801906 0.06129202477 -0.02561556165 -0.00128397893 0.06007610732 -0.02563942457 -0.003472316739 0.05833089207 -0.02565943616 -0.005217462386 0.05614247028 -0.02567463106 -0.006431910941 0.0536205573 -0.02568424736 -0.007054765266 0.05089163114 -0.02568780289 -0.007055725853 -0.05040738973 -0.02559068537 -0.006432925507 -0.05313631563 -0.02558189731 -0.005218525049 -0.05565822993 -0.02556744538 -0.003473419477 -0.05784667254 -0.02554805427 -0.00128511608 -0.05959189185 -0.02552469634 0.002583554569 -0.06119444371 -0.02548482392 0.003965436169 -0.06142925269 -0.02547090528 0.04520292196 -0.06142360649 -0.01906197816 0.04923070046 -0.06026288254 -0.01902317856 0.05160066418 -0.05877367757 -0.01900112171 0.05357985082 -0.05679441553 -0.01898340708 0.05506901039 -0.05442434342 -0.01897092299 0.05622828038 -0.05040036171 -0.01896329367 0.05622924469 0.05089865913 -0.01906041115 0.05560644062 0.05362759249 -0.01906919926 0.05439204016 0.05614950685 -0.01908365118 0.05264693459 0.05833794197 -0.01910304229 0.05045863306 0.06008316503 -0.0191264002 0.04658996241 0.06168572057 -0.01916627263 0.04380860008 0.06199912828 -0.01919413452 0.003911143941 0.06192063229 -0.01958941569 0.001182348967 0.06129777738 -0.01961585897 -0.001343431869 0.06008185992 -0.01963972189 -0.003531769678 0.05833664468 -0.01965973348 -0.005276915325 0.05614822289 -0.01967492838 -0.00649136388 0.05362630991 -0.01968454468 -0.007114218205 0.05089738374 -0.01968810021 -0.007115178792 -0.05040163712 -0.01959098269 -0.006492378446 -0.05313056302 -0.01958219463 -0.005277977988 -0.05565247733 -0.0195677427 -0.003532872416 -0.05784091993 -0.01954835159 -0.001344569019 -0.05958613924 -0.01952499366 0.00252410163 -0.06118869111 -0.01948512124 0.00390598323 -0.06142350009 -0.0194712026" /></asset>
+
+  <worldbody>
+    <body name="base_link" pos="0 0 0.28">
+      <freejoint name="root" /><inertial pos="-0.000419078 0.00722009 0.0135214" quat="0.517978 0.481351 0.517978 0.481351" mass="0.413703" diaginertia="0.000753468 0.000479532 0.000465" />
+      <geom type="mesh" rgba="0.7 0.7 0.7 1" mesh="base_link" />
+      <body name="left_shoulder_servo_1" pos="0.052836 0.00773 0.073415">
+        <inertial pos="-0.00847149 0.00500043 -0.0241308" quat="0.707107 0 0 0.707107" mass="0.0413323" diaginertia="1e-05 7e-06 6e-06" />
+        <geom pos="-0.052836 -0.00773 -0.073415" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="left_shoulder_servo_1" />
+        <body name="left_shoulder_joint_1_1" pos="0.016 0.005 -0.014465">
+          <inertial pos="0.0104202 -5.94418e-05 0.00703557" quat="0.28679 0.28679 -0.646337 0.646337" mass="0.0517803" diaginertia="3.85249e-05 2.84751e-05 1.4e-05" />
+          <joint name="left_shoulder_revolute" pos="0 0 0" axis="1 0 0" range="-1.5708 1.5708" actuatorfrcrange="-1.08 1.08" />
+          <geom pos="-0.068836 -0.01273 -0.05895" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="left_shoulder_joint_1_1" />
+          <body name="right_arm_servo_1" pos="0.026516 -0.027179 0.021109">
+            <inertial pos="0.000348254 0.0245518 -0.00945148" mass="0.0413323" diaginertia="1e-05 7e-06 6e-06" />
+            <joint name="right_arm_revolute" pos="0 0 0" axis="0 0.999964 0.008466" range="-1.5708 1.5708" limited="true" actuatorfrcrange="-1.08 1.08" />
+            <geom pos="-0.095352 0.014449 -0.080059" type="mesh" rgba="0.7 0.7 0.7 1" mesh="right_arm_servo_1" />
+            <body name="right_arm_servo_bracket_1" pos="-0.090416 -0.049879 0.005333">
+              <inertial pos="0.0837003 0.0839818 -0.0151749" quat="0.995479 0 0 -0.0949832" mass="0.0446318" diaginertia="1.91926e-05 1.38074e-05 1e-05" />
+              <geom pos="-0.004936 0.064328 -0.085392" type="mesh" rgba="0.7 0.7 0.7 1" mesh="right_arm_servo_bracket_1" />
+              <body name="right_L_joint_1" pos="0.077658 0.073554 -0.025956">
+                <inertial pos="0.0046359 0.000118157 -0.0139336" quat="0.680193 -0.193229 -0.193229 0.680193" mass="0.0201931" diaginertia="4e-06 3.61803e-06 1.38197e-06" />
+                <geom pos="-0.082594 -0.009226 -0.059436" type="mesh" rgba="0.7 0.7 0.7 1" mesh="right_L_joint_1" />
+                <body name="left_LU_1" pos="0.014873 0.000203 -0.023979">
+                  <inertial pos="0.000783124 0.000184157 -0.0217285" quat="0.706925 0.706925 -0.0160252 0.0160252" mass="0.0634532" diaginertia="6.00454e-05 3.79546e-05 2.8e-05" />
+                  <geom pos="-0.097467 -0.009429 -0.035457" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="left_LU_1" />
+                  <body name="left_elbow_servo_1" pos="0.001873 -0.026559 -0.052193">
+                    <inertial pos="-0.000325523 0.0243886 0.00986731" mass="0.0413323" diaginertia="1e-05 7e-06 6e-06" />
+                    <joint name="left_elbow_revolute" pos="0 0 0" axis="0 0.999964 0.008466" range="-1.5708 1.5708" limited="true" actuatorfrcrange="-1.08 1.08" />
+                    <geom pos="-0.09934 0.01713 0.016736" type="mesh" rgba="0.7 0.7 0.7 1" mesh="left_elbow_servo_1" />
+                    <body name="left_elbow_servo_bracket_1" pos="-0.004511 0.016123 -0.014489">
+                      <inertial pos="0.0112505 0.0178088 0.0248916" quat="0.995479 0 0 0.0949832" mass="0.0446318" diaginertia="1.91926e-05 1.38074e-05 1e-05" />
+                      <geom pos="-0.094829 0.001007 0.031225" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="left_elbow_servo_bracket_1" />
+                      <body name="left_hand_L_bracket_1" pos="0.018025 0.007378 0.014493">
+                        <inertial pos="-0.00365465 0.000120325 -0.0142229" quat="0.980785 0 0.19509 0" mass="0.0201931" diaginertia="4.41421e-06 4e-06 1.58579e-06" />
+                        <geom pos="-0.112854 -0.006371 0.016732" type="mesh" rgba="0.7 0.7 0.7 1" mesh="left_hand_L_bracket_1" />
+                        <body name="right_hand_base_1" pos="-0.013168 0.000211 -0.024957">
+                          <inertial pos="0.000561143 0.000265869 -0.0313803" quat="0.70482 -0.0568167 -0.0568167 0.70482" mass="0.0327579" diaginertia="1.6e-05 1.11623e-05 4.83772e-06" />
+                          <geom pos="-0.099686 -0.006582 0.041689" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="right_hand_base_1" />
+                          <body name="right_hand_servo_1" pos="0.008086 -0.001104 -0.01726">
+                            <inertial pos="-0.107772 -0.005478 0.058949" mass="0" diaginertia="1e-07 1e-07 1e-07" />
+                            <geom pos="-0.107772 -0.005478 0.058949" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="right_hand_servo_1" />
+                            <body name="right_hand_tip_1" pos="-0.008166 0.096333 -0.09754">
+                              <inertial pos="0.00816593 -0.0965286 0.0975384" mass="0.0151365" diaginertia="1e-06 1e-06 1e-06" />
+                              <joint name="right_hand_tip_revolute" pos="0 0 0" axis="0 0.999964 0.008466" range="0.0 1.39626" actuatorfrcrange="-1.08 1.08" />
+                            </body>
+                          </body>
+                        </body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="right_shoulder_servo_1" pos="-0.053664 0.00773 0.073415">
+        <inertial pos="0.00847081 0.00500044 -0.0241308" quat="0.707107 0 0 0.707107" mass="0.0413323" diaginertia="1e-05 7e-06 6e-06" />
+        <geom pos="0.053664 -0.00773 -0.073415" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="right_shoulder_servo_1" />
+        <body name="right_shoulder_joint_1_1" pos="-0.016 0.005 -0.014465">
+          <inertial pos="-0.0104209 7.47059e-07 0.00703582" quat="0.646337 0.646337 -0.28679 0.28679" mass="0.0517803" diaginertia="3.85249e-05 2.84751e-05 1.4e-05" />
+          <joint name="right_shoulder_revolute" pos="0 0 0" axis="-1 0 0" range="-1.5708 1.5708" limited="true" actuatorfrcrange="-1.08 1.08" />
+          <geom pos="0.069664 -0.01273 -0.05895" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="right_shoulder_joint_1_1" />
+          <body name="left_arm_servo_1" pos="-0.026517 -0.027 0.021339">
+            <inertial pos="-0.00039992 0.0244716 -0.00965764" mass="0.0413323" diaginertia="1e-05 7e-06 6e-06" />
+            <joint name="left_arm_revolute" pos="0 0 0" axis="0 1 0" range="-1.5708 1.5708" actuatorfrcrange="-1.08 1.08" />
+            <geom pos="0.096181 0.01427 -0.080289" type="mesh" rgba="0.7 0.7 0.7 1" mesh="left_arm_servo_1" />
+            <body name="left_arm_servo_bracket_1" pos="-0.004397 0.016 0.014659">
+              <inertial pos="0.0110611 0.018019 -0.0247614" quat="0.995479 0 0 0.0949832" mass="0.0446318" diaginertia="1.91926e-05 1.38074e-05 1e-05" />
+              <geom pos="0.100578 -0.00173 -0.094948" type="mesh" rgba="0.7 0.7 0.7 1" mesh="left_arm_servo_bracket_1" />
+              <body name="left_L_joint_1" pos="0.017043 0.0075 -0.03555">
+                <inertial pos="-0.00471071 4.34474e-07 -0.0139096" quat="0.680193 0.193229 0.193229 0.680193" mass="0.0201931" diaginertia="4e-06 3.61803e-06 1.38197e-06" />
+                <geom pos="0.083535 -0.00923 -0.059398" type="mesh" rgba="0.7 0.7 0.7 1" mesh="left_L_joint_1" />
+                <body name="right_LU_1" pos="-0.015002 0 -0.0239">
+                  <inertial pos="-0.000899717 4.3446e-07 -0.0217249" quat="0.706925 0.706925 0.0160252 -0.0160252" mass="0.0634532" diaginertia="6.00454e-05 3.79546e-05 2.8e-05" />
+                  <geom pos="0.098537 -0.00923 -0.035498" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="right_LU_1" />
+                  <body name="right_elbow_servo_1" pos="-0.002152 -0.027 -0.051955">
+                    <inertial pos="0.000400039 0.0244716 0.009657" mass="0.0413323" diaginertia="1e-05 7e-06 6e-06" />
+                    <joint name="right_elbow_revolute" pos="0 0 0" axis="0 1 0" range="-1.5708 1.5708" actuatorfrcrange="-1.08 1.08" />
+                    <geom pos="0.100689 0.01777 0.016457" type="mesh" rgba="0.7 0.7 0.7 1" mesh="right_elbow_servo_1" />
+                    <body name="right_elbow_servo_bracket_1" pos="-0.005594 0.016 -0.014246">
+                      <inertial pos="0.0130733 0.018019 0.0238264" quat="0.995479 0 0 0.0949832" mass="0.0446318" diaginertia="1.91926e-05 1.38074e-05 1e-05" />
+                      <geom pos="0.106283 0.00177 0.030703" type="mesh" rgba="0.7 0.7 0.7 1" mesh="right_elbow_servo_bracket_1" />
+                      <body name="right_hand_L_bracket_1" pos="0.019055 0.0075 0.013037">
+                        <inertial pos="-0.0047105 4.34474e-07 -0.0139088" quat="0.680193 0.193229 0.193229 0.680193" mass="0.0201931" diaginertia="4e-06 3.61803e-06 1.38197e-06" />
+                        <geom pos="0.087228 -0.00573 0.017666" type="mesh" rgba="0.7 0.7 0.7 1" mesh="right_hand_L_bracket_1" />
+                        <body name="left_hand_base_1" pos="-0.015002 0 -0.023899">
+                          <inertial pos="-0.000803087 4.34582e-07 -0.0313768" quat="0.70482 0.0568167 0.0568167 0.70482" mass="0.0327579" diaginertia="1.6e-05 1.11623e-05 4.83772e-06" />
+                          <geom pos="0.10223 -0.00573 0.041565" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="left_hand_base_1" />
+                          <body name="left_hand_servo_1" pos="-0.008218 0.00125 -0.017188">
+                            <inertial pos="0.110448 -0.00698 0.058753" mass="0" diaginertia="1e-07 1e-07 1e-07" />
+                            <geom pos="0.110448 -0.00698 0.058753" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="left_hand_servo_1" />
+                            <body name="left_hand_tip_1" pos="0.004986 0.095253 -0.120507">
+                              <inertial pos="-0.00498627 -0.0994484 0.120507" mass="0.0151365" diaginertia="1e-06 1e-06 1e-06" />
+                              <joint name="left_hand_tip_revolute" pos="0 0 0" axis="0 1 0" range="0 1.39626" actuatorfrcrange="-1.08 1.08" />
+                            </body>
+                          </body>
+                        </body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="left_torso_servo_1" pos="0.077336 -0.023039 0.058901">
+        <inertial pos="-0.0428161 0.0267406 -0.086651" quat="0 0.707107 0 0.707107" mass="0.0413323" diaginertia="1e-05 7e-06 6e-06" />
+        <geom pos="-0.077336 0.023039 -0.058901" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="left_torso_servo_1" />
+        <body name="left_L_bracket_1" pos="-0.03315 0.002269 -0.086651">
+          <inertial pos="-3.47837e-07 0.0270004 -0.0387752" quat="0.707107 0 0 0.707107" mass="0.111445" diaginertia="0.000104 9.4e-05 6.5e-05" />
+          <joint name="left_hip_torso_revolute" pos="0 0 0" axis="0 -1 0" range="-1.5708 1.5708" actuatorfrcrange="-1.08 1.08" />
+          <geom pos="-0.044186 0.02077 0.02775" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="left_L_bracket_1" />
+          <body name="left_upper_thigh_servo_1" pos="0.027 0.027 -0.084">
+            <inertial pos="-0.0244715 4.3829e-07 0.00966576" quat="0.707107 0 0 0.707107" mass="0.0413323" diaginertia="1e-05 7e-06 6e-06" />
+            <joint name="left_hip_upper_revolute" pos="0 0 0" axis="1 0 0" range="-1.5708 1.5708" actuatorfrcrange="-1.08 1.08" />
+            <geom pos="-0.071186 -0.00623 0.11175" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="left_upper_thigh_servo_1" />
+            <body name="left_plate_1" pos="-0.170777 0.045436 -0.00797">
+              <inertial pos="0.138693 -0.0536276 -0.0112676" quat="0.809087 0 0 0.587689" mass="0.109387" diaginertia="0.000125301 0.000111699 2.3e-05" />
+              <geom pos="0.099591 -0.051666 0.11972" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="left_plate_1" />
+              <body name="left_lower_thigh_servo_1" pos="0.154777 -0.050186 -0.016426">
+                <inertial pos="-0.00847149 0.00500044 -0.0244995" quat="0.707107 0 0 0.707107" mass="0.0413323" diaginertia="1e-05 7e-06 6e-06" />
+                <geom pos="-0.055186 -0.00148 0.136146" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="left_lower_thigh_servo_1" />
+                <body name="left_O_bracket_1" pos="0.016 0.005 -0.034165">
+                  <inertial pos="-0.0270002 -0.017687 -0.0283312" quat="0.577968 0.407374 0.577968 0.407374" mass="0.0997735" diaginertia="8.62127e-05 5.77873e-05 4.3e-05" />
+                  <joint name="left_lower_thigh_O_bracket_revolute" pos="0 0 0" axis="1 0 0" range="-1.5708 1.5708" actuatorfrcrange="-1.08 1.08" />
+                  <geom pos="-0.071186 -0.00648 0.170311" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="left_O_bracket_1" />
+                  <body name="left_knee_servo_1" pos="0 -0.021338 -0.060517">
+                    <inertial pos="-0.0244715 0.00966038 0.000310387" quat="0.5 0.5 -0.5 0.5" mass="0.0413323" diaginertia="1e-05 7e-06 6e-06" />
+                    <joint name="left_knee_revolute" pos="0 0 0" axis="-1 0 0" range="-1.5708 1.5708" actuatorfrcrange="-1.08 1.08" />
+                    <geom pos="-0.071186 0.014858 0.230828" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="left_knee_servo_1" />
+                    <body name="left_foot_ankle_1" pos="-0.016 -0.014618 0.004534">
+                      <inertial pos="-0.0177502 0.0250883 -0.0212863" quat="0.683847 0.727941 -0.0352838 0.0347881" mass="0.0926237" diaginertia="5.60994e-05 4.5963e-05 2.99376e-05" />
+                      <geom pos="-0.055186 0.029476 0.226294" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="left_foot_ankle_1" />
+                      <body name="left_foot_servo_1" pos="-0.0175 -0.000921 -0.050563">
+                        <inertial pos="0.00966541 0.0244559 0.000853617" quat="0 0.707107 0 0.707107" mass="0.0413323" diaginertia="1e-05 7e-06 6e-06" />
+                        <joint name="left_foot_revolute" pos="0 0 0" axis="0 0.999391 0.034899" range="-1.5708 1.5708" actuatorfrcrange="-1.08 1.08" />
+                        <geom pos="-0.037686 0.030397 0.276857" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="left_foot_servo_1" />
+                        <body name="left_foot_bracket_1" pos="0.034165 0.015815 0.005555">
+                          <inertial pos="-0.0243142 0.00605623 -0.0161411" quat="0.482905 0.516529 -0.516529 0.482905" mass="0.130063" diaginertia="0.000181606 0.000141 4.73937e-05" />
+                          <geom pos="-0.071851 0.014582 0.271302" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="left_foot_bracket_1" condim="6" friction="1.0 0.005 0.0001" />
+                        <geom name="left_foot_rubber_pad_2mm_candidate" type="mesh" mesh="left_foot_rubber_pad_2mm_candidate" rgba="0.08 0.08 0.08 1" condim="6" friction="1.5 0.005 0.0001" density="0" /></body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="right_torso_servo_1" pos="-0.059479 -0.00477 -0.02275">
+        <inertial pos="0.0241304 0.00847158 -0.005" quat="0 0.707107 0 0.707107" mass="0.0413323" diaginertia="1e-05 7e-06 6e-06" />
+        <geom pos="0.059479 0.00477 0.02275" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="right_torso_servo_1" />
+        <body name="right_L_bracket_1" pos="0.014465 -0.016 -0.005">
+          <inertial pos="0.000486941 0.0270004 -0.0387722" quat="0.707107 0 0 0.707107" mass="0.111445" diaginertia="0.000104 9.4e-05 6.5e-05" />
+          <joint name="right_hip_torso_revolute" pos="0 0 0" axis="0 -1 0" range="-1.5708 1.5708" actuatorfrcrange="-1.08 1.08" />
+          <geom pos="0.045014 0.02077 0.02775" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="right_L_bracket_1" />
+          <body name="right_upper_thigh_servo_1" pos="-0.025943 0.027 -0.084333">
+            <inertial pos="0.0243482 4.30652e-07 0.00997285" quat="0.707107 0 0 0.707107" mass="0.0413323" diaginertia="1e-05 7e-06 6e-06" />
+            <joint name="right_hip_upper_revolute" pos="0 0 0" axis="0.999921 0 0.012567" range="-1.5708 1.5708" actuatorfrcrange="-1.08 1.08" />
+            <geom pos="0.070957 -0.00623 0.112083" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="right_upper_thigh_servo_1" />
+            <body name="right_plate_1" pos="0.01557 0.005 0.034364">
+              <inertial pos="0.0217538 -0.00991528 -0.0535045" quat="0.707095 -0.00411032 -0.00411032 0.707095" mass="0.0691405" diaginertia="0.000106 0.000100012 1.39884e-05" />
+              <geom pos="0.055387 -0.01123 0.077719" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="right_plate_1" />
+              <body name="right_lower_thigh_servo_1" pos="0.002741 -0.01 -0.058971">
+                <inertial pos="0.00877845 0.00500043 -0.0243904" quat="0.707107 0 0 0.707107" mass="0.0413323" diaginertia="1e-05 7e-06 6e-06" />
+                <geom pos="0.052646 -0.00123 0.13669" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="right_lower_thigh_servo_1" />
+                <body name="right_O_bracket_1" pos="-0.015569 0.005 -0.034363">
+                  <inertial pos="0.0273534 -0.0176869 -0.0279893" quat="0.577968 0.407374 0.577968 0.407374" mass="0.0997723" diaginertia="8.62127e-05 5.77873e-05 4.3e-05" />
+                  <joint name="right_lower_thigh_O_bracket_revolute" pos="0 0 0" axis="-0.999921 0 -0.012567" range="-1.5708 1.5708" actuatorfrcrange="-1.08 1.08" />
+                  <geom pos="0.068215 -0.00623 0.171053" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="right_O_bracket_1" />
+                  <body name="right_knee_servo_1" pos="0.00076 -0.021338 -0.060512">
+                    <inertial pos="0.0244694 0.00966536 0.000307925" quat="0.5 0.5 -0.5 0.5" mass="0.0413323" diaginertia="1e-05 7e-06 6e-06" />
+                    <joint name="right_knee_revolute" pos="0 0 0" axis="-0.999921 0 -0.012567" range="-1.5708 1.5708" actuatorfrcrange="-1.08 1.08" />
+                    <geom pos="0.067455 0.015108 0.231565" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="right_knee_servo_1" />
+                    <body name="right_foot_ankle_1" pos="0.015936 0.034165 0.005201">
+                      <inertial pos="0.0180269 -0.024331 -0.0219235" quat="0.706246 0.706246 0.0348808 -0.0348808" mass="0.0926237" diaginertia="5.6099e-05 4.5901e-05 3e-05" />
+                      <geom pos="0.051519 -0.019057 0.226364" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="right_foot_ankle_1" />
+                      <body name="right_foot_servo_1" pos="0.018133 -0.051315 -0.050276">
+                        <inertial pos="-0.00966467 0.0244708 -0.000121489" quat="0 0.707107 0 0.707107" mass="0.0413323" diaginertia="1e-05 7e-06 6e-06" />
+                        <joint name="right_foot_revolute" pos="0 0 0" axis="0 -1 0" range="-1.5708 1.5708" actuatorfrcrange="-1.08 1.08" />
+                        <geom pos="0.033386 0.032258 0.27664" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="right_foot_servo_1" />
+                        <body name="right_foot_bracket_1" pos="-0.034225 0.016 0.00457">
+                          <inertial pos="0.0245198 0.0054884 -0.0160354" quat="0.484503 0.502827 -0.515678 0.496485" mass="0.130063" diaginertia="0.000181213 0.000140975 4.78123e-05" />
+                          <geom pos="0.067611 0.016258 0.27207" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="right_foot_bracket_1" condim="6" friction="1.0 0.005 0.0001" />
+                        <geom name="right_foot_rubber_pad_2mm_candidate" type="mesh" mesh="right_foot_rubber_pad_2mm_candidate" rgba="0.08 0.08 0.08 1" condim="6" friction="1.5 0.005 0.0001" density="0" /></body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="back_plate_1" pos="0.044336 -0.034539 -0.028164">
+        <inertial pos="-0.0506315 0.0662479 0.0375043" quat="0.716302 0.0800959 0.0688383 0.689752" mass="0.194573" diaginertia="0.00060945 0.000364357 0.000256193" />
+        <geom pos="-0.044336 0.034539 0.028164" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="back_plate_1" />
+      </body>
+      <body name="pca9685_2_1" pos="0.035336 0.02423 0.073415">
+        <inertial pos="0.00596616 -0.0228944 -0.0247936" quat="0.707107 0 0 0.707107" mass="0.0287075" diaginertia="1.3e-05 1e-05 3e-06" />
+        <geom pos="-0.035336 -0.02423 -0.073415" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="pca9685_2_1" />
+      </body>
+      <body name="pca9685_1_1" pos="-0.046164 0.02423 0.073415">
+        <inertial pos="0.00596616 -0.0228944 -0.0247936" quat="0.707107 0 0 0.707107" mass="0.0287075" diaginertia="1.3e-05 1e-05 3e-06" />
+        <geom pos="0.046164 -0.02423 -0.073415" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="pca9685_1_1" />
+      </body>
+      <body name="head_servo_1" pos="-0.000414 0.01273 0.06675">
+        <inertial pos="-3.44016e-07 -0.00966532 0.0244711" quat="0.707107 0.707107 0 0" mass="0.0413323" diaginertia="1e-05 7e-06 6e-06" />
+        <joint name="head_revolute" pos="0 0 0" axis="0 0 1" range="-1.5708 1.5708" actuatorfrcrange="-1.08 1.08" />
+        <geom pos="0.000414 -0.01273 -0.06675" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="head_servo_1" />
+      <camera name="head_cam" pos="0 -0.03315 0.02875" xyaxes="-1 0 0 0 0 1" fovy="87" /><site name="onboard_imu_site" pos="0 -0.03315 0.02875" xyaxes="1 0 0 0 0 1" size="0.003" /></body>
+    <site name="imu_site" pos="-0.00041908 0.00722009 0.0135214" size="0.005" /></body>
+  <geom name="floor" type="plane" size="5 5 0.1" pos="0 0 0" rgba="0.8 0.8 0.8 1" condim="6" friction="1.0 0.005 0.0001" /><light pos="0 0 3" dir="0 0 -1" diffuse="1 1 1" /><camera name="external_view" pos="0.55 -0.55 0.35" mode="targetbody" target="base_link" /></worldbody>
+<actuator><position name="act_left_hip_torso_revolute" joint="left_hip_torso_revolute" kp="40.0" kv="1.0" ctrlrange="-1.5708 1.5708" forcerange="-1.08 1.08" /><position name="act_left_hip_upper_revolute" joint="left_hip_upper_revolute" kp="40.0" kv="1.0" ctrlrange="-1.5708 1.5708" forcerange="-1.08 1.08" /><position name="act_left_lower_thigh_O_bracket_revolute" joint="left_lower_thigh_O_bracket_revolute" kp="40.0" kv="1.0" ctrlrange="-1.5708 1.5708" forcerange="-1.08 1.08" /><position name="act_left_knee_revolute" joint="left_knee_revolute" kp="40.0" kv="1.0" ctrlrange="-1.5708 1.5708" forcerange="-1.08 1.08" /><position name="act_left_foot_revolute" joint="left_foot_revolute" kp="40.0" kv="1.0" ctrlrange="-1.5708 1.5708" forcerange="-1.08 1.08" /><position name="act_right_hip_torso_revolute" joint="right_hip_torso_revolute" kp="40.0" kv="1.0" ctrlrange="-1.5708 1.5708" forcerange="-1.08 1.08" /><position name="act_right_hip_upper_revolute" joint="right_hip_upper_revolute" kp="40.0" kv="1.0" ctrlrange="-1.5708 1.5708" forcerange="-1.08 1.08" /><position name="act_right_lower_thigh_O_bracket_revolute" joint="right_lower_thigh_O_bracket_revolute" kp="40.0" kv="1.0" ctrlrange="-1.5708 1.5708" forcerange="-1.08 1.08" /><position name="act_right_knee_revolute" joint="right_knee_revolute" kp="40.0" kv="1.0" ctrlrange="-1.5708 1.5708" forcerange="-1.08 1.08" /><position name="act_right_foot_revolute" joint="right_foot_revolute" kp="40.0" kv="1.0" ctrlrange="-1.5708 1.5708" forcerange="-1.08 1.08" /><position name="act_left_shoulder_revolute" joint="left_shoulder_revolute" kp="40.0" kv="1.0" ctrlrange="-1.5708 1.5708" forcerange="-1.08 1.08" /><position name="act_left_arm_revolute" joint="left_arm_revolute" kp="40.0" kv="1.0" ctrlrange="-1.5708 1.5708" forcerange="-1.08 1.08" /><position name="act_left_elbow_revolute" joint="left_elbow_revolute" kp="40.0" kv="1.0" ctrlrange="-1.5708 1.5708" forcerange="-1.08 1.08" /><position name="act_right_shoulder_revolute" joint="right_shoulder_revolute" kp="40.0" kv="1.0" ctrlrange="-1.5708 1.5708" forcerange="-1.08 1.08" /><position name="act_right_arm_revolute" joint="right_arm_revolute" kp="40.0" kv="1.0" ctrlrange="-1.5708 1.5708" forcerange="-1.08 1.08" /><position name="act_right_elbow_revolute" joint="right_elbow_revolute" kp="40.0" kv="1.0" ctrlrange="-1.5708 1.5708" forcerange="-1.08 1.08" /><position name="act_head_revolute" joint="head_revolute" kp="40.0" kv="1.0" ctrlrange="-1.5708 1.5708" forcerange="-1.08 1.08" /><position name="act_left_hand_tip_revolute" joint="left_hand_tip_revolute" kp="40.0" kv="1.0" ctrlrange="0.0 1.39626" forcerange="-1.08 1.08" /><position name="act_right_hand_tip_revolute" joint="right_hand_tip_revolute" kp="40.0" kv="1.0" ctrlrange="0.0 1.39626" forcerange="-1.08 1.08" /></actuator><sensor><accelerometer name="imu_accel" site="imu_site" /><gyro name="imu_gyro" site="imu_site" /><magnetometer name="imu_mag" site="imu_site" /><accelerometer name="onboard_accel" site="onboard_imu_site" /><gyro name="onboard_gyro" site="onboard_imu_site" /></sensor><keyframe><key name="standup_start" qpos="-0.187098 -0.227949 0.051861 0.545801 -0.493277 0.506400 -0.449820 -0.039557 0.007626 -0.007216 0.006161 -0.045181 -0.006784 -0.007537 0.006073 -0.004493 0.118630 -0.205666 0.008521 -0.017264 0.001250 0.150127 0.160877 0.003224 0.036420 0.032275" />
+
+<key name="roll_start" qpos="0.005925 0.002092 0.051574 0.707423 -0.704546 0.041851 0.037615 -0.037337 0.024386 0.017507 0.003085 -0.163337 -0.027518 0.003129 0.003575 0.015011 0.081722 -0.096542 0.130533 0.001288 0.024322 0.118984 0.059418 0.114955 -0.003687 0.000840" />
+
+<key name="standing_start" qpos="0.000000 0.000000 0.293478 1.000000 0.000000 0.000000 0.000000 -0.002640 0.004223 0.016974 0.002949 0.001713 0.001961 0.008992 -0.000267 0.002053 -0.000539 -0.011877 0.022301 0.002201 0.009439 -0.010069 0.035444 -0.046472 -0.019348 -0.012813" /></keyframe></mujoco>

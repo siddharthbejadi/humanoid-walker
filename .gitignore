@@ -1,0 +1,21 @@
+# environments / caches
+.venv/
+robot_env/
+__pycache__/
+*.pyc
+.mujoco_gl
+MUJOCO_LOG.TXT
+# big artifacts: published as release assets / regenerated, not committed
+checkpoints/*.pt
+*.npz
+!r2dreamer/envs/mjx_walking/assets/*.npz
+logdir/
+runs/
+*.tgz
+*.zip
+# graphify scratch (graph.json / graph.html / GRAPH_REPORT.md ARE committed)
+graphify-out/.graphify_*
+graphify-out/cache/
+# secrets
+*.pem
+.env

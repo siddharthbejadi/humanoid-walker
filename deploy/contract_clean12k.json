@@ -1,0 +1,900 @@
+{
+ "contract": {
+  "version": 1,
+  "backend": "mjx-warp",
+  "interface": {
+   "observations": {
+    "proprio": [
+     45
+    ]
+   },
+   "action_shape": [
+    19
+   ]
+  },
+  "control": {
+   "actuator_names": [
+    "act_left_hip_torso_revolute",
+    "act_left_hip_upper_revolute",
+    "act_left_lower_thigh_O_bracket_revolute",
+    "act_left_knee_revolute",
+    "act_left_foot_revolute",
+    "act_right_hip_torso_revolute",
+    "act_right_hip_upper_revolute",
+    "act_right_lower_thigh_O_bracket_revolute",
+    "act_right_knee_revolute",
+    "act_right_foot_revolute",
+    "act_left_shoulder_revolute",
+    "act_left_arm_revolute",
+    "act_left_elbow_revolute",
+    "act_right_shoulder_revolute",
+    "act_right_arm_revolute",
+    "act_right_elbow_revolute",
+    "act_head_revolute",
+    "act_left_hand_tip_revolute",
+    "act_right_hand_tip_revolute"
+   ],
+   "action_mode": "full_command",
+   "command_center_rad": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "action_scale_rad": [
+    1.5707999467849731,
+    1.5707999467849731,
+    1.5707999467849731,
+    1.5707999467849731,
+    1.5707999467849731,
+    1.5707999467849731,
+    1.5707999467849731,
+    1.5707999467849731,
+    1.5707999467849731,
+    1.5707999467849731,
+    1.5707999467849731,
+    1.5707999467849731,
+    1.5707999467849731,
+    1.5707999467849731,
+    1.5707999467849731,
+    1.5707999467849731,
+    1.5707999467849731,
+    1.5707999467849731,
+    1.5707999467849731
+   ],
+   "standing_ctrl_rad": [
+    0.002053000032901764,
+    -0.0005389999714680016,
+    -0.011877000331878662,
+    0.022300999611616135,
+    0.0022009999956935644,
+    0.009438999928534031,
+    -0.010068999603390694,
+    0.035443998873233795,
+    -0.04647200182080269,
+    -0.01934799924492836,
+    -0.0026400000788271427,
+    0.001961000030860305,
+    0.01697400026023388,
+    0.0017130000051110983,
+    0.004222999792546034,
+    0.008991999551653862,
+    -0.01281300000846386,
+    -0.00026699999580159783,
+    0.0029490001033991575
+   ],
+   "actuator_ctrlrange_rad": [
+    [
+     -1.5708,
+     1.5708
+    ],
+    [
+     -1.5708,
+     1.5708
+    ],
+    [
+     -1.5708,
+     1.5708
+    ],
+    [
+     -1.5708,
+     1.5708
+    ],
+    [
+     -1.5708,
+     1.5708
+    ],
+    [
+     -1.5708,
+     1.5708
+    ],
+    [
+     -1.5708,
+     1.5708
+    ],
+    [
+     -1.5708,
+     1.5708
+    ],
+    [
+     -1.5708,
+     1.5708
+    ],
+    [
+     -1.5708,
+     1.5708
+    ],
+    [
+     -1.5708,
+     1.5708
+    ],
+    [
+     -1.5708,
+     1.5708
+    ],
+    [
+     -1.5708,
+     1.5708
+    ],
+    [
+     -1.5708,
+     1.5708
+    ],
+    [
+     -1.5708,
+     1.5708
+    ],
+    [
+     -1.5708,
+     1.5708
+    ],
+    [
+     -1.5708,
+     1.5708
+    ],
+    [
+     -1.5708,
+     1.5708
+    ],
+    [
+     -1.5708,
+     1.5708
+    ]
+   ],
+   "actuator_forcerange_nm": [
+    [
+     -1.765197,
+     1.765197
+    ],
+    [
+     -1.765197,
+     1.765197
+    ],
+    [
+     -1.765197,
+     1.765197
+    ],
+    [
+     -1.765197,
+     1.765197
+    ],
+    [
+     -1.765197,
+     1.765197
+    ],
+    [
+     -1.765197,
+     1.765197
+    ],
+    [
+     -1.765197,
+     1.765197
+    ],
+    [
+     -1.765197,
+     1.765197
+    ],
+    [
+     -1.765197,
+     1.765197
+    ],
+    [
+     -1.765197,
+     1.765197
+    ],
+    [
+     -1.765197,
+     1.765197
+    ],
+    [
+     -1.765197,
+     1.765197
+    ],
+    [
+     -1.765197,
+     1.765197
+    ],
+    [
+     -1.765197,
+     1.765197
+    ],
+    [
+     -1.765197,
+     1.765197
+    ],
+    [
+     -1.765197,
+     1.765197
+    ],
+    [
+     -1.765197,
+     1.765197
+    ],
+    [
+     -1.765197,
+     1.765197
+    ],
+    [
+     -1.765197,
+     1.765197
+    ]
+   ],
+   "actuator_gainprm": [
+    [
+     40.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     40.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     40.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     40.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     40.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     40.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     40.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     40.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     40.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     40.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     40.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     40.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     40.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     40.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     40.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     40.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     40.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     40.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     40.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   ],
+   "actuator_biasprm": [
+    [
+     0.0,
+     -40.0,
+     -0.6,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     -40.0,
+     -0.6,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     -40.0,
+     -0.6,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     -40.0,
+     -0.6,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     -40.0,
+     -0.6,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     -40.0,
+     -0.6,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     -40.0,
+     -0.6,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     -40.0,
+     -0.6,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     -40.0,
+     -0.6,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     -40.0,
+     -0.6,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     -40.0,
+     -0.6,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     -40.0,
+     -0.6,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     -40.0,
+     -0.6,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     -40.0,
+     -0.6,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     -40.0,
+     -0.6,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     -40.0,
+     -0.6,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     -40.0,
+     -0.6,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     -40.0,
+     -0.6,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     -40.0,
+     -0.6,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   ],
+   "control_dt_seconds": 0.02,
+   "action_repeat": 10,
+   "slew_rad_per_second": 6.0
+  },
+  "physics": {
+   "source_files": {
+    "xml": "dc50f703e5d1312e92db398dae62d70342c010450d684ca00a00fa608706d738",
+    "xml/mesh:4": "6898f3b49ca8a8c840a19e38efcdd4a9dec5c6030a1940045a8d74c1e1e7990f",
+    "xml/mesh:5": "b427efadd17a9e9986928417db29af3cf60ff01275a95b03663af8bdaa63c057",
+    "xml/mesh:6": "a47129cf2bec5879d7aa923b0d53f19da01e1e955e1347541ef9bf83791e2dde",
+    "xml/mesh:7": "354b2a75234850b486568367a1073a9b89b9959e461d04e1f4f43a4b628ec498",
+    "xml/mesh:8": "aeb82600a9ac0bc01a7fc3a4dfd2e59b949354d6f4966fffb2a0dcb5cad2aeb8",
+    "xml/mesh:9": "6b6486a751507bc4844923b013d47d251aa01b86abf233ff915a5d8e538570b9",
+    "xml/mesh:10": "7db77bad8144d78e356670a1acaeb828f817b570ddd2c20e4f6efc67fa9cad74",
+    "xml/mesh:11": "d623c6015cadff1120f619cd559a413b1877aae0936fb6fde13195356eb00154",
+    "xml/mesh:12": "fe4fa074f9bba1b17f98dfa003606eb0199386bc6c969005808975e90022ede9",
+    "xml/mesh:13": "647d32a770ab1b3a4be8999c9c203ed9e10eb44df4e9a5e10d7ef3392240c0e4",
+    "xml/mesh:14": "fde7a4e7b7a7cc24458b000508f3dcb7953640207c1481aa5e829830fda465a0",
+    "xml/mesh:15": "12e657f37a805c1e315c6e22baab39f03b7a9f7cfc9f2194f7ff3ffc8165260c",
+    "xml/mesh:16": "b20fe5bb4cc41adb0de946ffa746ead4e24427baae4cd4f6523f48a257d3b384",
+    "xml/mesh:17": "7f90ae1f9f46b35b9b20e7db5a72d5ca621fdb34f3a3411f2cfa4f7c9c91fb7a",
+    "xml/mesh:18": "8929abda015178cfe1f66bbb5ecaec6fb0f235c76f947a322b83611cb7bdd606",
+    "xml/mesh:19": "305d8898e29caaa796a2083d3db5e636a0913d7eef8f452ee7af60d8d7ce1c30",
+    "xml/mesh:20": "69825ef25de649664c039c43f32dc6eacde0e3a4e0d39afed8b5c15b13391696",
+    "xml/mesh:21": "f5b45170c755c52b08a1c908eb8ace1db30e304a808d752265c1e8ab8f2817b5",
+    "xml/mesh:22": "583ed204721fdfa7a97fd53461d2521927130eee14bc5649632b0977d49b22ea",
+    "xml/mesh:23": "06da442a3739728ef7c3dc527cf95686c4a052b799f251bd398ca7bd55c1f549",
+    "xml/mesh:24": "ac8a8e6c20cc0f6b7826521cb14fe1cb1a9bfe5dea245660839325906291d9a9",
+    "xml/mesh:25": "c67e91793656ef0ca99b671d0d4ba7cb46e8049a0109e719082f180cfce1c22c",
+    "xml/mesh:26": "3ba385b336bfb2de88470c52c45cf07e09969ddbf1bcd25f54cec64def14c4ed",
+    "xml/mesh:27": "46e9c1f653abcfee7ac9bf5ced039526ea9e6799b69a8b8e20bb4813cbc3fb9e",
+    "xml/mesh:28": "26be71495069b334de956a8f0c4123724a9201b05bbd182c3fc3e4f38222d3c0",
+    "xml/mesh:29": "c09df160a9906cad4bfd9b25ac089a0242c6c8c2e040381ec6e216ac5d76f258",
+    "xml/mesh:30": "94b44684a35c69d3565c99f30a0e058f810cee9085e4e5d7aa89ccfe7da41746",
+    "xml/mesh:31": "424452e7c495d29865800eb49fe4c1a96318e73b18969af2112d548932719a20",
+    "xml/mesh:32": "bd0c2d2ff4091f7425c860590222ca1f2926243ce53e7c74cf6eea452d1a47e6",
+    "xml/mesh:33": "6ca9f1e40f20e6b45fd0de355e44b67fe621659dc892ed9cc5eb01eb10ce4e05",
+    "xml/mesh:34": "93aa9a5a736ae90315fd3d1811aaf681894c2f98c1fff2909ab75bb6b1b587a4",
+    "xml/mesh:35": "1c344e46f4227297fac8fa9d52e6bf259aecf315c4c7a258b9289279ade4b6cb",
+    "xml/mesh:36": "3d08518f3e7a27c8804469a4095516c59d23b2b4cd368797f3dc85b88e252873",
+    "xml/mesh:37": "0cdb6eebc52bcba83d157583ee1cc48ae46d339aef09818f2e3303fee632d9c0",
+    "xml/mesh:38": "6b7e2d38737f5e015356accfd49282c7fb903efa6de41a55907c0a3746be7b26",
+    "xml/mesh:39": "e234f5345ea1702e473d32d91b30d1d42a6fb942dfb9684167836eda7c7678d0",
+    "xml/mesh:40": "0942855fb794c8e87f94ef52a25b9a32b273026350a9ca6daa804be3f41602c8",
+    "xml/mesh:41": "d2cb26a1da67676cede9ef091cbbc33710c3366a75c52653aef14e7906970f0d",
+    "xml/mesh:42": "161f1c5df1e16ab1d5435c94db03c43360f4d6a47d131ced55481029c90d7a70",
+    "xml/mesh:43": "809811977062a50a780129a78c98fa2563386e4d5e9926761caf0362d93a4b46",
+    "xml/mesh:44": "24bdcc3f77d2834c4f177ca706e2a368ff4ebb382837017c229c050bc401925b",
+    "xml/mesh:45": "29ae6511702cca9367a228772716d42cea562873312a779eb1ced7f13a9fbce4",
+    "xml/mesh:46": "6cd0ca636cd0b0266eba09080492252c266847da904398f26294a4f66c41f7b2",
+    "xml/mesh:47": "5ae1c81b87f543dd3c41ef4ff2948770605f18c2b5fe0c834d82b84429653ed0",
+    "xml/mesh:48": "3216553d0efc12256612902ecdfa20890e33ed38916bdf32be77016081ced2f4",
+    "xml/mesh:49": "948e66b63c6477ff438d379b6cee5d68ad4423e5ae2a0459bfd604dd431d1147",
+    "xml/mesh:50": "d088efab7cc0ad5020d6708d17b2cc0b3878021e2143f3191a728cc69cf91aac"
+   },
+   "generated_files": {
+    "xml": "fdb3484debf53a26c2e588027969e0170124f37a9f4ce13cecc10aab5aff5f45",
+    "xml/mesh:4": "6898f3b49ca8a8c840a19e38efcdd4a9dec5c6030a1940045a8d74c1e1e7990f",
+    "xml/mesh:5": "b427efadd17a9e9986928417db29af3cf60ff01275a95b03663af8bdaa63c057",
+    "xml/mesh:6": "a47129cf2bec5879d7aa923b0d53f19da01e1e955e1347541ef9bf83791e2dde",
+    "xml/mesh:7": "354b2a75234850b486568367a1073a9b89b9959e461d04e1f4f43a4b628ec498",
+    "xml/mesh:8": "aeb82600a9ac0bc01a7fc3a4dfd2e59b949354d6f4966fffb2a0dcb5cad2aeb8",
+    "xml/mesh:9": "6b6486a751507bc4844923b013d47d251aa01b86abf233ff915a5d8e538570b9",
+    "xml/mesh:10": "7db77bad8144d78e356670a1acaeb828f817b570ddd2c20e4f6efc67fa9cad74",
+    "xml/mesh:11": "d623c6015cadff1120f619cd559a413b1877aae0936fb6fde13195356eb00154",
+    "xml/mesh:12": "fe4fa074f9bba1b17f98dfa003606eb0199386bc6c969005808975e90022ede9",
+    "xml/mesh:13": "647d32a770ab1b3a4be8999c9c203ed9e10eb44df4e9a5e10d7ef3392240c0e4",
+    "xml/mesh:14": "fde7a4e7b7a7cc24458b000508f3dcb7953640207c1481aa5e829830fda465a0",
+    "xml/mesh:15": "12e657f37a805c1e315c6e22baab39f03b7a9f7cfc9f2194f7ff3ffc8165260c",
+    "xml/mesh:16": "b20fe5bb4cc41adb0de946ffa746ead4e24427baae4cd4f6523f48a257d3b384",
+    "xml/mesh:17": "7f90ae1f9f46b35b9b20e7db5a72d5ca621fdb34f3a3411f2cfa4f7c9c91fb7a",
+    "xml/mesh:18": "8929abda015178cfe1f66bbb5ecaec6fb0f235c76f947a322b83611cb7bdd606",
+    "xml/mesh:19": "305d8898e29caaa796a2083d3db5e636a0913d7eef8f452ee7af60d8d7ce1c30",
+    "xml/mesh:20": "69825ef25de649664c039c43f32dc6eacde0e3a4e0d39afed8b5c15b13391696",
+    "xml/mesh:21": "f5b45170c755c52b08a1c908eb8ace1db30e304a808d752265c1e8ab8f2817b5",
+    "xml/mesh:22": "583ed204721fdfa7a97fd53461d2521927130eee14bc5649632b0977d49b22ea",
+    "xml/mesh:23": "06da442a3739728ef7c3dc527cf95686c4a052b799f251bd398ca7bd55c1f549",
+    "xml/mesh:24": "ac8a8e6c20cc0f6b7826521cb14fe1cb1a9bfe5dea245660839325906291d9a9",
+    "xml/mesh:25": "c67e91793656ef0ca99b671d0d4ba7cb46e8049a0109e719082f180cfce1c22c",
+    "xml/mesh:26": "3ba385b336bfb2de88470c52c45cf07e09969ddbf1bcd25f54cec64def14c4ed",
+    "xml/mesh:27": "46e9c1f653abcfee7ac9bf5ced039526ea9e6799b69a8b8e20bb4813cbc3fb9e",
+    "xml/mesh:28": "26be71495069b334de956a8f0c4123724a9201b05bbd182c3fc3e4f38222d3c0",
+    "xml/mesh:29": "c09df160a9906cad4bfd9b25ac089a0242c6c8c2e040381ec6e216ac5d76f258",
+    "xml/mesh:30": "94b44684a35c69d3565c99f30a0e058f810cee9085e4e5d7aa89ccfe7da41746",
+    "xml/mesh:31": "424452e7c495d29865800eb49fe4c1a96318e73b18969af2112d548932719a20",
+    "xml/mesh:32": "bd0c2d2ff4091f7425c860590222ca1f2926243ce53e7c74cf6eea452d1a47e6",
+    "xml/mesh:33": "6ca9f1e40f20e6b45fd0de355e44b67fe621659dc892ed9cc5eb01eb10ce4e05",
+    "xml/mesh:34": "93aa9a5a736ae90315fd3d1811aaf681894c2f98c1fff2909ab75bb6b1b587a4",
+    "xml/mesh:35": "1c344e46f4227297fac8fa9d52e6bf259aecf315c4c7a258b9289279ade4b6cb",
+    "xml/mesh:36": "3d08518f3e7a27c8804469a4095516c59d23b2b4cd368797f3dc85b88e252873",
+    "xml/mesh:37": "0cdb6eebc52bcba83d157583ee1cc48ae46d339aef09818f2e3303fee632d9c0",
+    "xml/mesh:38": "6b7e2d38737f5e015356accfd49282c7fb903efa6de41a55907c0a3746be7b26",
+    "xml/mesh:39": "e234f5345ea1702e473d32d91b30d1d42a6fb942dfb9684167836eda7c7678d0",
+    "xml/mesh:40": "0942855fb794c8e87f94ef52a25b9a32b273026350a9ca6daa804be3f41602c8",
+    "xml/mesh:41": "d2cb26a1da67676cede9ef091cbbc33710c3366a75c52653aef14e7906970f0d",
+    "xml/mesh:42": "161f1c5df1e16ab1d5435c94db03c43360f4d6a47d131ced55481029c90d7a70",
+    "xml/mesh:43": "809811977062a50a780129a78c98fa2563386e4d5e9926761caf0362d93a4b46",
+    "xml/mesh:44": "24bdcc3f77d2834c4f177ca706e2a368ff4ebb382837017c229c050bc401925b",
+    "xml/mesh:45": "29ae6511702cca9367a228772716d42cea562873312a779eb1ced7f13a9fbce4",
+    "xml/mesh:46": "6cd0ca636cd0b0266eba09080492252c266847da904398f26294a4f66c41f7b2",
+    "xml/mesh:47": "5ae1c81b87f543dd3c41ef4ff2948770605f18c2b5fe0c834d82b84429653ed0",
+    "xml/mesh:48": "3216553d0efc12256612902ecdfa20890e33ed38916bdf32be77016081ced2f4",
+    "xml/mesh:49": "948e66b63c6477ff438d379b6cee5d68ad4423e5ae2a0459bfd604dd431d1147",
+    "xml/mesh:50": "d088efab7cc0ad5020d6708d17b2cc0b3878021e2143f3191a728cc69cf91aac"
+   },
+   "timestep_seconds": 0.002,
+   "contacts_per_world": 256,
+   "compiled_geometry_sha256": "f71ff66f9d25b42618e4c25126d92225a927427c2e3d3f897b2dd4d7e74c8196"
+  },
+  "task": {
+   "name": "walking",
+   "target_forward_speed_m_s": 0.08,
+   "reward_profile": "autonomous_walk_v1",
+   "valid_step_clearance_m": 0.015,
+   "valid_step_clearance_comparison": "greater_or_equal",
+   "simplified_rewards": true,
+   "gait_curriculum": false,
+   "backward_drift_weight": 0.1,
+   "stance_knee_sag_weight": 0.08,
+   "episode_horizon_control_steps": 1000,
+   "reward_sizes": {
+    "fall_penalty": 150.0,
+    "landing_weight": 10.0,
+    "first_step_bonus": 20.0,
+    "goal_bonus": 500.0,
+    "stall_out_penalty": 30.0,
+    "stall_out_seconds": 20.0,
+    "action_weight": 10.0,
+    "stall_grace_seconds": 8.0,
+    "still_pays": 0.0,
+    "lateral_scale": 0.08
+   },
+   "alive_bonus": 0.5,
+   "standing_posture_weight": 0.0,
+   "footsteps": null
+  },
+  "controller": {
+   "full_command": true,
+   "identity": "autonomous_full_command_v1",
+   "observation_semantics": "proprio45_sensor_slots_no_reference_v1",
+   "gait_residual": false,
+   "reference_kind": "none",
+   "reference_sample_offset_control_steps": 0.0,
+   "reference_speed": 1.0,
+   "phase_rate_range": 0.0,
+   "phase_observations": false,
+   "stabilizer": null,
+   "stabilizer_reset_history": "reset_roll_zero_rate_v1",
+   "manual_injection_hold_seconds": 2.0,
+   "manual_injection_blend_seconds": 1.0,
+   "mjx_scripted_gait_sha256": null,
+   "gait_reference_csv_sha256": null,
+   "mjx_scripted_phase_pool_sha256": null
+  },
+  "reset": {
+   "rsi_stratified": false,
+   "source_kind": "standing",
+   "joint_noise_rad": 0.005,
+   "velocity_noise_rad_s": 0.005,
+   "injected_pose_min_id": 1073741824
+  },
+  "environment_code": {
+   "envs/mjx_walking/env.py": "e5a55f0cfab9e16f7111c5386d3c6232b30a57b4563374cf1f71e7cab4ddb642",
+   "envs/mjx_walking/phase1_task.py": "fca26c860f9a9049134c3f65d379716d2023bd382c266255ec03c5c27fd89bb3",
+   "envs/mjx_walking/scene.py": "38bae9b3baee74c969c4bf56204a87f60011752290c951f0b83199209c2f3fca",
+   "envs/mjx_teacher_env.py": "6a24e12d53140df5ff66afb3acfa2b5f37f776dd78608b05735d8b6849b94ae8",
+   "envs/teacher_state.py": "8130f9ec4654b90c7d3532f45484d791d34c8989f635253320b80c4171dd1006",
+   "full_command.py": "1541512b08c057c305e431790d02240fc3f66ac143b29e99c78c9fa5fd3b1f62"
+  }
+ },
+ "imitation": {
+  "version": 1,
+  "pretraining_updates": 12000,
+  "mode": "full_command_bc",
+  "seed": 0,
+  "validation_protocol": "Held-out teacher-forced previous commands; deterministic posterior modes",
+  "qualification": "Imitation loss only; no walking rollout",
+  "initial_validation_bc": 0.017338324338197708,
+  "final_validation_bc": 2.64723939835676e-06,
+  "best_validation_bc": 2.64723939835676e-06,
+  "final_validation_improved": true,
+  "validation_improved": true
+ }
+}

@@ -1,0 +1,28 @@
+# Six explicitly budgeted adaptation phases are selected by the supervisor.
+defaults:
+  - walking_mjx_teacher_next
+  - _self_
+
+env:
+  env_num: 128
+  steps: 1000000
+  mjx_task: walking
+  training_pose_id: null
+  eval_repeatable: true
+
+buffer:
+  max_size: 16384
+
+trainer:
+  eval_every: 100000
+  checkpoint_interval: 100000
+  train_video: false
+  eval_video: true
+  eval_video_final_only: true
+  eval_video_one_per_pose: true
+  eval_video_tensorboard: false
+  eval_video_save_mp4: true
+  eval_video_width: 320
+  eval_video_height: 240
+  eval_video_stride: 2
+  eval_video_fps: 25

@@ -1,0 +1,92 @@
+task: 'humanoid_progressive_walking'
+steps: 25000    # first validation budget, not a promise of learned walking
+                 # per level (10k -> inspect -> 25k -> inspect -> 50k -> decision) and stop
+                 # early if the level's success criterion isn't met (see this task's design
+                 # doc / curriculum_level table in humanoid_progressive_walking_env.py).
+env_num: 4
+eval_episode_num: 4
+eval_seed_offset: 10000
+action_repeat: 10
+train_ratio: 128
+time_limit: 5000  # 500 wrapped steps @ dt=0.02s = 10s per episode.
+
+seed: ${seed}
+device: ${device}
+
+size: [64, 64]   # unused while enable_vision is false, but make_env() reads config.size
+                 # unconditionally -- must be present or Hydra's struct mode raises.
+
+# Proprio-only for the first validation levels (0-4): isolate whether the curriculum
+# reward itself produces the right physical behavior before paying for vision rendering.
+enable_vision: false
+
+encoder:
+  mlp_keys: 'proprio'
+  cnn_keys: '$^'
+decoder:
+  mlp_keys: 'proprio'
+  cnn_keys: '$^'
+
+# Curriculum level to run -- change ONLY this (plus target_vx once at level 4+) between
+# validation cycles; do not expose every level at once (see design doc). Raise the level
+# only after the previous one's success criterion is met.
+#   0 stand | 1 weight_shift | 2 single_step | 3 alternating_steps | 4 continuous_walk
+#   5 speed_stop | 6 turning | 7 hurdles* | 8 single_step_terrain* | 9 stairs* | 10 payload
+#   11 robust_combined   (* = terrain hook only, no obstacle geometry in the scene yet)
+curriculum_level: 0
+target_vx: 0.08
+
+# Current hardware-informed baseline. Gains and command rate remain provisional.
+scene_path: null
+forward_axis: [0.0, -1.0]
+total_mass_kg: 2.66
+action_scale: 0.2
+standing_action_scale: 0.05  # level 0 only; levels 1-5 retain 0.2 rad reach
+max_target_rate: 2.0
+servo_kp: 10.0
+servo_kv: 0.2
+best_metric_key: standing_seconds
+target_extension: null  # derive torso-to-sole-center height from standing_start
+extension_sigma: 0.03   # metres; exp(-((target - extension) / sigma)^2)
+extension_weight: 0.35  # dense reward rate, integrated over dt
+encoder_training_aid: false  # opt-in experiment, never needed by default policy
+# Four hardware-realizable pressure channels: left heel, left toe, right heel,
+# right toe. Disabled in legacy recipes so old observation shapes do not change.
+foot_pressure_observation: false
+fsr_force_scale_bw: 0.50
+fsr_noise_std: 0.015
+fsr_gain_range: [0.90, 1.10]
+fsr_bias_range: [-0.01, 0.01]
+fsr_dropout_probability: 0.005
+fsr_filter_time_constant: 0.02
+encoder_full_updates: 500
+encoder_off_updates: 1000
+reference_deviation_weight: 0.6  # level 0 only; normalized squared target offset
+reset_height_noise: 0.0015
+reset_velocity_noise: 0.003
+reset_joint_noise: 0.01  # radians; controller must recover toward standing reference
+imu_orientation_weight: 3.0  # level 0, tilt only; heading is scored separately
+imu_orientation_tolerance_rad: 0.2617993878  # 15 degrees
+imu_tilt_deadband_rad: 0.0523598776  # 3 degrees
+standing_tilt_limit_rad: 0.1396263402  # 8 degrees, shared success/streak gate
+heading_weight: 0.10
+standing_streak_reward_weight: 0.5  # ramps up only during uninterrupted good standing
+standing_streak_ramp_time: 2.0
+weight_shift_load_share_start: 0.52  # centered standing earns zero transfer reward
+weight_shift_target_load_share: 0.70
+weight_shift_success_threshold: 0.75
+weight_shift_event_bonus: 1.0
+support_switch_time: 0.75
+min_swing_time: 0.08
+max_swing_time: 0.80
+
+# Optional phase-based vendor gait teacher. Disabled in the standard curriculum.
+# The policy observation remains 37 values, so a Stage-0 checkpoint stays compatible.
+gait_reference_csv: null
+gait_reference_amplitude: 0.0
+gait_reference_speed: 1.0
+gait_reference_signs: null
+gait_reference_tracking_weight: 0.0
+gait_reference_tracking_sigma: 0.2094395102  # 12 degrees
+gait_reference_rsi_probability: 0.0  # probability of resetting into a random gait phase
+gait_reference_rsi_joint_noise: 0.0  # radians of joint noise around the sampled gait pose

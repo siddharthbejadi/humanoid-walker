@@ -1,0 +1,60 @@
+Encoder CNN shapes: {}
+Encoder MLP shapes: {'proprio': (45,)}
+     5,786,368: rssm
+       797,734: actor
+       853,503: value
+       721,407: reward
+       656,129: cont
+       144,128: encoder
+       655,360: projector
+Optimizer has: 9614629 parameters.
+Warp 1.17.0 initialized:
+   CUDA Toolkit 12.9, Driver 13.4
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA GeForce RTX 4060 Laptop GPU" (8 GiB, sm_89, mempool enabled)
+   Kernel cache:
+     /home/abhi/.cache/warp/1.17.0
+checkpoint matches this simulator's contract; simulating...
+/home/abhi/.local/share/uv/python/cpython-3.11.17-linux-x86_64-gnu/lib/python3.11/subprocess.py:1885: RuntimeWarning: os.fork() was called. os.fork() is incompatible with multithreaded code, and JAX is multithreaded, so this will likely lead to a deadlock.
+  self.pid = _fork_exec(
+Module mujoco.mjx.warp.ffi 4443472 load on device 'cuda:0' took 4.04 ms  (cached)
+Module mujoco.mjx.third_party.mujoco_warp._src.smooth 64d3b60 load on device 'cuda:0' took 4.83 ms  (cached)
+Module _nxn_broadphase__locals__kernel_04e59282 04e5928 load on device 'cuda:0' took 2.39 ms  (cached)
+Module ccd_kernel_builder__locals__ccd_kernel_2781d0cd 2781d0c load on device 'cuda:0' took 4.79 ms  (cached)
+Module ccd_kernel_builder__locals__ccd_kernel_2781d0cd 8b866eb load on device 'cuda:0' took 4.76 ms  (cached)
+Module _primitive_narrowphase__locals__primitive_narrowphase_17210ec6 17210ec load on device 'cuda:0' took 3.50 ms  (cached)
+Module mujoco.mjx.third_party.mujoco_warp._src.constraint 8d4d513 load on device 'cuda:0' took 1.92 ms  (cached)
+Module _friction_dof__locals__kernel_f5f6cb7e f5f6cb7 load on device 'cuda:0' took 5.52 ms  (cached)
+Module _limit_slide_hinge__locals__kernel_3fb01e2e 3fb01e2 load on device 'cuda:0' took 3.70 ms  (cached)
+Module _efc_contact_init__locals__kernel_50939fb1 50939fb load on device 'cuda:0' took 3.03 ms  (cached)
+Module _efc_contact_jac_dense__locals__kernel_6b457580 747ee66 load on device 'cuda:0' took 2.72 ms  (cached)
+Module _efc_contact_update__locals__kernel_807a87a8 807a87a load on device 'cuda:0' took 2.31 ms  (cached)
+Module mujoco.mjx.third_party.mujoco_warp._src.sensor fe10c99 load on device 'cuda:0' took 4.08 ms  (cached)
+Module mujoco.mjx.third_party.mujoco_warp._src.forward 0b590b4 load on device 'cuda:0' took 3.73 ms  (cached)
+Module mujoco.mjx.third_party.mujoco_warp._src.passive 29de081 load on device 'cuda:0' took 3.36 ms  (cached)
+Module _qfrc_passive_kernel__locals__kernel_976399dd 976399d load on device 'cuda:0' took 1.76 ms  (cached)
+Module mujoco.mjx.third_party.mujoco_warp._src.forward 10b70aa load on device 'cuda:0' took 3.37 ms  (cached)
+Module _qfrc_smooth__locals__kernel_8b823980 8b82398 load on device 'cuda:0' took 1.89 ms  (cached)
+Module mujoco.mjx.third_party.mujoco_warp._src.support 770ef7d load on device 'cuda:0' took 2.35 ms  (cached)
+Module _tile_cholesky_factorize_solve_block__locals__kernel_4a4b1642 4b2e84d load on device 'cuda:0' took 55.91 ms  (cached)
+Module _solve_init_dof__locals__kernel_021c7a0e 021c7a0 load on device 'cuda:0' took 2.66 ms  (cached)
+Module mujoco.mjx.third_party.mujoco_warp._src.solver 6f966b9 load on device 'cuda:0' took 2.92 ms  (cached)
+Module _solve_init_jaref_kernel__locals__kernel_a13d0153 a13d015 load on device 'cuda:0' took 1.93 ms  (cached)
+Module mul_m_kernel__locals___mul_m_f3de1cc7 f3de1cc load on device 'cuda:0' took 2.14 ms  (cached)
+Module _update_constraint_efc__locals__kernel_0539aa50 0539aa5 load on device 'cuda:0' took 1.98 ms  (cached)
+Module _update_constraint_init_qfrc_constraint_dense__locals__kernel_bd7ca2ec bd7ca2e load on device 'cuda:0' took 2.18 ms  (cached)
+Module _update_gradient_zero_grad_dot__locals__kernel_b20934d7 b20934d load on device 'cuda:0' took 1.88 ms  (cached)
+Module _update_gradient_grad__locals__kernel_c876081d c876081 load on device 'cuda:0' took 2.11 ms  (cached)
+Module _update_gradient_JTDAJ_dense_tiled__locals__kernel_d554dfad 7995fae load on device 'cuda:0' took 3.45 ms  (cached)
+Module _update_gradient_cholesky__locals__kernel_2980eab1 7f6b756 load on device 'cuda:0' took 71.89 ms  (cached)
+Module _linesearch_iterative_kernel__locals__kernel_9b41a163 14dd0c1 load on device 'cuda:0' took 3.23 ms  (cached)
+Module _solve_done__locals__kernel_ce99440c ce99440 load on device 'cuda:0' took 2.25 ms  (cached)
+Module _contact_match_builder__locals___contact_match_7f2d76cd 7f2d76c load on device 'cuda:0' took 2.76 ms  (cached)
+Module _contact_sort__locals__contact_sort_d9242443 e885bb9 load on device 'cuda:0' took 2.05 ms  (cached)
+Module mujoco.mjx.third_party.mujoco_warp._src.derivative 02a5c73 load on device 'cuda:0' took 4.05 ms  (cached)
+Module _next_time_builder__locals___next_time_bc454e15 bc454e1 load on device 'cuda:0' took 5.46 ms  (cached)
+simulated 1000 control steps (20.0 s) in 109 s wall
+forward travel 1.20 m | fell: False | valid steps L 17 R 16 | alternating 32 | final height 0.296 m
+saved /mnt/c/robot/mixed_training/r2dreamer_deploy_20261013/walk_demo/walk_1100.npz
+wrote video /mnt/c/robot/mixed_training/r2dreamer_deploy_20261013/walk_demo/walk_1100.mp4

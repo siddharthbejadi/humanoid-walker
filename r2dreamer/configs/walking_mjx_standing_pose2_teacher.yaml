@@ -1,0 +1,104 @@
+# Pose-balance curriculum, stage 2 of 4: train the standing reward's
+# balance recovery starting from manual RSI pose "2" specifically. Chained
+# from stage 1 (pose "1"), not restarted from the original standing
+# checkpoint -- init_from should point at pose 1's own latest.pt (a
+# GRACEFUL stop, SIGTERM not SIGKILL -- latest.pt is only ever written on
+# graceful shutdown or full natural completion, see train.py/trainer.py) so
+# pose 1's learned recovery carries forward rather than being discarded.
+# See walking_mjx_standing_pose1_teacher.yaml for the full rationale (the
+# two task-gating relaxations in env.py/mjx_teacher_env.py, why env_num=64
+# not the committed standing config's 192, etc.) -- identical here except
+# for training_pose_id.
+defaults:
+  - walking_first_step
+  - _self_
+
+logdir: ${oc.env:TEACHER_RUN_DIR}
+resume_from: null
+init_from: null
+transfer_from: null
+batch_size: 16
+batch_length: 64
+
+env:
+  backend: mjx_teacher
+  mjx_teacher_experimental: true
+  scene_path: ${oc.env:TEACHER_SCENE}
+  enable_vision: false
+  encoder_training_aid: false
+  auxiliary_state_targets: false
+  foot_pressure_observation: true
+  # 64, not the standing config's 192: 192 only ever passed preflight, never
+  # a full training run with real optimizer updates -- confirmed OOM-prone
+  # at that scale (2026-10-05/06). 64 + XLA_PYTHON_CLIENT_MEM_FRACTION=0.6
+  # is the only combination with a confirmed full-length completion.
+  env_num: 64
+  eval_episode_num: 8
+  # Matches the successful standing run's exact validated numbers
+  # (mjx_teacher_standing_pilot_20261006_003625): warmup floor
+  # (batch_length+3)*env_num*action_repeat = 67*64*10 = 42,880.
+  steps: 500000
+  train_ratio: 64
+  time_limit: 5000  # 500 control steps @ 20 ms = 10 s/episode (time_limit / action_repeat).
+  mjx_contacts_per_world: 256
+  mjx_task: standing
+  # Unchanged from the standing stage -- no action_scale transfer shock to
+  # worry about yet, that's deferred until walking is retried.
+  mjx_arm_action_scale: 0.39269908169872414   # 22.5 degrees
+  mjx_leg_action_scale: 0.39269908169872414
+  mjx_other_action_scale: 0.39269908169872414
+  mjx_control_slew_rad_s: 2.0
+  mjx_motor_torque_kgcm: 18.0
+  # RSI ON, forced to pose "2" exactly (see training_pose_id below).
+  # rsi_probabilities/eval_rsi_probabilities just need to be valid (nonzero
+  # probability only on a category with poses) -- training_pose_id
+  # overrides the actual index selection regardless of these. Pose "2"
+  # lands in the pool's last category ("second_step"/"other_pose", shared
+  # with pose "1") per measured swing clearance at load time, not JSON key
+  # order -- see scene.py:build_pose_rsi_pool.
+  rsi_stratified: true
+  pose_rsi_allow_falls: true
+  pose_rsi_json: envs/mjx_walking/assets/manual_rsi_poses.json
+  gait_reference_csv: null
+  gait_reference_signs: null
+  rsi_probabilities: [0.0, 0.0, 0.0, 1.0]
+  training_pose_id: 2
+  eval_pose_rsi: true
+  eval_rsi_probabilities: [0.0, 0.0, 0.0, 1.0]
+  mjx_reward_profile: legacy
+  mjx_simplified_rewards: false
+  mjx_backward_drift_weight: 0.0
+  mjx_stance_knee_sag_weight: 0.0
+  encoder:
+    mlp_keys: '^(proprio|teacher_state)$'
+    cnn_keys: '$^'
+  decoder:
+    mlp_keys: '^(proprio|teacher_state)$'
+    cnn_keys: '$^'
+
+model:
+  auxiliary_state: false
+  compile: false
+  mixed_precision: false
+  decoder:
+    mlp_keys: '^(proprio|teacher_state)$'
+
+buffer:
+  max_size: 8192
+  storage_device: ${device}
+
+trainer:
+  steps: ${env.steps}
+  train_ratio: ${env.train_ratio}
+  require_learning: true
+  learning_start_deadline_steps: 80000
+  eval_episode_num: ${env.eval_episode_num}
+  eval_every: 25000
+  eval_max_steps: 500
+  eval_video: false
+  checkpoint_interval: 25000
+  checkpoint_keep_last: 3
+  train_video: false
+  best_metric_key: standing_stable_seconds
+  best_safety_metric_key: fall_count
+  best_tiebreak_metric_key: score
