@@ -103,7 +103,7 @@ cd r2dreamer
 .venv/bin/python scripts/humanlike_walk.py --view
 MUJOCO_GL=glfw .venv/bin/python scripts/humanlike_walk.py --video ../out.mp4
 
-# the trained student (GPU; checkpoint from the Release page, see checkpoints/README.md)
+# the trained student (GPU; weights: `hf download siddharthbejadi/humanoid-walker-student student_realistic_12k.pt --local-dir ../checkpoints`, see checkpoints/README.md)
 .venv/bin/python ../deploy/watch_policy.py --repo . --checkpoint ../checkpoints/student_realistic_12k.pt \
     --seconds 20 --seed 1100 --video ../walk.mp4      # add --view for an interactive MuJoCo window
 ```
@@ -155,7 +155,7 @@ Two targets, with different requirements:
 | GPU machine (Linux/WSL2, NVIDIA, CUDA >= 12.8) | train, evaluate, render | internet for `uv`/pip, ~10 min setup | `r2dreamer/scripts/deploy/setup_script_free.sh`, then [Reproduce the training](#reproduce-the-training) |
 | Robot laptop (Windows, CPU is enough) | run the trained policy at 50 Hz | Python 3.11, ST-LINK USB, the checkpoint | `deploy/setup_windows.bat`, then [Run on the robot](#run-on-the-robot) |
 
-Ship to the robot laptop: `deploy/` + `r2dreamer/` (as `source_v6`) + `student_realistic_12k.pt`. Check the checkpoint hash first (`checkpoints/README.md`). The host refuses to load a checkpoint whose contract differs from the source tree. Nothing in this repo has been run on the physical robot, so treat deployment as bring-up, not production.
+Weights: [Hugging Face](https://huggingface.co/siddharthbejadi/humanoid-walker-student) (private for now). Ship to the robot laptop: `deploy/` + `r2dreamer/` (as `source_v6`) + `student_realistic_12k.pt`. Check the checkpoint hash first (`checkpoints/README.md`). The host refuses to load a checkpoint whose contract differs from the source tree. Nothing in this repo has been run on the physical robot, so treat deployment as bring-up, not production.
 
 ## Run on the robot
 
