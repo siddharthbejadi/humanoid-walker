@@ -19,3 +19,5 @@ graphify-out/cache/
 # secrets
 *.pem
 .env
+# planning-with-files working memory
+.planning/
