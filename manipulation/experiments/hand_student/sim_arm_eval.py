@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Drive the simulated arm from the student's predictions and from the teacher's targets; report fingertip error.
 
-    ~/hc_train/bin/python -I sim_arm_eval.py PRED.npz OUT_DIR TAG --cache CACHE.npz [--holdout-clip NAME] [--video]
+    python sim_arm_eval.py PRED.npz OUT_DIR TAG --cache CACHE.npz [--holdout-clip NAME] [--video]
 
 PRED.npz comes from train_student.py (pred, target, clip, frame). Teacher = hand-tracking targets. Baseline = an arm that
 always holds the average training pose (shows that the student learned something beyond the mean).

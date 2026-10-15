@@ -1,7 +1,7 @@
 {
   "_note": "Numbers measured while building this project (15 Oct 2026). Every value comes from a run of the tools in ../tools on the author's own board-camera recordings; recordings are not published.",
   "arm_found_by_camera_view": {
-    "metric": "share of frames where MoveNet's right-arm keypoints pass the plausibility gate (tools/pose_arm.py arm_vectors, min score 0.04)",
+    "metric": "share of frames where MoveNet's right-arm keypoints pass the plausibility gate (armcopy/pose.py arm_vectors, min score 0.04)",
     "views": [
       {
         "label": "Level view, whole body (take 3)",

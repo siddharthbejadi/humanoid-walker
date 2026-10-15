@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Export the student to ONNX (float) and int8 QDQ, then check float-vs-int8 parity on real frames.
 
-    ~/hc_train/bin/python -I export_onnx.py CKPT.pt CACHE.npz OUT_DIR [--size 224]
+    python export_onnx.py CKPT.pt CACHE.npz OUT_DIR [--size 224]
 Input: float32 NCHW RGB 0..255 (normalisation is inside the graph).  Output: [cx, cy, size, grip].
 """
 import argparse, json, sys

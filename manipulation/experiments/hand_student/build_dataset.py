@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build the training set from extracted frames + hand landmarks.
 
-    ~/hc_train/bin/python -I build_dataset.py FRAME_ROOT_1 [FRAME_ROOT_2 ...] --landmarks DIR --out DERIVED_DIR --cache CACHE.npz
+    python build_dataset.py FRAME_ROOT_1 [FRAME_ROOT_2 ...] --landmarks DIR --out DERIVED_DIR --cache CACHE.npz
 
 Per clip: targets from landmarks (whole hand inside the frame), short gaps (<=5 frames) interpolated, light smoothing.
 Writes DERIVED_DIR/targets_<clip>.npz (numbers only, safe to publish) and a PRIVATE image cache (128x128, never commit).

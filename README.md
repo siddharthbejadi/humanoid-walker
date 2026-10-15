@@ -13,8 +13,9 @@ Both projects share one robot (STM32N6570-DK, 2x PCA9685, MG996R-class servos). 
 <p align="center"><img src="manipulation/media/arm_copies_you.gif" width="560" alt="Board camera (head pixelated) and the simulated humanoid copying the right arm"></p>
 <p align="center"><sub>Board camera (head pixelated) on the left, simulated humanoid on the right. Simulation only. Full video: <a href="manipulation/media/arm_copies_you.mp4">manipulation/media/arm_copies_you.mp4</a></sub></p>
 
-<p align="center"><img src="manipulation/figures/fig_arm_found_by_view.png" width="70%" alt="Share of frames where the arm is found, by camera view"></p>
+<p align="center"><img src="manipulation/figures/fig_dashboard.png" width="100%" alt="Manipulation results dashboard: coverage by camera view, gate threshold, smoothing, fine-tuning, learned network, gripper"></p>
 
+* **Try it:** `pip install -r manipulation/requirements.txt` then `python manipulation/replay.py` (no camera, no downloads: bundled keypoints to the simulated humanoid, about 70 s). 13 tests: `python -m unittest discover -s manipulation/tests`.
 * **What it does:** MoveNet finds your shoulder, elbow and wrist; a plausibility gate rejects junk detections; IK fits the robot's reachable joints (with forward reach from foreshortening); a One-Euro filter smooths the result.
   The arm is found in **98.6 %** of frames with a level camera and the whole body in view, and only **53 %** with the camera low and tilted: where the camera sits matters more than any model.
 * **Honest status (15 Oct 2026):** simulation and live camera only. The real arm has not been driven yet (the dry-mode link test passes, 5 of 5). The gripper works on its training data

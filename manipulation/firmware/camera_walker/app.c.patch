@@ -1,5 +1,5 @@
---- /mnt/c/robot/x-cube-n6-camera-capture-main/Src/app.c	2026-10-15 10:00:38.270885900 +0100
-+++ /mnt/c/robot/camera_walker/Src/app.c	2026-10-15 16:55:28.520160400 +0100
+--- a/Src/app.c
++++ b/Src/app.c
 @@ -24,6 +24,7 @@
  
  #include "app_cam.h"

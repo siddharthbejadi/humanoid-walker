@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Train the joint-space student: camera image (192x192) -> [shoulder, arm, elbow, present-logit].
 
-    ~/hc_train/bin/python -I train_arm_student.py CACHE.npz OUT_DIR [--holdout-clip NAME] [--epochs 30] [--tag name]
+    python train_arm_student.py CACHE.npz OUT_DIR [--holdout-clip NAME] [--epochs 30] [--tag name]
 
 Labels come from the teacher (MoveNet + IK, see label_arm.py).  Regression loss only on frames where the teacher found a plausible arm;
 'present' (BCE) on every frame, so the student also learns to say "I can't see an arm" (the live demo then holds/relaxes).

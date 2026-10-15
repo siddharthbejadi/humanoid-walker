@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Measure how well a hand-tracking model finds the user's hand in extracted frames.
 
-    ~/hc_env/bin/python -I detector_check.py FRAMES_ROOT OUT_DIR REVIEW_DIR
+    python detector_check.py FRAMES_ROOT OUT_DIR REVIEW_DIR
 
 FRAMES_ROOT/<clip>/*.jpg (15 fps).  For every clip:
   * runs MediaPipe Hands twice: per-frame ("static") and with tracking ("video"),

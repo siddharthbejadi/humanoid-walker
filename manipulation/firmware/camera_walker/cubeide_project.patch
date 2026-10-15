@@ -1,5 +1,5 @@
---- /mnt/c/robot/x-cube-n6-camera-capture-main/STM32CubeIDE/STM32N6570-DK/.project	2026-10-15 10:00:16.805991400 +0100
-+++ /mnt/c/robot/camera_walker/STM32CubeIDE/STM32N6570-DK/.project	2026-10-15 17:01:33.545853400 +0100
+--- a/STM32CubeIDE/STM32N6570-DK/.project
++++ b/STM32CubeIDE/STM32N6570-DK/.project
 @@ -197,6 +197,26 @@
  			<locationURI>PARENT-2-PROJECT_LOC/Src/app.c</locationURI>
  		</link>

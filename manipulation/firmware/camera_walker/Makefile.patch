@@ -1,5 +1,5 @@
---- /mnt/c/robot/x-cube-n6-camera-capture-main/Makefile	2026-10-15 10:00:14.945618700 +0100
-+++ /mnt/c/robot/camera_walker/Makefile	2026-10-15 16:55:28.522378900 +0100
+--- a/Makefile
++++ b/Makefile
 @@ -60,6 +60,10 @@
  C_SOURCES += Src/stm32n6xx_it.c
  C_SOURCES += Src/app_cam.c

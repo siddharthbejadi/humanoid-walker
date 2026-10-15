@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Train the student on the cached 128x128 frames.
 
-    ~/hc_train/bin/python -I train_student.py CACHE.npz OUT_DIR [--holdout-clip IMG_0030] [--epochs 20] [--tag name]
+    python train_student.py CACHE.npz OUT_DIR [--holdout-clip IMG_0030] [--epochs 20] [--tag name]
 
 Validation = the last 20% (in time) of every training clip; --holdout-clip additionally keeps one whole clip as a TEST set
 (a different take), which measures how well the student generalises beyond the frames it was trained on.

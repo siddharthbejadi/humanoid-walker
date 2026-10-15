@@ -1,5 +1,5 @@
 """Fine-tuned MoveNet (.keras) -> int8 TFLite (uint8 image in, int8 heatmaps out, same I/O as the zoo model) + parity vs float on held-out frames.
-    ~/hc_tf/bin/python export_movenet_int8.py MODEL.keras CACHE.npz OUT.tflite"""
+    python export_movenet_int8.py MODEL.keras CACHE.npz OUT.tflite"""
 import sys, numpy as np, tensorflow as tf, keras
 mk, cache, out = sys.argv[1:4]
 m = keras.models.load_model(mk, compile=False)

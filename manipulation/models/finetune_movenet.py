@@ -1,6 +1,6 @@
 """Fine-tune the ST model-zoo MoveNet (heatmaps, 192 px, Keras) on YOUR board-camera takes for the right arm  ->  the 'student'.
 
-    ~/hc_tf/bin/python finetune_movenet.py CACHE.npz OUT.keras [--epochs 6]
+    python finetune_movenet.py CACHE.npz OUT.keras [--epochs 6]
 
 Supervision (self-training with temporal cleaning): keypoints of the ORIGINAL zoo model on frames where the arm passed the plausibility gate
 (label_arm.py 'valid'), smoothed over +-2 frames, turned into Gaussian target maps for the right-arm channels (5,6 shoulders, 8 elbow, 10 wrist).

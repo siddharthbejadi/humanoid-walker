@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Gripper network: hand crop -> grip in [0,1] (0 open hand, 1 fist), trained on FreiHAND (non-commercial research data).
-    ~/hc_train/bin/python -I train_grip.py FREIHAND_DIR OUT_DIR [--epochs 12]
+    python train_grip.py FREIHAND_DIR OUT_DIR [--epochs 12]
 Label = finger curl from the 3D joints (same definition as hc_common.targets_from_landmarks: tip-wrist / MCP-wrist, percentile-calibrated).
 Augmentation mimics a hand seen from 2 m on a board camera: random crop/scale, down-up scaling (blur), colour casts (red sleeves), noise."""
 import argparse, json, sys, time
