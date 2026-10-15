@@ -2,7 +2,7 @@
 private_captures/
 models_zoo/
 export/
-data/
+data/private/
 robot_arm_setup.json
 *.mp4
 !media/*.mp4

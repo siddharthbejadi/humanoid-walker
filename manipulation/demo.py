@@ -49,9 +49,9 @@ class Chain:                                                   # one keypoint mo
         cv2.rectangle(im, (8, 340), (108, 354), (255, 255, 255), 1); cv2.rectangle(im, (8, 340), (8 + int(100 * self.grip), 354), (0, 0, 255), -1); cv2.putText(im, 'gripper', (114, 352), 0, 0.45, (255, 255, 255), 1)
         return im
 
-GRIP_MODEL = root / "export" / "grip_v2.onnx"            # produced by models/train_grip.py; optional
+GRIP_MODEL = next((m for m in (root / "weights" / "grip_v2.onnx", root / "export" / "grip_v2.onnx") if m.exists()), root / "weights" / "grip_v2.onnx")   # optional; models/train_grip.py makes it
 if GRIP_MODEL.exists(): grip_sess = ort.InferenceSession(str(GRIP_MODEL), providers=["CPUExecutionProvider"]); grip_on = True
-else: grip_sess = None; grip_on = False; print("gripper model not found (export/grip_v2.onnx): gripper disabled, run models/train_grip.py to create it")
+else: grip_sess = None; grip_on = False; print("gripper model not found (weights/grip_v2.onnx): gripper disabled, run models/train_grip.py to create it")
 grip_raw_init = 0; grip_raw = 0.0; grip_med = 0.0; crop_view = None
 import collections; raw_hist = collections.deque(maxlen=7); grip_closed = False; g_open, g_close = 0.2, 0.35; vals = {}; calib = None
 from armcopy import pose as _pose

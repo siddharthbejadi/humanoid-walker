@@ -67,6 +67,17 @@ class Geometry(unittest.TestCase):
         self.assertEqual(self.robot.render([0.3, 0.2, 0.1, 0.0]).shape, (32, 32, 3))
 
 
+class SampleReplay(unittest.TestCase):
+    def test_the_bundled_sample_retargets_within_the_robots_limits(self):
+        import json
+        from replay import retarget_sequence
+        d = json.loads((Path(__file__).resolve().parents[1] / "data" / "sample" / "live_keypoints.json").read_text())
+        q, found = retarget_sequence(d["keypoints"][:150], d["frame_size"], fps=d["fps"])
+        self.assertGreater(found.mean(), 0.7)                                   # most frames pass the gate
+        self.assertTrue(np.all(np.abs(q) <= 1.5 + 1e-6))                        # the IK never leaves the joint range
+        self.assertGreater(np.ptp(q[:, 1]), 0.3)                                # and the arm actually moves
+
+
 class RobotDriver(unittest.TestCase):
     def test_pulses_are_clamped_and_slew_limited_in_dry_run(self):
         from armcopy.robot import RightArm
