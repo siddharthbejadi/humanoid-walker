@@ -7,3 +7,7 @@ robot_arm_setup.json
 *.mp4
 !media/*.mp4
 __pycache__/
+
+# graphify scratch (graph.json / graph.html / GRAPH_REPORT.md are committed)
+graphify-out/.graphify_*
+graphify-out/cache/

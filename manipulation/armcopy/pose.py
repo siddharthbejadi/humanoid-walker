@@ -41,21 +41,6 @@ class MoveNet:
         return kp
 
 
-def arm_angles(kp, min_score=0.07):
-    """kp (17,3) -> (angles [shoulder, arm, elbow, gripper] for the humanoid's right arm, ok flag).
-    arm   = upper-arm angle from straight-down, outward positive (0 hanging, 1.5 horizontal)
-    elbow = flexion between upper arm and forearm (0 straight)."""
-    s, e, w = kp[RS], kp[RE], kp[RW]
-    if min(s[2], e[2], w[2]) < min_score:
-        return None
-    u, f = e[:2] - s[:2], w[:2] - e[:2]
-    outward = -u[0]                                         # person's right arm: outward = toward image left (camera faces person)
-    abd = np.arctan2(outward, u[1])                         # image y points down: u[1]>0 = hanging
-    cosf = np.dot(u, f) / (np.linalg.norm(u) * np.linalg.norm(f) + 1e-6)
-    flex = np.arccos(np.clip(cosf, -1, 1))
-    return np.array([0.0, np.clip(abd, -0.3, 1.5), np.clip(flex, 0, 1.5), 0.0], np.float32)
-
-
 U_MIN, F_MIN = 0.4, 0.3          # shortest plausible upper arm / forearm, in shoulder widths (foreshortened arms are short)
 EDGE = 0.04     # keypoints this close to the image border (fraction of the padded square) mean the body is cut off: reject
 
