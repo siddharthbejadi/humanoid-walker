@@ -1,0 +1,9 @@
+# private / large / third-party material that must not be committed
+private_captures/
+models_zoo/
+export/
+data/
+robot_arm_setup.json
+*.mp4
+!media/*.mp4
+__pycache__/

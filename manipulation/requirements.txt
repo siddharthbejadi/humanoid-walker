@@ -1,0 +1,10 @@
+# Live demo / inference (Windows 11, Python 3.11; versions as used)
+numpy==2.4.6
+opencv-python==5.0.0.93
+onnxruntime==1.31.0
+mujoco==3.16.0
+ai-edge-litert==2.3.0
+pyserial==3.5
+# Training (WSL2 Ubuntu 22.04, RTX 4060 Laptop GPU, CUDA 12.8): torch 2.8.0+cu128 + torchvision 0.23.0+cu128, onnx 1.23.2, matplotlib 3.11.2
+# MoveNet fine-tune (CPU only): tensorflow-cpu==2.18.1, keras==3.15.1 (the ST zoo .keras file is a Keras-3 file)
+# Hand landmarks for the early experiments only: mediapipe==0.10.21

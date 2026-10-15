@@ -1,0 +1,39 @@
+{
+  "_note": "Numbers measured while building this project (15 Oct 2026). Every value comes from a run of the tools in ../tools on the author's own board-camera recordings; recordings are not published.",
+  "arm_found_by_camera_view": {
+    "metric": "share of frames where MoveNet's right-arm keypoints pass the plausibility gate (tools/pose_arm.py arm_vectors, min score 0.04)",
+    "views": [
+      {"label": "Level view, whole body (take 3)", "pct": 98.6, "frames": 490},
+      {"label": "Upright view, live recording", "pct": 83.4, "frames": 571},
+      {"label": "Upright view, forward-raise take (incl. setup)", "pct": 68.1, "frames": 389},
+      {"label": "Low, tilted view (side-raise take)", "pct": 53.3, "frames": 435}
+    ]
+  },
+  "smoothing_one_euro": {
+    "metric": "frame-to-frame motion left in the IK joint angles after the One-Euro filter, as % of the raw motion; lag at 15 fps",
+    "raw_mean_abs_dq_rad_per_frame": [0.287, 0.147, 0.221],
+    "settings": [
+      {"cutoff_hz": 0.4, "motion_left_pct": 22, "lag_frames": 2},
+      {"cutoff_hz": 0.7, "motion_left_pct": 29, "lag_frames": 1},
+      {"cutoff_hz": 1.5, "motion_left_pct": 42, "lag_frames": 0}
+    ]
+  },
+  "learned_student_vs_mean_pose": {
+    "metric": "median upper-arm direction error in degrees, seen from the front (lower is better); baseline = always the mean teacher pose of the test frames (an oracle constant)",
+    "first_student_same_session_val": {"student": 3.6, "baseline": 23.0, "forearm_student": 10.3, "forearm_baseline": 17.2, "arm_frames": 118},
+    "final_student_take3_heldout_tail": {"student": 3.4, "baseline": 2.5, "forearm_student": 7.8, "forearm_baseline": 4.9, "arm_frames": 281},
+    "unseen_camera_setup": {"arm_joint_mae_deg_student": 91.4, "arm_joint_mae_deg_baseline": 91.5, "present_recall": 0.0}
+  },
+  "movenet_finetune_vs_original": {
+    "unseen_live_take": {"frames": 571, "coverage_pct": {"original": 83.9, "finetuned": 83.4}, "jitter_px_per_frame": {"original": 11.4, "finetuned": 10.3}, "median_keypoint_score": {"original": 0.224, "finetuned": 0.081}, "wrist_disagreement_px_median_p90": [18.9, 42.2]},
+    "heldout_tail_of_take3": {"frames": 294, "coverage_pct": {"original": 95.9, "finetuned": 96.6}, "jitter_cells_per_frame": {"original": 0.193, "finetuned": 0.132}},
+    "int8_vs_float_keypoint_distance_cells": [0.31, 0.33, 0.41, 0.31],
+    "training": {"epochs": 6, "loss_first_last": [3.7094, 3.3451], "seconds_per_epoch": "about 180 (CPU, TensorFlow 2.18)"}
+  },
+  "gripper_freihand": {
+    "metric": "open/closed accuracy on the held-out 15% of 6000 FreiHAND images; 'far' = hand shrunk to 24 px then enlarged",
+    "close": 0.869, "far_24px": 0.844, "majority_class_baseline": 0.659,
+    "on_authors_own_footage": "not reliable: crops often miss the hand; no labelled frames, so no accuracy is claimed"
+  },
+  "hardware_link": {"bench_link_test": "5 of 5 PASS (armed, run, no relax while frames flow, watchdog HOLD, host RELAX); frames=100, bad_crc=0", "servos_moved_by_these_results": false}
+}

@@ -1,3 +1,27 @@
+# humanoid-walker: one 19-servo humanoid, two projects
+
+| | |
+|---|---|
+| **[Manipulation](manipulation/)** (new) | A camera watches a person and the humanoid's **right arm copies them**: a pose model, reachability-aware inverse kinematics and smoothing drive a MuJoCo simulation, with a serial path to the real arm and one STM32N6 firmware that streams the camera *and* accepts servo commands. |
+| **[Locomotion](locomotion/)** | A recurrent R2Dreamer policy, trained by behaviour cloning, that walks the robot in simulation from 45 proprioceptive numbers, with no gait table. |
+
+Both projects share one robot (STM32N6570-DK, 2x PCA9685, MG996R-class servos). The manipulation work was built and run on a **laptop** (Intel Core i5-13500H, 16 GB RAM,
+**NVIDIA GeForce RTX 4060 Laptop GPU, 8 GB**); the locomotion training used a larger GPU, as described in its own section below.
+
+## Manipulation: a humanoid arm that copies you from a camera
+
+<p align="center"><img src="manipulation/figures/fig_arm_found_by_view.png" width="70%" alt="Share of frames where the arm is found, by camera view"></p>
+
+* **What it does:** MoveNet finds your shoulder, elbow and wrist; a plausibility gate rejects junk detections; IK fits the robot's reachable joints (with forward reach from foreshortening); a One-Euro filter smooths the result.
+  The arm is found in **98.6 %** of frames with a level camera and the whole body in view, and only **53 %** with the camera low and tilted: where the camera sits matters more than any model.
+* **Honest status (15 Oct 2026):** simulation and live camera only. The real arm has not been driven yet (the dry-mode link test passes, 5 of 5). The gripper works on its training data
+  (86.9 % open/closed) but not reliably on my own footage, and a learned image-to-joints network did not beat plain MoveNet + IK. All of that, with the numbers, is in the
+  **[manipulation README](manipulation/README.md)**. Demo video: to be added.
+
+---
+
+<a id="locomotion"></a>
+
 # humanoid-walker: a script-free walking policy for a 19-servo humanoid
 
 A 19-joint servo humanoid (STM32N6 + 2× PCA9685 + MG996R-class servos) is trained to walk in **MuJoCo / MJX-Warp**.
