@@ -2,8 +2,8 @@
     student_sim_video.py PRED.npz FRAMES_DIR OUT.mp4      (contains camera pixels: keep PRIVATE)"""
 import sys, numpy as np, cv2
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from humanoid_view import Humanoid
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from armcopy.sim import Humanoid
 d = np.load(sys.argv[1]); frames = Path(sys.argv[2]); P, Q, V, F = d["pred"], d["q"], d["valid"], d["frame"]
 h = Humanoid(360, 360); w = None
 for p, q, v, f in zip(P, Q, V, F):

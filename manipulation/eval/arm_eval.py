@@ -3,8 +3,8 @@ Metric: angle between student and teacher arm directions (upper arm, forearm) in
 Baseline: the mean teacher pose (what you get if the network learned nothing)."""
 import sys, json, numpy as np, cv2
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from humanoid_view import Humanoid, ArmIK
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from armcopy.sim import Humanoid, ArmIK
 d = np.load(sys.argv[1]); out = sys.argv[2]
 P, Q, V = d["pred"], d["q"], d["valid"]
 h = Humanoid(300, 300); ik = ArmIK(h)

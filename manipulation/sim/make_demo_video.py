@@ -1,6 +1,6 @@
 """Side-by-side demo video: camera frames (head pixelated) | simulated humanoid copying the right arm. Same pipeline as demo_live.py.
 
-    python tools/make_demo_video.py --out raw.mp4 --models-dir models_zoo --model st_movenet_192_int8.tflite \
+    python sim/make_demo_video.py --out raw.mp4 --models-dir models_zoo --model st_movenet_192_int8.tflite \
         --segment FRAMES_DIR|FIRST|LAST|SRC_FPS|LABEL  [--segment ...]
 
 FRAMES_DIR holds numbered .jpg frames (as saved by demo_live.py key 'c'); FIRST/LAST are frame indices; SRC_FPS is the real capture rate of those frames.
@@ -9,10 +9,11 @@ OpenCV face detector over the result and reports how many frames still show a fa
 import argparse, glob, sys
 from pathlib import Path
 import cv2, numpy as np
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-import pose_arm
-from pose_arm import MoveNet, arm_vectors, forward_fractions, RS, RE, RW
-from humanoid_view import Humanoid, ArmIK3
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from armcopy import pose as pose_arm
+from armcopy.pose import MoveNet, arm_vectors, forward_fractions, RS, RE, RW
+from armcopy.sim import Humanoid, ArmIK3
+from armcopy.filters import OneEuro
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--out", required=True); ap.add_argument("--segment", action="append", required=True, help="DIR|FIRST|LAST|SRC_FPS|LABEL")
@@ -21,16 +22,9 @@ ap.add_argument("--fps", type=float, default=15.0)
 a = ap.parse_args()
 if a.models_dir: pose_arm.MODELS = Path(a.models_dir)
 net = MoveNet(192, a.model); robot = Humanoid(480, 480)
-FACE = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml") if hasattr(cv2, "CascadeClassifier") else None   # OpenCV 5 dropped it: use tools/check_faces.py
+FACE = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml") if hasattr(cv2, "CascadeClassifier") else None   # OpenCV 5 dropped it: use eval/check_faces.py
 
 
-class OneEuro:
-    def __init__(s, mc=0.7, beta=0.03, dc=1.0): s.mc, s.beta, s.dc, s.x, s.dx, s.t = mc, beta, dc, None, 0.0, None
-    @staticmethod
-    def _a(c, dt): return 1.0 / (1.0 + 1.0 / (2 * np.pi * c * dt))
-    def __call__(s, x, t):
-        if s.x is None: s.x, s.t = x, t; return x
-        dt = max(t - s.t, 1e-3); s.t = t; s.dx += s._a(s.dc, dt) * ((x - s.x) / dt - s.dx); s.x += s._a(s.mc + s.beta * abs(s.dx), dt) * (x - s.x); return s.x
 
 
 def blur_head(img, kp):
@@ -80,4 +74,4 @@ for seg in a.segment:
         if writer is None: writer = cv2.VideoWriter(a.out, cv2.VideoWriter_fourcc(*"mp4v"), a.fps, (frame.shape[1], frame.shape[0]))
         writer.write(frame); total += 1
 writer.release()
-print(f"wrote {a.out}: {total} frames ({total / a.fps:.1f} s), arm found in {100 * found_n / total:.1f}%; face detector hits on published frames: " + (f"{faces_left} in {-(-checked // 5)} checked" if FACE is not None else "not run here (OpenCV 5): run tools/check_faces.py"))
+print(f"wrote {a.out}: {total} frames ({total / a.fps:.1f} s), arm found in {100 * found_n / total:.1f}%; face detector hits on published frames: " + (f"{faces_left} in {-(-checked // 5)} checked" if FACE is not None else "not run here (OpenCV 5): run eval/check_faces.py"))

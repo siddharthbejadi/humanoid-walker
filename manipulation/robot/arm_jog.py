@@ -1,11 +1,11 @@
 """Slow, manual jog of the 4 right-arm servos to find each joint's SAFE range and direction. Writes robot_arm_setup.json.
-    venv\\Scripts\\python.exe tools\\arm_jog.py --port COM3        (robot hanging/on a stand, arm free, a hand on the power switch)
+    python robot/arm_jog.py --port COM3        (robot hanging/on a stand, arm free, a hand on the power switch)
 Moves are slew-limited to 200 us/s.  Jog a joint to just before it touches anything, mark that end.  Nothing is saved until you press S."""
 import argparse, json, msvcrt, sys, time
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-import robot_arm
-from robot_arm import RightArm, SETUP
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from armcopy import robot as robot_arm
+from armcopy.robot import RightArm, SETUP
 
 ap = argparse.ArgumentParser(); ap.add_argument("--port", required=True); a = ap.parse_args()
 POS = {"shoulder": "arm swings FORWARD / up (toward the front of the robot)", "arm": "arm swings OUTWARD (away from the body, sideways)",

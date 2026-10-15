@@ -1,5 +1,5 @@
 """Download the ST model-zoo MoveNet files this project starts from (not redistributed here: ST model zoo, SLA0044).
-    python tools/fetch_zoo_models.py          -> manipulation/models_zoo/{st_movenet_192_int8.tflite, st_movenet_192.keras}"""
+    python models/fetch_zoo_models.py          -> manipulation/models_zoo/{st_movenet_192_int8.tflite, st_movenet_192.keras}"""
 import urllib.request
 from pathlib import Path
 BASE = "STMicroelectronics/stm32ai-modelzoo/main/pose_estimation/movenet/ST_pretrainedmodel_public_dataset/coco_person_17kpts"

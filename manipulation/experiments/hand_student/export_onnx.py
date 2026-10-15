@@ -8,7 +8,8 @@ import argparse, json, sys
 from pathlib import Path
 import numpy as np, torch
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from hc_model import HandNet
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from armcopy.nets import HandNet
 import onnxruntime as ort
 from onnxruntime.quantization import quantize_static, CalibrationDataReader, QuantFormat, QuantType
 

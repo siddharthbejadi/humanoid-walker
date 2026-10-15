@@ -14,6 +14,7 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from hc_common import retarget
 from arm_model import build_model, set_pose
 import mujoco

@@ -2,8 +2,8 @@
 Input float32 NCHW RGB 0..255, 192x192 (padded square).  Output [shoulder, arm, elbow, present_logit] in real units."""
 import sys, numpy as np, torch
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from hc_model import HandNet
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from armcopy.nets import HandNet
 import onnxruntime as ort
 ck = torch.load(sys.argv[1], map_location="cpu", weights_only=False)
 net = HandNet(pretrained=False); net.load_state_dict(ck["state_dict"]); net.eval()

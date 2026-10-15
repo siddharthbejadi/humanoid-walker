@@ -4,9 +4,9 @@
 Images are padded to a square (not stretched, same as MoveNet) and resized to 192.  The cache holds camera pixels: PRIVATE."""
 import sys, glob, json, numpy as np, cv2
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from pose_arm import MoveNet, arm_vectors
-from humanoid_view import Humanoid, ArmIK
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from armcopy.pose import MoveNet, arm_vectors
+from armcopy.sim import Humanoid, ArmIK
 
 S = 192
 out = sys.argv[1]; specs = sys.argv[2:]

@@ -2,9 +2,9 @@
 Contains camera pixels: keep PRIVATE.   usage: pose_offline.py FRAMES_DIR OUT.mp4 [--no-video]"""
 import sys, glob, time, json, numpy as np, cv2
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from pose_arm import MoveNet, arm_vectors, RS, RE, RW
-from humanoid_view import Humanoid, ArmIK
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from armcopy.pose import MoveNet, arm_vectors, RS, RE, RW
+from armcopy.sim import Humanoid, ArmIK
 
 folder, out = sys.argv[1], sys.argv[2]
 net, robot = MoveNet(192), Humanoid(360, 360); ik = ArmIK(robot)

@@ -1,7 +1,7 @@
 """Hand crop for the gripper network. The hand centre is not known (MoveNet stops at the wrist), so try several candidate crops beyond the wrist
 along the forearm and keep the one with the most skin-coloured pixels (YCrCb), which also rejects red sleeves/cloth."""
 import numpy as np, cv2
-from pose_arm import RE, RW
+from .pose import RE, RW
 
 def _warp(frame, c, side, out):
     M = np.array([[out / side, 0, out / 2 - c[0] * out / side], [0, out / side, out / 2 - c[1] * out / side]], np.float32)

@@ -1,5 +1,5 @@
 """QA for a video that shows a person: run a frontal-face detector over sampled frames and count hits (should be 0 after pixelation).
-    python tools/check_faces.py VIDEO.mp4 [--every 5]      (needs an OpenCV with CascadeClassifier, e.g. opencv-python 4.x)
+    python eval/check_faces.py VIDEO.mp4 [--every 5]      (needs an OpenCV with CascadeClassifier, e.g. opencv-python 4.x)
 A detector can miss faces, so this is a check, not proof: also look at the video."""
 import sys, cv2
 every = int(sys.argv[sys.argv.index("--every") + 1]) if "--every" in sys.argv else 5

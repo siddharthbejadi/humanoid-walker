@@ -16,6 +16,7 @@ import numpy as np
 
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from hc_common import fill_short_gaps, smooth, targets_from_landmarks, NAMES
 
 ap = argparse.ArgumentParser()

@@ -1,4 +1,4 @@
-"""Draw the README figures from results/measurements.json.   python tools/make_figures.py   (needs matplotlib)
+"""Draw the README figures from results/measurements.json.   python eval/make_figures.py   (needs matplotlib)
 Colours: reference palette slots 1 (blue) and 2 (orange); validated with the dataviz validator (contrast >= 3:1, CVD dE 24.7, normal dE 33.6).
 Rules applied: one axis, thin marks, quiet grid, direct value labels, legend for two series, text in text colours, never the series colour."""
 import json

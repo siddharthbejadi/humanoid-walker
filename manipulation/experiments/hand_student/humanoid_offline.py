@@ -2,7 +2,8 @@
 import sys, numpy as np, cv2
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from humanoid_view import Humanoid, humanoid_angles
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from armcopy.sim import Humanoid, humanoid_angles
 pred = np.load(sys.argv[1]); out = sys.argv[2]; n = int(sys.argv[3]) if len(sys.argv) > 3 else 400
 P, T = pred["pred"][:n], pred["target"][:n]
 h = Humanoid(360, 360); w = cv2.VideoWriter(out, cv2.VideoWriter_fourcc(*"mp4v"), 15, (720, 360))

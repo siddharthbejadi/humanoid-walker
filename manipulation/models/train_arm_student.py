@@ -9,8 +9,8 @@ Validation = last 20% in time of every clip with an arm; --holdout-clip keeps a 
 import argparse, json, sys, time
 from pathlib import Path
 import numpy as np, torch, torch.nn.functional as F
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from hc_model import HandNet
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from armcopy.nets import HandNet
 
 ap = argparse.ArgumentParser()
 ap.add_argument("cache", type=Path); ap.add_argument("out", type=Path)

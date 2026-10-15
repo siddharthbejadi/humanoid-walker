@@ -5,7 +5,6 @@ Only 2D image-plane angles are available, so the arm swing is in the image plane
 """
 from pathlib import Path
 import numpy as np
-from ai_edge_litert.interpreter import Interpreter
 
 MODELS = Path(__file__).resolve().parent.parent / "models_zoo"
 RS, RE, RW = 6, 8, 10
@@ -13,6 +12,7 @@ RS, RE, RW = 6, 8, 10
 
 class MoveNet:
     def __init__(self, res=192, name=None):
+        from ai_edge_litert.interpreter import Interpreter           # lazy: the gate / geometry below need only numpy
         self.res = res                                # name: e.g. "st_movenet_ft_192_int8.tflite" (the fine-tuned student)
         self.it = Interpreter(model_path=str(MODELS / (name or f"st_movenet_{res}_int8.tflite")), num_threads=4)
         self.it.allocate_tensors()

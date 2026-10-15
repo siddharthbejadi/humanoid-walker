@@ -1,20 +1,21 @@
 #!/usr/bin/env python
 """LIVE DEMO: board camera -> STUDENT (fine-tuned zoo MoveNet, int8) -> arm keypoints -> IK (+ depth cue) -> simulated humanoid right arm.
 
-    venv\\Scripts\\python.exe tools\\demo_live.py [--index 0] [--rotate 180]
+    python demo.py [--index 0] [--rotate 180]
 Panes: camera (detected right arm drawn on it) | humanoid driven by the STUDENT.   m = add the ORIGINAL zoo MoveNet pane for comparison,  g = gripper on/off, e = real arm to HOME, k = real arm RELAX (torque off), u = calibrate with hand OPEN, f = calibrate with a FIST (hold the pose ~1.5 s),
 o = add the old image->joints network (experiment).   c = save RAW frames (private, red dot)   r = record the robot panes only (no camera pixels)   q = quit."""
 import argparse, sys, time
 from pathlib import Path
 import cv2, numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from humanoid_view import Humanoid, ArmIK3
-from pose_arm import MoveNet, arm_vectors, forward_fractions, RS, RE, RW
-from grip_crop import hand_crop
+from armcopy.sim import Humanoid, ArmIK3
+from armcopy.pose import MoveNet, arm_vectors, forward_fractions, RS, RE, RW
+from armcopy.grip import hand_crop
+from armcopy.filters import OneEuro
 import onnxruntime as ort
 ort.set_default_logger_severity(3)
 
-root = Path(__file__).resolve().parent.parent
+root = Path(__file__).resolve().parent
 ap = argparse.ArgumentParser()
 ap.add_argument("--index", type=int, default=0); ap.add_argument("--rotate", type=int, default=0, choices=[0, 90, 180, 270]); ap.add_argument("--url", default=None)
 ap.add_argument("--grip-lo", type=float, default=0.15, help="raw grip value mapped to fully open (the network is conservative: open hands read ~0.1)")
@@ -23,20 +24,12 @@ ap.add_argument("--smooth", type=float, default=0.7, help="arm smoothing cut-off
 ap.add_argument("--robot-port", default=None, help="COM port of the STM32 (e.g. COM3): drive the REAL right arm too")
 ap.add_argument("--live", action="store_true", help="really send servo frames (without it the robot output is a dry run)")
 ap.add_argument("--robot-speed", type=float, default=200.0, help="max servo speed in us/s (slow = safe)")
-ap.add_argument("--save-dir", type=Path, default=Path(__file__).resolve().parent.parent / "private_captures")
+ap.add_argument("--model", default=None, help="keypoint model in models_zoo/ (default: the fine-tuned int8 model if present, else the original ST zoo model from models/fetch_zoo_models.py)")
+ap.add_argument("--save-dir", type=Path, default=Path(__file__).resolve().parent / "private_captures")
 a = ap.parse_args()
 ROT = {90: cv2.ROTATE_90_CLOCKWISE, 180: cv2.ROTATE_180, 270: cv2.ROTATE_90_COUNTERCLOCKWISE}
 
 robot = Humanoid(360, 360)
-class OneEuro:                                                  # smooths hard when still, follows fast when moving (Casiez et al.)
-    def __init__(self, mc=0.7, beta=0.03, dc=1.0): self.mc, self.beta, self.dc, self.x, self.dx, self.t = mc, beta, dc, None, 0.0, None
-    @staticmethod
-    def _a(cut, dt): return 1.0 / (1.0 + 1.0 / (2 * np.pi * cut * dt))
-    def __call__(self, x, t):
-        if self.x is None: self.x, self.t = x, t; return x
-        dt = max(t - self.t, 1e-3); self.t = t
-        self.dx += self._a(self.dc, dt) * ((x - self.x) / dt - self.dx)
-        self.x += self._a(self.mc + self.beta * abs(self.dx), dt) * (x - self.x); return self.x
 class Chain:                                                   # one keypoint model + its own IK state and smoothing
     def __init__(self, name, label, colour):
         self.net, self.ik, self.label, self.colour = MoveNet(192, name), ArmIK3(robot), label, colour
@@ -56,13 +49,17 @@ class Chain:                                                   # one keypoint mo
         cv2.rectangle(im, (8, 340), (108, 354), (255, 255, 255), 1); cv2.rectangle(im, (8, 340), (8 + int(100 * self.grip), 354), (0, 0, 255), -1); cv2.putText(im, 'gripper', (114, 352), 0, 0.45, (255, 255, 255), 1)
         return im
 
-GRIP_MODEL = root / "export" / "grip_v2.onnx"            # produced by tools/train_grip.py; optional
+GRIP_MODEL = root / "export" / "grip_v2.onnx"            # produced by models/train_grip.py; optional
 if GRIP_MODEL.exists(): grip_sess = ort.InferenceSession(str(GRIP_MODEL), providers=["CPUExecutionProvider"]); grip_on = True
-else: grip_sess = None; grip_on = False; print("gripper model not found (export/grip_v2.onnx): gripper disabled, run tools/train_grip.py to create it")
+else: grip_sess = None; grip_on = False; print("gripper model not found (export/grip_v2.onnx): gripper disabled, run models/train_grip.py to create it")
 grip_raw_init = 0; grip_raw = 0.0; grip_med = 0.0; crop_view = None
 import collections; raw_hist = collections.deque(maxlen=7); grip_closed = False; g_open, g_close = 0.2, 0.35; vals = {}; calib = None
-student = Chain("st_movenet_ft_192_int8.tflite", "STUDENT (fine-tuned MoveNet+IK)", (0, 255, 255))
-original = None; old_sess = None; old_q = None
+from armcopy import pose as _pose
+FT, ZOO = "st_movenet_ft_192_int8.tflite", "st_movenet_192_int8.tflite"
+model_name = a.model or (FT if (_pose.MODELS / FT).exists() else ZOO)
+if not (_pose.MODELS / model_name).exists(): sys.exit(f"missing {_pose.MODELS / model_name}: run  python models/fetch_zoo_models.py")
+student = Chain(model_name, "STUDENT (fine-tuned MoveNet+IK)" if model_name == FT else "MoveNet (ST zoo) + IK", (0, 255, 255))
+original = None; old_sess = None; old_q = None   # m: compares against the original zoo model
 def open_cam():
     tried = []
     for idx in [a.index] + [i for i in range(6) if i != a.index]:
@@ -76,7 +73,7 @@ if cap is None or not cap.isOpened():
     sys.exit("No camera could be opened. Close every other window using it (another demo/record_uvc/Teams), unplug and replug the board's USB, then retry.")
 real = None
 if a.robot_port or a.live:
-    sys.path.insert(0, str(Path(__file__).resolve().parent)); from robot_arm import RightArm
+    from armcopy.robot import RightArm
     real = RightArm(a.robot_port, live=bool(a.live and a.robot_port), max_us_per_s=a.robot_speed)
     print("REAL ARM:", "LIVE on " + a.robot_port if real.live else "dry run (no frames sent)", "| limits:", {n: (v["min_us"], v["max_us"], "measured" if v["measured"] else "walking-default") for n, v in real.j.items()})
 fps, t_prev, save_to, save_n, last_save, writer = 0.0, time.time(), None, 0, 0.0, None
