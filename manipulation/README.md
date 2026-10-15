@@ -107,6 +107,8 @@ manipulation/
   demo.py  replay.py  requirements.txt
 ```
 
+Architecture map (made with graphify from the code only, not the docs or figures): [`graphify-out/graph.html`](graphify-out/graph.html) (open in a browser) and [`GRAPH_REPORT.md`](graphify-out/GRAPH_REPORT.md): 308 nodes, 9 communities; the most connected pieces are the gate (`arm_vectors`), `Humanoid`, `RightArm`, `ArmIK3` and `OneEuro`.
+
 Everything is plain Python scripts with docstrings that show their usage, and no hard-coded paths. No Dockerfile: the live demo needs a USB camera and the replay needs only three pip packages. Weights: [`weights/grip_v2.onnx`](weights) (research use, FreiHAND-trained).
 The fine-tuned MoveNet is a derivative of ST's model and is not redistributed; `models/finetune_movenet.py` + `models/export_movenet_int8.py` rebuild it from your own recordings.
 
