@@ -7,8 +7,18 @@ then, through the same code path, on the **real robot** over a serial link. The 
 real servos can actually reach; and every number that "looks good" in this README has a measured number next to it, including the ones that did not work.
 
 > **Status (15 Oct 2026): simulation + live camera.** The real arm has **not** yet been driven by this pipeline. The hardware path is built and bench-tested in
-> dry mode only (laptop to STM32 link test: 5 of 5 pass, 100 frames, 0 bad CRC; no servo output). **Demo video: to be added.**
+> dry mode only (laptop to STM32 link test: 5 of 5 pass, 100 frames, 0 bad CRC; no servo output). The demo clip is below (simulation only).
 > Read [What did not work](#what-did-not-work) before trusting any figure.
+
+## Demo
+
+<p align="center"><img src="media/arm_copies_you.gif" width="640" alt="The board camera showing a person on the left and the simulated humanoid copying their right arm on the right"></p>
+<p align="center"><sub>Left: the board camera (head pixelated), with the detected right arm drawn on it. Right: the simulated humanoid copying that arm. 40 s, the arm is found in 92 % of frames.
+Full video: <a href="media/arm_copies_you.mp4">media/arm_copies_you.mp4</a>. <b>Simulation only</b>: the real arm is not driven in this clip, and only the person's right arm (image left) is copied.</sub></p>
+
+The clip comes from one live recording with the camera upright (two stretches, 40 s). In my other recording I mostly moved the *other* arm, which the robot does not copy, so it makes a poor demo.
+Build it yourself from saved frames: `python tools/make_demo_video.py --out raw.mp4 --segment "FRAMES_DIR|FIRST|LAST|SRC_FPS|LABEL"` (then re-encode with `ffmpeg -c:v libx264 -pix_fmt yuv420p`).
+The head is pixelated from two independent estimates, and `python tools/check_faces.py media/arm_copies_you.mp4` runs a face detector over every frame as a check: 6 hits in 600 frames, all on the outstretched hand against a bright window and none on the head (checked by eye). A detector can miss faces, so look at the video too.
 
 ## Results
 
@@ -133,6 +143,7 @@ manipulation/
   tools/       pose, IK, simulator view, live demo, real-arm driver, training/export scripts, make_figures.py
   assets/      humanoid.xml + standing pose (meshes come from ../r2dreamer)
   firmware/    camera_walker: servo task + patches for ST's camera app, flash scripts, calibration table
+  media/       demo clip (mp4 + gif), robot-only extras can be added here
   figures/     the four charts above (made by tools/make_figures.py from results/measurements.json)
   results/     measurements.json
 ```
