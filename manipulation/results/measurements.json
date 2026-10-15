@@ -137,5 +137,28 @@
     "source": "one live upright-mount recording (571 frames saved at 10.7 fps), two stretches",
     "privacy": "head pixelated from two independent estimates; face-detector check: 6 hits in 600 frames, all on the outstretched hand against a bright window, none on the head (checked by eye)",
     "real_arm_in_clip": false
+  },
+  "gate_threshold_sweep": {
+    "metric": "share of frames passing the plausibility gate vs the minimum keypoint score (forward-raise take, upright camera, frames after the camera setup, 389 sampled frames)",
+    "points": [
+      {
+        "min_score": 0.07,
+        "pct": 41.9
+      },
+      {
+        "min_score": 0.05,
+        "pct": 60.9
+      },
+      {
+        "min_score": 0.04,
+        "pct": 68.1
+      },
+      {
+        "min_score": 0.03,
+        "pct": 72.8
+      }
+    ],
+    "chosen": 0.04,
+    "note": "Accuracy at lower thresholds was not measured (no ground truth). 0.04 was chosen after looking at the newly accepted frames: mostly correct, a few junk ones, which the close-up and edge rules then removed."
   }
 }
